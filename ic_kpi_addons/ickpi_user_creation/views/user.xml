@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="create_user_partner_inherit" model="ir.ui.view">
+        <field name="name">create.user.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field['title']" position="after">
+                <field name="create_instance"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="user_instance_tree" model="ir.ui.view">
+        <field name="name">user.instance.tree</field>
+        <field name="model">user.instance</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="user"/>
+                <field name="password"/>
+                <field name="log_file"/>
+                <field name="config_file"/>
+                <field name="nginx_file"/>
+                <field name="service_file"/>
+                <field name="server_file"/>
+                <field name="domain_name"/>
+                <field name="is_active"/>
+                <field name="message"/>
+                <button name="add_addons" string="Add Addons" type="object" />
+                <button name="restart_user_service" string="Restart Service" type="object" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="user_instance_action" model="ir.actions.act_window">
+         <field name="name">User Instance</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">user.instance</field>
+         <field name="view_mode">tree</field>
+         <field name="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+             Add new User Instance
+           </p>
+         </field>
+     </record>
+
+    <menuitem action="user_instance_action"
+     			name="User Instance"
+     			id="user_instance_menu"
+     			parent="contacts.menu_contacts"
+     			sequence="3"/>
+
+        <record id="instance_port_tree" model="ir.ui.view">
+        <field name="name">instance.port.tree</field>
+        <field name="model">instance.port</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="port_no"/>
+                <field name="booked"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="instance_port_action" model="ir.actions.act_window">
+         <field name="name">Instance Port</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">instance.port</field>
+         <field name="view_mode">tree</field>
+         <field name="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+             Add new Available Instance Port
+           </p>
+         </field>
+     </record>
+
+    <menuitem action="instance_port_action"
+     			name="Instance Port"
+     			id="instance_port_menu"
+     			parent="contacts.menu_contacts"
+     			sequence="3"/>
+</odoo>

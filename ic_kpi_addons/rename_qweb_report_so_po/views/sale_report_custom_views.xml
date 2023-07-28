@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale.action_report_saleorder" model="ir.actions.report">
+            <field name="print_report_name">(object.state in ('draft', 'sent') and 'Sale Quotation - %s' %
+                (object.name)) or 'Sale Order - %s' % (object.name)
+            </field>
+        </record>
+
+        <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+            <field name="print_report_name">
+                (object.state in ('draft', 'sent') and 'Purchase Request for Quotation - %s' % (object.name) or
+                'Purchase Order - %s' % (object.name))</field>
+        </record>
+    </data>
+</odoo>

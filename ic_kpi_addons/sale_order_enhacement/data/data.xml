@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="template_data_1" model="template.data">
+            <field name="name">Customer</field>
+        </record>
+        <record id="template_data_2" model="template.data">
+            <field name="name">Product</field>
+        </record>
+        <record id="template_data_3" model="template.data">
+            <field name="name">Description</field>
+        </record>
+         <record id="template_data_4" model="template.data">
+            <field name="name">Quantity</field>
+        </record>
+        <record id="template_data_5" model="template.data">
+            <field name="name">UOM</field>
+        </record>
+        <record id="template_data_6" model="template.data">
+            <field name="name">Unit Price</field>
+        </record>
+
+    </data>
+</odoo>

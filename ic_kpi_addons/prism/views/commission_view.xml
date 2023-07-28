@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="commission_config_prism_tree_view" model="ir.ui.view">
+            <field name="name">commission.config.prism.tree</field>
+            <field name="model">commission.config</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence"/>
+                    <field name="partner_id"/>
+                    <field name="commission_type"/>
+                    <field name="commission_terms"/>
+                    <field name="amount_from"/>
+                    <field name="amount_to"/>
+                    <field name="commission_percentage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="commission_config_prism_form_view" model="ir.ui.view">
+            <field name="name">commission.config.prism.form</field>
+            <field name="model">commission.config</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="sequence" required="1"/>
+                                <field name="partner_id" required="1"/>
+                                <field name="commission_type"/>
+                                <field name="commission_terms"/>
+                            </group>
+                            <group>
+                                <field name="amount_from" required="1"/>
+                                <field name="amount_to" required="1"/>
+                                <field name="commission_percentage" attrs="{'invisible': [('commission_type', 'not in', ['gross','profit'])]}"/>
+                                <field name="commission_amount" attrs="{'invisible': [('commission_type', '!=', 'amount')]}" />
+                                <field name="total_sale_amount" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_prism_commission_config" model="ir.actions.act_window">
+            <field name="name">Commission Configuration</field>
+            <field name="res_model">commission.config</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Configure a new Commission
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_commission_prism_tree_view" model="ir.ui.view">
+            <field name="name">sale.commission.prism.tree</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="commission_percentage"/>
+                    <field name="amount"/>
+                    <field name="commission_config_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_commission_prism_form_view" model="ir.ui.view">
+            <field name="name">sale.commission.prism.form</field>
+            <field name="model">sale.commission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="commission_config_id" domain="[('partner_id','=',partner_id)]"/>
+
+                            </group>
+                            <group>
+                                <field name="commission_on_amount"/>
+                                <field name="commission_percentage"/>
+                                <field name="amount"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="action_prism_sale_commission" model="ir.actions.act_window">
+            <field name="name">Commission</field>
+            <field name="res_model">sale.commission</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new Commission
+              </p>
+            </field>
+        </record>
+
+        <menuitem
+        id="prism_commission_configuration"
+        name="Commission Configuration"
+        parent="sale.menu_sale_config"
+        action="prism.action_prism_commission_config"
+        sequence="1"
+    />
+
+        <menuitem
+        id="prism_sale_commission"
+        name="Commission Calculation"
+        parent="sale.sale_menu_root"
+        action="prism.action_prism_sale_commission"
+        sequence="4"
+    />
+    </data>
+</odoo>

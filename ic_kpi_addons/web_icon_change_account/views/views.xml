@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="account.menu_finance" name="The Books" web_icon="web_icon_change_account,static/description/The_Books.png"/>
+</odoo>

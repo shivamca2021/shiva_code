@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_configured_product_tree_view" model="ir.ui.view">
+            <field name="name">product.configured.product.product.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="before">
+<!--                <header>-->
+<!--                      <button name="add_parts_product" type="object" string="Add" class="oe_highlight"/>-->
+<!--                </header>-->
+            </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_configured_template_tree_view" model="ir.ui.view">
+            <field name="name">product.configured.template.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_variant_count']" position="after">
+                    <field name="product_group" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='product_variant_count']" position="before">
+                <header>
+                      <button name="add_parts_product" type="object" string="Add" class="oe_highlight"/>
+                </header>
+            </xpath>
+
+            </field>
+        </record>
+<!--        <record id="product_configurated_product_form_view" model="ir.ui.view">-->
+<!--            <field name="name">product.configured.product.common.form</field>-->
+<!--            <field name="model">product.product</field>-->
+<!--            <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[@name='button_box']" position="inside">-->
+<!--                    <button class="oe_stat_button" name="action_add_parts" string="Parts" type="object" icon="fa-check" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>-->
+<!--                    <button class="oe_stat_button" name="action_add_sub_assembly"-->
+<!--                                    string="Sub Assembly" type="object" icon="fa-check" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+        <record id="product_configurated_template_form_view" model="ir.ui.view">
+            <field name="name">product.configured.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_add_parts" string="Parts" type="object" icon="fa-check" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                    <button class="oe_stat_button" name="action_add_sub_assembly"
+                                    string="Sub Assembly" type="object" icon="fa-check" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//label[@for='name']" position="replace">
+                        <label class="oe_edit_only" for="name" string="Name" attrs="{'invisible': [('remove_placeholder', '=', False)]}"/>
+                        <label class="oe_edit_only" for="name" string="Product Name" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" placeholder="Name" attrs="{'invisible': [('remove_placeholder', '=', False)]}"/>
+                    <field name="name" placeholder="Product Name" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='type']" position="after">
+                	<field name="product_group"/>
+                	<field name="remove_placeholder" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[@name='group_standard_price']" position="after">
+                    <group>
+                        <group>
+                            <field name="thickness"  attrs="{'invisible': [('product_group', 'not in', ['internal_material','external_material'])]}"/>
+                            <field name="width"  attrs="{'invisible': [('product_group', 'not in', ['edge_banding','sheet_stock'])]}"/>
+                            <field name="length"  attrs="{'invisible': [('product_group', '!=', 'sheet_stock')]}"/>
+                            <separator string="Waster Factor" colspan="4"/>
+                            <field name="waste_factor" class="oe_inline"/>
+                        </group>
+                    </group>
+                </xpath>
+
+                <xpath expr="//notebook//page[@name='inventory']" position="after">
+                    <page string="Product Configuration" name="product_configured" groups="product_configured.group_product_configured" attrs="{'invisible': [('sale_ok', '=', False)]}">
+                        <group name="product_configured">
+                            <group string="Parts" colspan="4">
+                                <field name="parts_line_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="part_id" domain="[('product_group', '=', 'parts')]"/>
+                                        <field name="name"/>
+                                        <field name="default_code"/>
+                                        <field name="responsible_id"/>
+                                        <field name="standard_price"/>
+                                        <field name="qty_available"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Sub Assembly" colspan="4">
+                                <field name="sub_assembly_line_ids" nolabel="1">
+                                    <tree editable="top">
+                                        <field name="sub_assembly_id" domain="['|', ('sale_ok', '=', True), ('purchase_ok', '=', True), ('type', '!=', 'service'),
+                            ('remove_placeholder', '=', False)]"/>
+                                        <field name="name"/>
+                                        <field name="default_code"/>
+                                        <field name="responsible_id"/>
+                                        <field name="standard_price"/>
+                                        <field name="qty_available"/>
+                                        <field name="uom_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="product_material_ids" widget="many2many_tags" groups="product_configured.group_product_configured"/>
+                            </group>
+<!--                            <group string="Sub Assembly" colspan="4">-->
+<!--	                            <field name="product_configured_line_ids" groups="product_configured.group_product_configured" nolabel="1">-->
+<!--	                                <tree editable="bottom">-->
+<!--	                                    <field name="name"/>-->
+<!--	                                    <field name="product_sub_id"/>-->
+<!--	                                    <field name="width"/>-->
+<!--	                                    <field name="length"/>-->
+<!--	                                    <field name="thickness"/>-->
+<!--	                                    <field name="note"/>-->
+<!--	                                </tree>-->
+<!--	                            </field>-->
+<!--                            </group>-->
+                            <group string="Standard Dimentions" colspan="4">
+	                            <field name="standard_dimension_ids" groups="product_configured.group_product_configured" nolabel="1">
+	                                <tree editable="bottom">
+	                                    <field name="name"/>
+	                                    <field name="width"/>
+	                                    <field name="height"/>
+	                                    <field name="depth"/>
+	                                    <field name="thickness"/>
+	                                </tree>
+	                            </field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//group[@name='group_standard_price']" position="replace">
+                    <group name="group_standard_price">
+                                    <label for="list_price" attrs="{'invisible': [('sale_ok', '=', False)]}"/>
+                                    <div name="pricing" attrs="{'invisible': [('sale_ok', '=', False)]}">
+                                      <field name="list_price" class="oe_inline" widget='monetary'
+                                        options="{'currency_field': 'currency_id', 'field_digits': True}"/>
+                                      <button name="open_pricelist_rules" icon="fa-arrow-right" type="object"
+                                        groups="product.group_product_pricelist" class="oe_inline">
+                                        <field name="pricelist_item_count" attrs="{'invisible': [('pricelist_item_count', '=', 0)]}"/>
+                                        <span attrs="{'invisible': [('pricelist_item_count', '=', 1)]}">
+                                          Extra Prices
+                                        </span>
+                                        <span attrs="{'invisible': [('pricelist_item_count', '!=', 1)]}">
+                                          Extra Price
+                                        </span>
+                                      </button>
+                                    </div>
+                                    <label for="standard_price" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"/>
+                                    <div name="standard_price_uom" groups="base.group_user" attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}" class="o_row">
+                                        <field name="standard_price" widget='monetary' options="{'currency_field': 'cost_currency_id', 'field_digits': True}"/>
+                                        <span groups="uom.group_uom" class="oe_read_only">per
+                                            <field name="uom_name"/>
+                                        </span>
+                                    </div>
+                                    <field name="company_id" groups="base.group_multi_company"
+                                        options="{'no_create': True}"/>
+                                    <field name="uom_id" groups="uom.group_uom" options="{'no_create': True}" attrs="{'invisible': [('sale_ok', '=', False)]}"/>
+                                    <field name="uom_po_id" groups="uom.group_uom" options="{'no_create': True}"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="cost_currency_id" invisible="1"/>
+                                    <field name="product_variant_id" invisible="1"/>
+                                </group>
+                </xpath>
+
+                <xpath expr="//group[@name='sale']" position="after">
+                    <group name="Material Products" groups="product_configured.group_product_configured">
+                        <group string="Material/Species Products">
+                            <field name="category_name" invisible="1"/>
+                            <field name="product_material_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
+                            <field name="product_internal_material_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('category_name', '=', 'Internal Material')]"/>
+                            <field name="product_external_material_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('category_name', '=', 'External Material')]"/>
+                            <field name="product_species_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
+
+                        </group>
+                    </group>
+            </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record id="product_template_catelog_action" model="ir.actions.act_window">
+            <field name="name">Catalog Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'catelog')]</field>
+             <field name="context" eval="{
+                'default_product_group':'catelog',
+                'default_remove_placeholder': True
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+<!--        <menuitem action="product_template_catelog_action" id="menu_product_template_catelog_action" parent="sale.product_menu_catalog" sequence="11" active="True" />-->
+
+        <record id="product_template_parts_action" model="ir.actions.act_window">
+            <field name="name">Parts</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'parts')]</field>
+            <field name="context" eval="{
+                'default_sale_ok': False,
+                'default_product_group':'parts',
+                'default_remove_placeholder': True,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_parts_action" id="menu_product_template_parts_action" parent="stock.menu_stock_root" sequence="5" active="True" />
+
+        <record id="product_template_sub_assembly_action" model="ir.actions.act_window">
+            <field name="name">Sub Assembly</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'sub_assembly')]</field>
+            <field name="context" eval="{
+                'default_product_group':'sub_assembly',
+                'default_remove_placeholder': True
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_sub_assembly_action" id="menu_product_template_sub_assembly_action" parent="stock.menu_stock_root" sequence="6" active="True" />
+
+
+        <record id="product_template_sheet_stock_action" model="ir.actions.act_window">
+            <field name="name">Sheet Stock</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'sheet_stock')]</field>
+             <field name="context" eval="{
+                'default_product_group':'sheet_stock',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_sheet_stock_action" id="menu_product_template_sheet_stock_action" parent="stock.menu_stock_root" sequence="7" active="True" />
+
+        <record id="product_template_coil_stock_action" model="ir.actions.act_window">
+            <field name="name">Coil Stock</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'coil_stock')]</field>
+             <field name="context" eval="{
+                'default_product_group':'coil_stock',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+        <menuitem action="product_template_coil_stock_action" id="menu_product_template_coil_stock_action" parent="stock.menu_stock_root" sequence="7" active="True" />
+
+
+        <record id="product_template_hardwood_action" model="ir.actions.act_window">
+            <field name="name">Hardwood</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'hardwood')]</field>
+            <field name="context" eval="{
+                'default_product_group':'hardwood',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_hardwood_action" id="menu_product_template_hardwood_action" parent="stock.menu_stock_root" sequence="15" active="True" />
+
+
+        <record id="product_template_accesspries_action" model="ir.actions.act_window">
+            <field name="name">Accessories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'accessories')]</field>
+            <field name="context" eval="{
+                'default_product_group':'accessories',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_accesspries_action" id="menu_product_template_accesspries_action" parent="stock.menu_stock_root" sequence="16" active="True" />
+
+
+        <record id="product_template_veneer_action" model="ir.actions.act_window">
+            <field name="name">Veneer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'veneer')]</field>
+            <field name="context" eval="{
+                'default_product_group':'veneer',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_veneer_action" id="menu_product_template_veneer_action" parent="stock.menu_stock_root" sequence="17" active="True" />
+
+
+        <record id="product_template_edge_banding_action" model="ir.actions.act_window">
+            <field name="name">Edge Banding</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'edge_banding')]</field>
+            <field name="context" eval="{
+                'default_product_group':'edge_banding',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_edge_banding_action" id="menu_product_template_edge_banding_action" parent="stock.menu_stock_root" sequence="18" active="True" />
+
+
+        <record id="product_template_drawer_hardware_action" model="ir.actions.act_window">
+            <field name="name">Drawer Hardware</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'drawer_hardware')]</field>
+            <field name="context" eval="{
+                'default_product_group':'drawer_hardware',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>		
+        <menuitem action="product_template_drawer_hardware_action" id="menu_product_template_drawer_hardware_action" parent="stock.menu_stock_root" sequence="19" active="True" />
+
+
+        <record id="product_template_door_hardware_action" model="ir.actions.act_window">
+            <field name="name">Door Hardware</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'door_hardware')]</field>
+            <field name="context" eval="{
+                'default_product_group':'door_hardware',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+        <menuitem action="product_template_door_hardware_action" id="menu_product_template_door_hardware_action" parent="stock.menu_stock_root" sequence="20" active="True" />
+
+        <record id="product_template_internal_material_action" model="ir.actions.act_window">
+            <field name="name">Internal Material</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'internal_material')]</field>
+            <field name="context" eval="{
+                'default_product_group':'internal_material',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+        <record id="product_template_external_material_action" model="ir.actions.act_window">
+            <field name="name">External Material</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'external_material')]</field>
+            <field name="context" eval="{
+                'default_product_group':'external_material',
+                'default_remove_placeholder': True,
+                'default_sale_ok': False,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_product_template_material_action" name="Material" parent="stock.menu_stock_root" sequence="22" active="True" />
+        <menuitem action="product_template_internal_material_action" id="menu_product_template_internal_material_action" parent="product_configured.menu_product_template_material_action" sequence="1" active="True" />
+        <menuitem action="product_template_external_material_action" id="menu_product_template_external_material_action" parent="product_configured.menu_product_template_material_action" sequence="2" active="True" />
+
+        <record id="product_template_miscellanies_action" model="ir.actions.act_window">
+            <field name="name">Miscellanies</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+            <field name="view_id" eval="False"/> <!-- Force empty -->
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="domain">[('product_group', '=', 'miscellanies')]</field>
+            <field name="context" eval="{
+                'default_product_group':'miscellanies',
+                'default_remove_placeholder': True
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+
+        <record id="catalog_product_tree_view" model="ir.ui.view">
+            <field name="name">catalog.product.tree</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" string="Object Name"/>
+                    <field name="fixed_adjusted"/>
+                    <field name="route_selection"/>
+                    <field name="width"/>
+                    <field name="height"/>
+                    <field name="depth"/>
+                    <field name="total_size"/>
+                    <field name="min_size"/>
+                    <field name="max_size"/>
+                    <field name="cubic_volume"/>
+                </tree>
+            </field>
+        </record>
+        <record id="catalog_product_form_view" model="ir.ui.view">
+            <field name="name">catalog.product.form</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <div class="oe_button_box" name="button_box"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="id" invisible="True"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                        <field name="remove_placeholder" invisible="1"/>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Object Name" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                            <label class="oe_edit_only" for="name" string="Sub Assembly Name" attrs="{'invisible': [('remove_placeholder', '=', False)]}"/>
+                            <h1>
+                            <field name="name" placeholder="Object Name" attrs="{'invisible': [('remove_placeholder', '=', True)]}"/>
+                            <field name="name" placeholder="Sub Assembly Name" attrs="{'invisible': [('remove_placeholder', '=', False)]}"/>
+                            </h1>
+
+                            <label class="oe_edit_only" for="default_code" string="SKU"/>
+                            <h1><field name="default_code" placeholder="SKU"/></h1>
+                        </div>
+                        <group>
+                                <group>
+                                    <field name="type" invisible="1"/>
+                                    <field name="fixed_adjusted" widget="radio"/>
+                                    <field name="route_selection" widget="radio"/>
+                                </group>
+                                <group>
+                                    <field name="width"/>
+                                    <field name="height"/>
+                                    <field name="depth"/>
+                                    <field name="total_size"/>
+                                    <field name="min_size"/>
+                                    <field name="max_size"/>
+                                    <field name="cubic_volume"/>
+                                </group>
+                                <group>
+                                    <separator string="Materials/Species" colspan="4"/>
+                                    <field name="product_internal_material_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'internal_material')]" string="Internal Material" context="{'is_internal_material':1, 'default_sale_ok': False, 'default_type':'product'}"/>
+                                    <field name="product_external_material_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'external_material')]" string="External Material" context="{'is_external_material':1, 'default_sale_ok': False, 'default_type':'product'}"/>
+                                    <field name="product_species_tmpl_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'species')]" string="Species" context="{'is_species':1, 'default_sale_ok': False, 'default_type':'product'}"/>
+<!--                                    <separator string="Hardware" colspan="4"/>-->
+<!--                                   <field name="object_hardware_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'hardware')]" context="{'is_hardware':1, 'default_sale_ok': False, 'default_type':'product'}"/>-->
+<!--                                    <field name="drawer_hardware_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'drawer_hardware')]" context="{'is_drawerhardware':1, 'default_sale_ok': False, 'default_type':'product'}"/>-->
+<!--                                    <field name="door_hardware_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'door_hardware')]" context="{'is_doorhardware':1, 'default_sale_ok': False, 'default_type':'product'}"/>-->
+                                </group>
+                                <group>
+                                    <separator string="Edge Banding" colspan="4"/>
+                                    <field name="edge_banding_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'edge_banding')]" context="{'is_edgebanding':1, 'default_sale_ok': False, 'default_type':'product'}"/>
+                                </group>
+                        </group>
+                        <separator string="Parts and Sub Assembly" colspan="4"/>
+                            <group string="Parts" colspan="4">
+                                <field name="parts_line_ids" nolabel="1" context="{'default_active_id': id}">
+                                    <tree>
+                                        <field name="part_id" domain="[('product_group', '=', 'parts')]" />
+                                        <!-- <button name="configured_parts" type="object" string="Configured" class="oe_highlight"/> -->
+                                        <field name="part_size"/>
+                                        <field name="width_size"/>
+                                        <!-- <field name="formula_first_id" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                                        <field name="operator_selection"/> -->
+                                        <field name="width"/>
+                                        <field name="height"/>
+                                        <field name="length_size"/>
+                                        <field name="length"/>
+                                    </tree>
+                                    
+                                </field>
+                            </group>
+                             <group string="Sub Assembly">
+                                 <field name="sub_assembly_ids" widget="many2many_tags" options="{'color_field': 'color'}" domain="[('product_group', '=', 'sub_assembly')]" context="{'is_subassembly': 1, 'default_type':'product'}"/>
+<!--                                <field name="sub_assembly_line_ids" nolabel="1">-->
+<!--                                    <tree editable="top">-->
+<!--                                        <field name="sub_assembly_id" domain="['|', ('sale_ok', '=', True), ('purchase_ok', '=', True), ('type', '!=', 'service'),-->
+<!--                            ('remove_placeholder', '=', False)]"/>-->
+<!--                                        <field name="name"/>-->
+<!--                                        <field name="default_code"/>-->
+<!--                                        <field name="responsible_id"/>-->
+<!--                                        <field name="standard_price"/>-->
+<!--                                        <field name="qty_available"/>-->
+<!--                                        <field name="uom_id"/>-->
+<!--                                    </tree>-->
+<!--                                </field>-->
+                            </group>
+                            <group string="Drawer Hardware">
+                                <field name="drawer_hardware_line_ids" nolabel="1">
+                                     <tree>
+                                        <field name="product_id" domain="[('product_group', '=', 'drawer_hardware')]" />
+                                        <field name="qty"/>
+                                     </tree>
+                                </field>
+                            </group>
+                            <group string="Door Hardware">
+                                <field name="door_hardware_line_ids" nolabel="1">
+                                     <tree>
+                                        <field name="product_id" domain="[('product_group', '=', 'door_hardware')]" />
+                                        <field name="qty"/>
+                                     </tree>
+                                </field>
+                            </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="catalog_product_template_action" model="ir.actions.act_window">
+            <field name="name">Catalog Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="view_id" ref="product_configured.catalog_product_form_view"/>
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('product.product_template_kanban_view')}),
+                          (0,0,{'view_mode':'tree', 'view_id': ref('product_configured.catalog_product_tree_view')}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('product_configured.catalog_product_form_view')})]"/>
+            <field name="domain">[('product_group', '=', 'catelog')]</field>
+            <field name="context">{'default_purchase_ok': False, 'default_product_group':'catelog','default_type':'product', 'default_remove_placeholder': False}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new Catalog product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+
+        <record id="pats_form_view" model="ir.ui.view">
+            <field name="name">parts.form</field>
+            <field name="model">parts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="part_id" domain="[('product_group', '=', 'parts')]" required="1" context="{'is_part': 1, 'default_sale_ok': False, 'default_type':'product'}"/>
+                        <field name="part_size" widget="radio"/>
+                        <field name="width_size" widget="radio"/>
+                        <label for="formulas_width" string="Width Formula" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}">
+                            <field name="w_formula_first_fixed_size" invisible="1"/>
+                            <field name="w_formula_second_fixed_size" invisible="1"/>
+                            <field name="width_formulas" invisible="1"/>
+                            
+                            <field name="w_formula_first_id" id="formulas_width" />
+                            <field name="w_formula_f_fixed_size" attrs="{ 'invisible': [('w_formula_first_fixed_size', '=', False)]}"/>
+
+                            <field name="w_operator_selection" />
+                            <field name="w_formula_second_id" />
+                            <field name="w_formula_s_fixed_size" attrs="{'invisible': [('w_formula_second_fixed_size', '=', False)]}"/>
+                            <button name="%(parts_width_wizard_action_custom)d"  type="action" class="btn fa fa-plus-circle width_size_add_btn" title="Add Formula" context="{'default_w_part_id': active_id}"/>
+                            <button name="evaluate_width" string="Evaluate Width" type="object" class="oe_heighlight"/>
+                        </div>
+                        <label for="width" string="Width" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}">
+                            <field name="width" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}" force_save="1" />
+                            <field name="width_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                            <field name="width_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                        </div>
+                        <field name="height" style="font-weight: bold; font-style: italic;" readonly="1"/>
+                        <field name="length_size" widget="radio"/>
+                        <label for="formulas_height" string="Length Formula" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex length_size_formula" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}">
+                            <field name="l_formula_first_fixed_size" invisible="1"/>
+                            <field name="l_formula_second_fixed_size" invisible="1"/>
+                            <field name="length_formulas" invisible="1"/>
+                            <field name="l_formula_first_id" id="formulas_height" />
+                            <field name="l_formula_f_fixed_size" attrs="{ 'invisible': [('l_formula_first_fixed_size', '=', False)]}"/>
+                            <field name="l_operator_selection" />
+                            <field name="l_formula_second_id" />
+                            <field name="l_formula_s_fixed_size" attrs="{ 'invisible': [('l_formula_second_fixed_size', '=', False)]}"/>
+                            <button name="%(product_configured.parts_length_wizard_action_custom)d"  type="action" class="btn fa fa-plus-circle length_size_add_btn" title="Add Formula" context="{'default_l_part_id': active_id}"/>
+                            <button name="evaluate_length" string="Evaluate Length" type="object" class="oe_heighlight"/>
+                            <!-- <button name="remove_last_formula" type="object" class="btn fa fa-minus-circle" title="Remmove Formula" context="{'is_from_height':True}"/> -->
+                        </div>
+                        <label for="length" string="Length" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}">
+                            <field name="length" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}" force_save="1" />
+                            <field name="length_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                            <field name="length_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_parts_form_view" model="ir.ui.view">
+            <field name="name">sale.parts.form</field>
+            <field name="model">sale.parts</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="part_id" domain="[('product_group', '=', 'parts')]" required="1" context="{'is_part': 1, 'default_sale_ok': False, 'default_type':'product'}"/>
+                        <field name="part_size" widget="radio"/>
+                        <field name="width_size" widget="radio"/>
+                        <label for="formulas_width" string="Width Formula" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}">
+                            <field name="w_formula_first_fixed_size" invisible="1"/>
+                            <field name="w_formula_second_fixed_size" invisible="1"/>
+                            <field name="width_formulas" invisible="1"/>
+
+                            <field name="w_formula_first_id" id="formulas_width" />
+                            <field name="w_formula_f_fixed_size" attrs="{ 'invisible': [('w_formula_first_fixed_size', '=', False)]}"/>
+
+                            <field name="w_operator_selection" />
+                            <field name="w_formula_second_id" />
+                            <field name="w_formula_s_fixed_size" attrs="{'invisible': [('w_formula_second_fixed_size', '=', False)]}"/>
+                            <button name="%(parts_width_wizard_action_custom)d"  type="action" class="btn fa fa-plus-circle width_size_add_btn" title="Add Formula" context="{'default_w_part_id': active_id}"/>
+                            <button name="evaluate_width" string="Evaluate Width" type="object" class="oe_heighlight"/>
+                        </div>
+                        <label for="width" string="Width" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}">
+                            <field name="width" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}" force_save="1" />
+                            <field name="width_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                            <field name="width_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                        </div>
+                        <field name="height" style="font-weight: bold; font-style: italic;" readonly="1"/>
+                        <field name="length_size" widget="radio"/>
+                        <label for="formulas_height" string="Length Formula" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex length_size_formula" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}">
+                            <field name="l_formula_first_fixed_size" invisible="1"/>
+                            <field name="l_formula_second_fixed_size" invisible="1"/>
+                            <field name="length_formulas" invisible="1"/>
+                            <field name="l_formula_first_id" id="formulas_height" />
+                            <field name="l_formula_f_fixed_size" attrs="{ 'invisible': [('l_formula_first_fixed_size', '=', False)]}"/>
+                            <field name="l_operator_selection" />
+                            <field name="l_formula_second_id" />
+                            <field name="l_formula_s_fixed_size" attrs="{ 'invisible': [('l_formula_second_fixed_size', '=', False)]}"/>
+                            <button name="%(product_configured.parts_length_wizard_action_custom)d"  type="action" class="btn fa fa-plus-circle length_size_add_btn" title="Add Formula" context="{'default_l_part_id': active_id}"/>
+                            <button name="evaluate_length" string="Evaluate Length" type="object" class="oe_heighlight"/>
+                            <!-- <button name="remove_last_formula" type="object" class="btn fa fa-minus-circle" title="Remmove Formula" context="{'is_from_height':True}"/> -->
+                        </div>
+                        <label for="length" string="Length" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}"/>
+                        <div class="o_row d-flex" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}">
+                            <field name="length" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}" force_save="1" />
+                            <field name="length_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                            <field name="length_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem action="product_template_miscellanies_action" id="menu_product_template_miscellanies_action" parent="stock.menu_stock_root" sequence="21" active="True" />
+
+
+        <menuitem action="catalog_product_template_action" id="menu_catalog_product_action" name="Catalog Product" parent="sale.product_menu_catalog" sequence="1" active="True" />
+
+        <record id="product_template_sub_assembly_action" model="ir.actions.act_window">
+            <field name="name">Sub Assembly</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">tree,kanban,form,activity</field>
+<!--            <field name="view_id" eval="False"/> &lt;!&ndash; Force empty &ndash;&gt;-->
+            <field name="view_id" ref="product_configured.catalog_product_form_view"/>
+            <field name="search_view_id" ref="product.product_template_search_view"/>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0, 0, {'view_mode': 'kanban', 'view_id': ref('product.product_template_kanban_view')}),
+                          (0,0,{'view_mode':'tree', 'view_id': ref('product_configured.catalog_product_tree_view')}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('product_configured.catalog_product_form_view')})]"/>
+            <field name="domain">[('product_group', '=', 'sub_assembly')]</field>
+            <field name="context" eval="{
+                'default_product_group':'sub_assembly',
+                'default_remove_placeholder': True,
+                'default_type':'product'
+            }"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new product
+                </p><p>
+                    You must define a product for everything you sell or purchase,
+                    whether it's a storable product, a consumable or a service.
+                </p>
+            </field>
+        </record>
+        <menuitem action="product_template_sub_assembly_action" id="menu_product_template_sub_assembly_action" parent="stock.menu_stock_root" sequence="6" active="True" />
+
+
+    </data>
+</odoo>

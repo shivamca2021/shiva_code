@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+            id="note.menu_note_notes"
+            name="Notes"
+            sequence="3"
+            action="note.action_note_note"
+            web_icon="web_icon_change_note,static/description/Notes.png">
+        <menuitem
+                id="note.menu_note_configuration"
+                name="Configuration"
+                sequence="100"
+                groups="base.group_no_one">
+            <menuitem
+                    id="note.menu_notes_stage"
+                    name="Stages"
+                    action="note.action_note_stage"
+                    sequence="21"/>
+            <menuitem
+                    id="note.notes_tag_menu"
+                    action="note.note_tag_action"
+                    sequence="22"/>
+        </menuitem>
+    </menuitem>
+</odoo>

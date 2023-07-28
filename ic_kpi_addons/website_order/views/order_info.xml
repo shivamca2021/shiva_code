@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="partner_view_inherit_form">
+            <field name="name">partner.view.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+    			<xpath expr="//page[last()]" position="after">
+    				<page name="user_info" string="User Information">
+    					<field name="user_info_ids">
+                            <tree string="User Information" editable="bottom">
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="passwd"/>
+                                <field name="is_admin"/>
+                            </tree>
+                    	</field>
+    				</page>
+                    <page name="import_info" string="Import Details">
+                        <group>
+                            <group>
+                                <field name="customer_import" filename="customer_import_name"/>
+                                <field name="customer_import_name" invisible="1" />
+                                <field name="vendor_import" filename="vendor_import_name"/>
+                                <field name="vendor_import_name" invisible="1"/>
+                            </group>
+                            <group>
+<!--                                <field name="chartofacc_import" filename="chartofacc_import_name"/>-->
+<!--                                <field name="chartofacc_import_name" invisible="1"/>-->
+                                <field name="employee_import" filename="employee_import_name"/>
+                                <field name="employee_import_name" invisible="1"/>
+                            </group>
+                        </group>
+                    </page>
+    			</xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

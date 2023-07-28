@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- mail template form view  -->
+        <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+            <field name="name">mail.mass.mailing.form.view</field>
+            <field name="model">mailing.mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group//div[@name='mailing_model_id_container']" position="replace">
+                    <div name="mailing_model_id_container">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-3" >
+                                    <field name="mailing_model_id" widget="selection"
+                                    attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"/>
+                            </div>
+                            <div attrs="{'invisible': [('mailing_model_name', '!=', 'mailing.list')]}" class="col-xs-12 col-md-9 pt-1">
+                                <label for="contact_list_ids" string="Select mailing lists:" class="oe_edit_only"/>
+                                <field name="contact_list_ids" widget="many2many_tags"
+                                    placeholder="Select mailing lists..." class="oe_inline"
+                                    attrs="{
+                                        'required':[('mailing_model_name','=','mailing.list')],
+                                        'readonly': [('state', 'in', ('sending', 'done'))]
+                                }"/>
+                            </div>
+                            <div attrs="{'invisible': [('mailing_model_name', '!=', 'res.partner.groups')]}" class="col-xs-12 col-md-9 pt-1">
+                                <label for="contact_group_ids" string="Select Contact Groups:" class="oe_edit_only"/>
+                                <field name="contact_group_ids" widget="many2many_tags" placeholder="Select Contact Groups..." class="oe_inline" attrs="{'required':[('mailing_model_name','=','res.partner.groups')], 'readonly': [('state', 'in', ('sending', 'done'))]}"/>
+                            </div>
+                        </div>
+                        <field name="mailing_model_name" invisible="1"/>
+                        <field name="mailing_model_real" invisible="1"/>
+                        <div attrs="{'invisible': [('mailing_model_name', 'in', ('mailing.list', 'res.partner.groups'))]}">
+                            <field name="mailing_domain" widget="domain" options="{'model': 'mailing_model_real'}"
+                            attrs="{'readonly': [('state', 'in', ('sending', 'done'))]}"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//group//div[@name='mailing_model_id_container']" position="after">
+                    <field name="template_id"/>
+                </xpath>
+                 <xpath expr="//button[@name='action_test']" position="after">
+                    <button name="action_save_template" type="object" string="Save Template" />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Inventory" id="stock.menu_stock_root" sequence="30" groups="stock.group_stock_manager,stock.group_stock_user" web_icon="web_icon_change_inventory,static/description/inventory.png"/>
+</odoo>

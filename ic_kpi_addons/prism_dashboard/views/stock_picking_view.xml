@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="stock_picking_other_installation_view" model="ir.ui.view">
+        <field name="name">stock.picking.other.installation.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//page[@name='extra']//group[@name='other_infos']" position="inside">
+            <field name="installation_date"/>
+        </xpath>
+	</field>
+    </record>
+</odoo>

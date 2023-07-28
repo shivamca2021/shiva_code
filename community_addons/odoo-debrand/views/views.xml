@@ -1,0 +1,88 @@
+<odoo>
+	<record id="view_partner_custom_ickpi" model="ir.ui.view">
+        <field name="name">view_partner_custom_ickpi</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='website']" position="replace">
+                <field name="website" widget="url" placeholder="e.g. https://www.ickpi.com"/>
+            </xpath>
+        </field>
+    	</record>
+
+    <record id="res_config_settings_view_formickpi" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup.iapcpi</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="iap.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='iap_portal']" position="replace">
+                <div id="iap_portal">
+                    <h2>In-App Purchases</h2>
+                    <div class='row mt16 o_settings_container iap_portal'>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class='o_setting_right_pane'>
+                                <div class="o_form_label">Ic-KPI IAP</div>
+                                <div class="text-muted">
+                                    View your IAP Services and recharge your credits
+                                </div>
+                                <div class='mt8'>
+                                    <button name="%(iap.open_iap_account)d" icon="fa-arrow-right" type="action" string="View My Services" class="btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <template id="debranding_title" name="Debranding title JS" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/odoo-debrand/static/src/js/title.js"/>
+        </xpath>
+    </template>
+
+   <template id="web_layout" inherit_id="web.layout">
+        <xpath expr="//head" position="replace">
+            <head>
+                <meta charset="utf-8"/>
+                <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+                <title t-esc="''"/>
+                <link type="image/x-icon" rel="shortcut icon" t-att-href="x_icon or '/odoo-debrand/static/src/img/favicon.ico'"/>
+
+                <script type="text/javascript">
+                    var odoo = {
+                    csrf_token: "<t t-esc="request.csrf_token(None)"/>",
+                    debug: "<t t-esc="debug"/>",
+                    };
+                </script>
+
+                <t t-raw="head or ''"/>
+            </head>
+        </xpath>
+    </template>
+    
+	<!-- <template id="web_layout" inherit_id="web.layout">
+       <xpath expr="//title" position="replace"></xpath>
+       <xpath expr="//link[@rel='shortcut icon']" position="replace">
+           <t t-set="favicon" t-value="'/odoo-debrand/static/src/img/x.ico'"/>
+           <t t-if="favicon">
+               <link rel="shortcut icon" t-att-href="favicon" type="image/x-icon"/>
+           </t>
+       </xpath>
+    </template> -->
+    <template id="website_layout" name="Main layout" inherit_id="website.layout">
+    	<xpath expr="//head/meta[@name='generator']" position="replace">
+    		<meta name="generator" content="IC-KPI"/>
+    	</xpath>
+    	<xpath expr="//link[@rel='shortcut icon']" position="replace">
+	        <link type="image/x-icon" rel="shortcut icon" t-att-href="'/odoo-debrand/static/src/img/favicon.ico'"/>
+	    </xpath>
+    </template>
+
+    <template id="debrand_promotion" inherit_id="web.brand_promotion">
+        <xpath expr="//t[@t-call='web.brand_promotion_message']" position="replace"/>
+    </template>
+
+</odoo>

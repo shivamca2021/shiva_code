@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_frontend_custom" inherit_id="web.assets_frontend" name="Custom Frontend">
+    	<xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/website_order/static/src/scss/footer.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/website_order/static/src/scss/error.scss"/>
+        	<!--link rel="stylesheet" type="text/scss" href="/website_order/static/src/scss/variable.scss"/-->
+        	<!--link rel="stylesheet" type="text/scss" href="/website_order/static/src/scss/form_css.scss"/-->
+        </xpath>
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/website_order/static/src/js/order_form.js"/>
+            <script type="text/javascript" src="/website_order/static/src/js/checkbox.js"/>
+        </xpath>
+	</template>
+
+</odoo>

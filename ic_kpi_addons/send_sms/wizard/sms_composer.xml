@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sms_composer_view_inherit_burst_sms" model="ir.ui.view">
+        <field name="name">sms.composer.views.inherit.sms</field>
+        <field name="model">sms.composer</field>
+        <field name="inherit_id" ref="sms.sms_composer_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_sms']" position="replace">
+                <button name="send_sms_link" string="Send SMS" type="object" class="oe_highlight"/>
+            </xpath>
+             <xpath expr="//field[@name='body']" position="attributes">
+               <attribute name="widget"> </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="layout" name="Main layout" inherit_id="portal.frontend_layout">
+             <xpath expr="//footer//span[hasclass('o_footer_copyright_name')]" position="replace">
+                <span class="o_footer_copyright_name mr-2" id="copyright">Copyright &amp;copy; Company name</span>
+             </xpath>
+    </template>
+    <template id="prism_footer_custom" inherit_id="website.footer_custom" name="Custom Footer" active="True">
+        <xpath expr="//div[@id='footer']" position="replace">
+            <div id="footer" class="oe_structure oe_structure_solo" t-ignore="true" t-if="not no_footer">
+                <section class="s_text_block pt40 pb16" data-snippet="s_text_block"
+                         data-name="Text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-2 pt24 pb24">
+                                <h5 class="mb-3">Useful Links</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="/">Home</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">About us</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Products</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Services</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Legal</a>
+                                    </li>
+                                    <li>
+                                        <a href="/contactus">Contact us</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-5 pt24 pb24">
+                                <h5 class="mb-3">About us</h5>
+                                <p>We are a team of passionate people whose goal is to improve everyone's life through
+                                    disruptive products. We build great products to solve your business problems.
+                                    <br/>
+                                    <br/>Our products are designed for small to medium size companies willing to
+                                    optimize their performance.
+                                </p>
+                            </div>
+                            <div id="connect" class="col-lg-4 offset-lg-1 pt24 pb24">
+                                <h5 class="mb-3">Connect with us</h5>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <i class="fa fa-comment fa-fw mr-2"/>
+                                        <span>
+                                            <a href="/contactus">Contact us</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-envelope fa-fw mr-2"/>
+                                        <span>
+                                            <a href="mailto:sales@ic-kpi.com">sales@ic-kpi.com</a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-phone fa-fw mr-2"/>
+                                        <span class="o_force_ltr">
+                                            <a href="tel:+1 (650) 555-0111">+405-227-9046</a>
+                                        </span>
+                                    </li>
+                                </ul>
+                                <div class="s_share text-left" data-snippet="s_share" data-name="Social Media">
+                                    <h5 class="s_share_title d-none">Follow us</h5>
+                                    <a href="/website/social/facebook" class="s_share_facebook" target="_blank">
+                                        <i class="fa fa-facebook rounded-circle shadow-sm"/>
+                                    </a>
+                                    <a href="/website/social/twitter" class="s_share_twitter" target="_blank">
+                                        <i class="fa fa-twitter rounded-circle shadow-sm"/>
+                                    </a>
+                                    <a href="/website/social/linkedin" class="s_share_linkedin" target="_blank">
+                                        <i class="fa fa-linkedin rounded-circle shadow-sm"/>
+                                    </a>
+                                    <a href="/" class="text-800 float-right">
+                                        <i class="fa fa-home rounded-circle shadow-sm"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="prism_homepage" name="Home" inherit_id="website.homepage">
+        <xpath expr="//t[@t-call='website.layout']" position="replace">
+                        <t t-call="website.layout">
+                            <t t-set="pageName" t-value="'homepage'"/>
+                            <div id="wrap" class="oe_structure oe_empty">
+                                <section class="s_carousel_wrapper" data-vxml="001" data-snippet="s_carousel"
+                                         data-name="Carousel">
+                                    <div id="myCarousel1639755793082"
+                                         class="s_carousel s_carousel_default carousel slide" data-interval="10000">
+                                        <ol class="carousel-indicators o_we_no_overlay">
+                                            <li data-target="#myCarousel1639755793082" data-slide-to="0"/>
+                                            <li data-target="#myCarousel1639755793082" data-slide-to="1"/>
+                                            <li data-target="#myCarousel1639755793082" data-slide-to="2"
+                                                class="active"/>
+                                        </ol>
+                                        <div class="carousel-inner">
+                                            <div class="carousel-item o_colored_level oe_img_bg pt256 pb256"
+                                                 style="background-image: url(&quot;/backend_theme_extension/static/src/img/1.jpg&quot;);"
+                                                 data-name="Slide">
+                                                <div class="container">
+                                                    <div class="row content">
+                                                        <div class="carousel-content col-lg-6 o_colored_level">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item pt96 pb96 oe_img_bg o_colored_level"
+                                                 style="background-image: url(&quot;/backend_theme_extension/static/src/img/2.jpg&quot;);"
+                                                 data-name="Slide">
+                                                <div class="container">
+                                                    <div class="row content">
+                                                        <div class="carousel-content col-lg-8 offset-lg-2 bg-black-50 text-center pt48 pb40 o_colored_level">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="carousel-item pt128 pb128 oe_img_bg o_colored_level active"
+                                                 style="background-image: url(&quot;/backend_theme_extension/static/src/img/3.jpg&quot;);"
+                                                 data-name="Slide">
+                                                <div class="container">
+                                                    <div class="row content">
+                                                        <div class="carousel-content col-lg-6 offset-lg-6 o_colored_level">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a class="carousel-control-prev o_not_editable o_we_no_overlay"
+                                           href="#myCarousel1639755793082" data-slide="prev" role="img"
+                                           aria-label="Previous" title="Previous">
+                                            <span class="carousel-control-prev-icon"/>
+                                            <span class="sr-only o_default_snippet_text">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next o_not_editable o_we_no_overlay"
+                                           href="#myCarousel1639755793082" data-slide="next" role="img"
+                                           aria-label="Next" title="Next">
+                                            <span class="carousel-control-next-icon"/>
+                                            <span class="sr-only o_default_snippet_text">Next</span>
+                                        </a>
+                                    </div>
+                                </section>
+                                <section class="s_picture bg-200 pt48 pb24 o_colored_level" data-snippet="s_picture"
+                                         data-name="Picture">
+                                    <div class="container">
+                                        <p style="text-align: center;">
+                                            <br/>
+                                        </p>
+                                        <div class="row s_nb_column_fixed">
+                                            <div class="col-lg-10 offset-lg-1 pb24 o_colored_level"
+                                                 style="text-align: center;">
+                                                <figure class="figure">
+                                                    <img src="/backend_theme_extension/static/src/img/7.png"
+                                                         class="figure-img img-thumbnail padding-large" alt=""
+                                                         loading="lazy" data-original-title="" title=""
+                                                         aria-describedby="tooltip637278" data-original-id="1419"
+                                                         data-original-src="/backend_theme_extension/static/src/img/7.png"
+                                                         data-mimetype="image/png" data-resize-width="811"/>
+                                                    <figcaption
+                                                            class="figure-caption text-muted py-3 o_default_snippet_text">
+                                                        Add a caption to enhance the meaning of this image.
+                                                    </figcaption>
+                                                </figure>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="s_three_columns bg-200 pt32 pb32 o_colored_level" data-vcss="001"
+                                         data-snippet="s_three_columns" data-name="Columns">
+                                    <div class="container">
+                                        <div class="row d-flex align-items-stretch">
+                                            <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                                <div class="card bg-white h-100">
+                                                    <img class="card-img-top"
+                                                         src="/backend_theme_extension/static/src/img/4.jpg" alt=""
+                                                         loading="lazy" data-original-id="891"
+                                                         data-original-src="/backend_theme_extension/static/src/img/4.jpg"
+                                                         data-mimetype="image/jpeg"/>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                                <div class="card bg-white h-100">
+                                                    <img class="card-img-top"
+                                                         src="/backend_theme_extension/static/src/img/5.jpg" alt=""
+                                                         loading="lazy" data-original-id="892"
+                                                         data-original-src="/backend_theme_extension/static/src/img/5.jpg"
+                                                         data-mimetype="image/jpeg"/>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 s_col_no_bgcolor pt16 pb16">
+                                                <div class="card bg-white h-100">
+                                                    <img class="card-img-top"
+                                                         src="/backend_theme_extension/static/src/img/6.jpg" alt=""
+                                                         loading="lazy" data-original-id="893"
+                                                         data-original-src="/backend_theme_extension/static/src/img/6.jpg"
+                                                         data-mimetype="image/jpeg"/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </t>
+
+                </xpath>
+    </template>
+</odoo>
+

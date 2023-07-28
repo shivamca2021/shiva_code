@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-extend="AppsMenu">
+        <t t-jquery="[t-as=app]" t-operation="after">
+            <div class='our_apps'></div>
+        </t>
+    </t>
+    <t t-extend="web_responsive.AppIcon">
+        <t t-jquery=".o-app-name" t-operation="replace"/>
+    </t>
+</template>

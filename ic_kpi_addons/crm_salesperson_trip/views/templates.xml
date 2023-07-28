@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="crm_salesperson_trip assets backend" inherit_id="web_google_maps.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/crm_salesperson_trip/static/src/scss/media_print.scss" media="print" />
+            <link rel="stylesheet" type="text/scss" href="/crm_salesperson_trip/static/src/scss/sidebar.scss"/>
+            <script type="text/javascript" src="/crm_salesperson_trip/static/src/js/view/google_map/google_map_direction.js"></script>
+            <script type="text/javascript" src="/crm_salesperson_trip/static/src/js/view/google_map/google_map_renderer.js"></script>
+        </xpath>
+    </template>
+</odoo>

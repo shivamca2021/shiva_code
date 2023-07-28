@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="backend_appdrawer_edit">
+        <li class="app-bottom-panel" role="menuitem">
+                <a id="favorite_appdrawer" class="options backend_fav_icon_list dropdown-toggle" data-toggle="dropdown" style="cursor: pointer;">
+                    <img src="/backend_theme_extension/static/src/img/fav_ic.svg" alt="" loading="lazy"/>
+                </a>
+                <div class="fav_all_icon_list dropdown-menu"/>
+        </li>
+    </t>
+</templates>

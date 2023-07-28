@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mailing_sms_test_form_view_inherit" model="ir.ui.view">
+        <field name="name">mailing.sms.test.form.inherit</field>
+        <field name="model">mailing.sms.test</field>
+        <field name="inherit_id" ref="mass_mailing_sms.mailing_sms_test_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_send_sms']" position="replace">
+                <button name="send_sms_link" string="Send" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

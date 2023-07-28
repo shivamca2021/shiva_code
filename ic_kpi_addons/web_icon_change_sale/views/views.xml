@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="sale.sale_menu_root"
+              name="Sales"
+              web_icon="web_icon_change_sale,static/description/sales.png"
+              active="True"
+              sequence="7"/>
+</odoo>

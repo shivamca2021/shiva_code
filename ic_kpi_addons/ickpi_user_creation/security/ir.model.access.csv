@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_user_instance_model,user.instance,model_user_instance,,1,1,1,1
+access_instance_port_model,instance.port,model_instance_port,,1,1,1,1
+

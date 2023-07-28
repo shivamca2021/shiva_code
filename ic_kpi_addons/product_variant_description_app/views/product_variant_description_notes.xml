@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="product_variant_hide_fields" model="ir.ui.view">
+		<field name="name">main product</field>
+		<field name="model">product.template</field>
+		<field name="inherit_id" ref="product.product_template_form_view"/>
+		<field name="arch" type="xml">
+
+			<xpath expr="//page[@name='inventory']" position="after">
+				<page string="Descriptions" name="template_notes">
+
+					<group string="Description for Customers" name="description">
+						<field name="description_sale" nolabel="1"/>
+					</group>
+
+					<group string="Description for Vendors" name="description">
+						<field name="description_purchase" nolabel="1"/>
+					</group>
+
+					<group string="Description for Delivery Orders" name="description">
+						<field name="description_delivery" nolabel="1"/>
+					</group>
+
+					<group string="Description for Receipts" name="description">
+						<field name="description_receipt" nolabel="1"/>
+					</group>
+
+				</page>
+			</xpath>
+
+		</field>
+	</record>
+
+	<record id="product_desc" model="ir.ui.view">
+		<field name="name">product variant</field>
+		<field name="model">product.product</field>
+		<field name="inherit_id" ref="product.product_normal_form_view"/>
+		<field name="arch" type="xml">
+
+			<xpath expr="//page[@name='template_notes']" position="attributes">
+				<attribute name="invisible">1</attribute>
+			</xpath>
+			<xpath expr="//page[@name='inventory']" position="after">
+				<page string="Notes" name="notes">
+					<group string="Description for Customers" name="description">
+						<field name="description_for_sale" nolabel="1"/>
+					</group>
+
+					<group string="Description for Vendors" name="description">
+						<field name="description_for_vendor" nolabel="1"/>
+					</group>
+
+					<group string="Description for Delivery Orders" name="description">
+						<field name="description_for_delivery" nolabel="1"/>
+					</group>
+
+					<group string="Description for Receipts" name="description">
+						<field name="description_for_receipt" nolabel="1"/>
+					</group>
+				</page>
+			</xpath>
+			
+		</field>
+	</record>
+
+	<record id="inherit_stock_picking_form" model="ir.ui.view">
+		<field name="name">inherit stock picking</field>
+		<field name="model">stock.picking</field>
+		<field name="inherit_id" ref="stock.view_picking_form"/>
+		<field name="arch" type="xml">
+
+			<xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="before">
+				<field name="desc"/>
+			</xpath>
+
+		</field>
+	</record>
+
+</odoo>

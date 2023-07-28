@@ -1,0 +1,136 @@
+.o_footer {
+  padding: 1rem 0rem;
+
+  h4 {
+    color: #FFF;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  p {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+.top-footer h4 {
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.footer-btns {
+  text-align: right;
+}
+
+ul.bottom-social {
+  /* margin-top: 2.7rem; */
+  text-align: right;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 0.5rem;
+
+    .fab {
+      font-size: 20px;
+    }
+
+    a {
+      color: #FFF !important;
+      transition: 0.4s;
+      width: 50px;
+      text-align: center;
+      border: solid 1px #fff;
+      display: inline-block;
+      height: 50px;
+      line-height: 50px;
+      font-size: 30px;
+      border-radius: 40px;
+    }
+  }
+}
+
+.footer-col h5 {
+  color: #FFF !important;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px 0px;
+}
+
+ul.footer-bulletlist li {
+  color: #cccccc !important;
+  list-style: none;
+  font-size: 14px;
+  line-height: 30px;
+  font-weight: 400;
+
+  a {
+    color: #CCCCCC !important;
+    transition: 0.4s;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.copyright strong {
+  color: #FFF;
+  font-weight: 600;
+}
+
+.bf-right li {
+  text-align: right !important;
+  display: inline-block;
+
+  a {
+    font-size: 18px;
+    color: #fff !important;
+    transition: 0.4s;
+    margin-right: 15px;
+
+    &:hover {
+      color: #CCCCCC;
+      transition: 0.4s;
+    }
+  }
+}
+
+.bottom-footer .text-align {
+  text-align: right;
+}
+
+.footer hr {
+  height: 1px;
+  overflow: visible;
+  color: rgba(51, 51, 51, 0.6);
+  position: relative;
+  margin: 2em auto;
+
+  &::before {
+    content: '';
+    background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(currentColor), to(transparent));
+    background: linear-gradient(to right, transparent, currentColor, transparent);
+    height: 1px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+  }
+}
+
+.hr-divider {
+  height: 1px;
+  border-style: none;
+
+  /* Old browsers */
+  background: -moz-linear-gradient(left, transparent 0%, white 50%, transparent 100%);
+
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, transparent 0%, white 50%, transparent 100%);
+
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, transparent 0%, white 50%, transparent 100%);
+
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}

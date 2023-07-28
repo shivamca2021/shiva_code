@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+        id="quality_control.menu_quality_root"
+        name="Quality"
+        web_icon="web_icon_change_qc,static/description/QC.png"
+        sequence="51"
+        groups="quality.group_quality_user"/>
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+            id="maintenance.menu_maintenance_title"
+            name="S Service"
+            web_icon="web_icon_change_maintenance,static/description/S_Service.png"
+            sequence="110"/>
+
+    <record id="maintenance.menu_maintenance_title" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('maintenance.group_equipment_manager')])]"/>
+    </record>
+
+    <record id="hr.group_hr_user" model="res.groups">
+        <field name="implied_ids" eval="[(3, ref('maintenance.group_equipment_manager'))]"/>
+    </record>
+</odoo>

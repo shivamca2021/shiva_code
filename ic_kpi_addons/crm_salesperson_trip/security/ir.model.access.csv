@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_salesperson_trip_general,access_crm_salesperson_trip_general,model_crm_salesperson_trip,base.group_user,1,1,1,1
+access_crm_salesperson_trip_line_general,access_crm_salesperson_trip_line_general,model_crm_salesperson_trip_line,base.group_user,1,1,1,1
+access_crm_salesperson_trip_line_note,access_crm_salesperson_trip_line_note,model_crm_salesperson_trip_line_note,base.group_user,1,1,1,1

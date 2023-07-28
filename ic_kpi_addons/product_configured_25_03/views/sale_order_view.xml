@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+         <record id="view_product_configured_sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.configured.form</field>
+            <field name="model">sale.order</field>
+             <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                    <field name="part_ids" widget="many2many_tags" domain="[('product_group', '=', 'parts')]"/>
+                    <field name="sub_assembly_ids" widget="many2many_tags" domain="[('product_group', '=', 'sub_assembly')]"/>
+                    <field name="material_ids" widget="many2many_tags"/>
+                    <field name="internal_material_ids" widget="many2many_tags"/>
+                    <field name="external_material_ids" widget="many2many_tags"/>
+                    <field name="species_ids" widget="many2many_tags"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form//field[@name='name']" position="after">
+                    <label for="part_ids" string="Parts"/>
+                    <field name="part_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="sub_assembly_ids" string="Sub Assembly"/>
+                    <field name="sub_assembly_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="material_ids" string="Material"/>
+                    <field name="material_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="internal_material_ids" string="Internal Material"/>
+                    <field name="internal_material_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="external_material_ids" string="External Material"/>
+                    <field name="external_material_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="species_ids" string="Species"/>
+                    <field name="species_ids" widget="many2many_tags"/>
+                    <br></br>
+                </xpath>
+
+				<!--  # commented due to duplicate fields form sale import module
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+                    <field name="width" groups="product_configured.group_product_configured"/>
+                    <field name="height" groups="product_configured.group_product_configured"/>
+                    <field name="depth" groups="product_configured.group_product_configured"/>
+                </xpath>
+
+				-->
+            </field>
+         </record>
+    </data>
+</odoo>

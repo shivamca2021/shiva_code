@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="parts_width_wizard_form_cust" model="ir.ui.view">
+            <field name="name">parts.width.wizard.form.custom</field>
+            <field name="model">parts.width.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <label for="add_formulas_width" string="Formula"/>
+                        <div class="o_row d-flex">
+                            <field name="w_part_id" invisible="1"  id="add_formulas_width" />
+                            <field name="is_w_formula_fixed_size" invisible="1"/>
+                            <field name="w_operator_selection" />
+                            <field name="w_formula_id" />
+                            <field name="w_formula_fixed_size" attrs="{'required': [('is_w_formula_fixed_size', '=', True)], 'invisible': [('is_w_formula_fixed_size', '=', False)]}"/>
+                        </div>
+                    </group>
+                    <footer>
+                        <button name="width_part_line" type="object" class="oe_highlight" string="Save"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="parts_width_wizard_action_custom" model="ir.actions.act_window">
+            <field name="name">Width Formula</field>
+            <field name="res_model">parts.width.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record id="parts_length_wizard_form" model="ir.ui.view">
+            <field name="name">parts.length.wizard.form.custom</field>
+            <field name="model">parts.length.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <label for="add_formulas_height" string="Formula"/>
+                        <div class="o_row d-flex">
+                            <field name="l_part_id" invisible="1" id="add_formulas_height"/>
+                            <field name="is_l_formula_fixed_size" invisible="1"/>
+
+                            <field name="l_operator_selection" />
+                            <field name="l_formula_id" />
+                            <field name="l_formula_fixed_size" attrs="{'required': [('is_l_formula_fixed_size', '=', True)], 'invisible': [('is_l_formula_fixed_size', '=', False)]}"/>
+                        </div>
+                    </group>
+                    <footer>
+                        <button name="length_part_line" type="object" class="oe_highlight" string="Save"/>
+                        <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="parts_length_wizard_action_custom" model="ir.actions.act_window">
+            <field name="name">Height Formula</field>
+            <field name="res_model">parts.length.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

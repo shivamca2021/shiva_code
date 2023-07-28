@@ -1,0 +1,43 @@
+/* Copyright 2021.
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+// List View of Status Dashboard
+div.status_dashboard{
+    .o_list_table {
+        thead {
+            > tr > th:not(.o_list_record_selector) {
+                width: 110px !important;
+                max-width: 110px !important;
+            }
+            > tr > th[data-name='so_days']{
+                width: 135px !important;
+                max-width: 135px !important;
+            }
+            > tr > th[data-name='mo_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+            > tr > th[data-name='wo_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+            > tr > th[data-name='shipment_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+            > tr > th[data-name='picking_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+            > tr > th[data-name='wo_end_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+            > tr > th[data-name='installment_days']{
+                width: 150px !important;
+                max-width: 150px !important;
+            }
+
+        }
+    }
+}

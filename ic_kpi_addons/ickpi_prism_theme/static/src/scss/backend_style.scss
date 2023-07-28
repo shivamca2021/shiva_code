@@ -1,0 +1,88 @@
+/* Copyright 2021.
+ * License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). */
+
+// Nav Bar
+.o_main_navbar{
+    border-bottom: 1px solid $brand-primary;
+}
+
+// Chat window
+.o_ChatWindowHeader {
+	background-color: $brand-primary;
+}
+
+// Notifications
+.o_NotificationGroup_date {
+    color: $brand-secondary !important;
+}
+
+
+// badge
+.badge-primary {
+    background-color: $brand-secondary !important;
+}
+
+// Progressbar
+.o_progress_overflow, .progress-bar {
+    background-color: $brand-secondary !important;
+}
+.o_progressbar_complete {
+    background-color: $brand-primary !important;
+}
+
+// Purchase Dashboard
+.o_dashboard_action.o_main {
+    background-color: $brand-secondary !important;
+}
+
+// Help icon
+.o_view_nocontent_smiling_face:before {
+    background: transparent url(/ickpi_prism_theme/static/src/img/smile.svg) no-repeat center !important;
+}
+
+// Chat buttons
+.btn-fill-primary.disabled, .disabled.btn-primary, .btn-fill-primary:disabled, .btn-primary:disabled {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+// Tooltip
+.o_tooltip {
+    &::before {
+        background: radial-gradient(lighten($o-tip-color, 7%), $o-tip-color) !important;
+    }
+    &.active {
+        border: $o-tip-border-width solid $o-tip-color !important;
+    }
+}
+// Button
+.btn-fill-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled):active, .btn-fill-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-fill-primary.dropdown-toggle, .show > .dropdown-toggle.btn-primary {
+    border-color: $brand-primary !important;
+}
+
+.o_DiscussSidebarItem_activeIndicator.o-item-active {
+    background-color: $brand-primary;
+}
+
+.o_onboarding.o_onboarding_violet .o_onboarding_wrap, .o_onboarding.o_onboarding_orange .o_onboarding_wrap, .o_onboarding.o_onboarding_blue .o_onboarding_wrap {
+    background-color: $brand-secondary;
+    background-image: linear-gradient(to bottom, rgba(96, 112, 195, 0.5), $brand-secondary);
+}
+
+.o_menu_apps .dropdown-menu .search-container .search-input .input-group .form-control {
+    color: #000000;
+}
+
+// Radio Button
+div.o_boolean_toggle.custom-control.custom-checkbox > input.custom-control-input:checked + label.custom-control-label::before {
+    background-color: $brand-secondary !important;
+}
+
+div.o_boolean_toggle.custom-control.custom-checkbox > label.custom-control-label::before {
+    background-color: lightgrey !important;
+}
+
+// percentage pie widget
+.o_field_widget.o_field_percent_pie > .o_pie {
+    background-color: $brand-secondary !important;
+}

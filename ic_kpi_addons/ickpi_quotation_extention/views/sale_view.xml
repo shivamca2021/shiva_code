@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+    <odoo>
+        <record model="ir.ui.view" id="inherit_sale_quotation_size">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='order_line']//tree//field[@name='name']" position="after">-->
+<!--                    <field name="f_d1"/>-->
+<!--                    <field name="f_d2"/>-->
+<!--                    <field name="f_w1"/>-->
+<!--                    <field name="f_w2"/>-->
+<!--                </xpath>-->
+                <xpath expr="//group[@name='sale_header']" position="after">
+                    <group string="Assignment Details">
+
+                        <group>
+                            <field name='id_assigned'/>
+                            <field name='me_assigned'/>
+                            <field name='serviced_by'/>
+                        </group>
+                        <group>
+                            <field name='probabality'/>
+                            <field name='support_level'/>
+                        </group>
+                    </group>
+
+                </xpath>
+<!--                <xpath expr="//group[@name='sale_header']/group[@name='partner_details']/field[@name='partner_id']"-->
+<!--                       position="after">-->
+<!--                    <field name='sales_rep'/>-->
+<!--                    <field name='main_contact'/>-->
+<!--                    <field name='cc_1'/>-->
+<!--                    <field name='cc_2'/>-->
+<!--                    <field name='cc_3'/>-->
+<!--                </xpath>-->
+
+                <xpath expr="//page[@name='other_information']" position="before">
+                    <page string="Service Level" name="service_level">
+                        <group>
+                            <group>
+                                <field name='template'/>
+                                <field name='vife_only'/>
+                                <field name='vife_only_access'/>
+                                <field name='delivery_vif_included'/>
+                                <field name='non_dfm_assistance'/>
+                                <field name='solid_surface'/>
+                                <field name='cut_out'/>
+                            </group>
+
+                            <group>
+                                <field name="chargeable_service"/>
+                                <field name="non_chargeable_service"/>
+                                <field name="union_labour"/>
+                                <field name="non_union_labour"/>
+
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='service_level']" position="after">
+                    <page string="Delivery" name="delivery">
+                        <group>
+                            <group>
+                                <field name="partner_shipping_id" widget="res_partner_many2one"
+                                       context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                                       options='{"always_reload": True}'/>
+                            </group>
+                            <group>
+                                <field name="job_site_contact_name"/>
+                                <field name="email"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="shipping_method"/>
+                                <field name="site_resources"/>
+                            </group>
+                            <group>
+                                <field name="internal_comments"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//group[@name='sale_info']" position="before">
+                        <group name="purchase_order" string="Purchase Order">
+                                <field name="customer_po"/>
+<!--                                <field name="commitment_date"/>-->
+                                <field name="approval_backup"/>
+                                <field name="change_order_fee"/>
+                                <field name="date_of_po_entry"/>
+                                <field name="fully_dispatched_date"/>
+                                <field name="date_of_approval"/>
+                        </group>
+                </xpath>
+
+                <xpath expr="//page[@name='delivery']" position="after">
+                    <page string="Additional Contacts (Automatic)" name="additional_contacts">
+                        <group>
+                            <group>
+                            <field name="approval_contact" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1 , 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            <field name="project_manager" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1, 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            <field name="architect_designer" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1, 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            </group>
+                            <group>
+                            <field name="end_user" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1, 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            <field name="superintendent" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1, 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            <field name="contractor" widget="res_partner_many2one"
+                                   context="{'default_type':'delivery','res_partner_search_mode': 'customer', 'show_email': 1, 'show_phone': 1}"
+                                   options='{"always_reload": True}'/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                 <xpath expr="//page[@name='delivery']" position="after">
+                    <page string="Billing" name="billing">
+                        <group>
+<!--                            <field name="partner_id" widget="res_partner_many2one" readonly="1"-->
+<!--                                   context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"-->
+<!--                                   options='{"always_reload": True}'/>-->
+                            <field name="alternative_gl_account"/>
+                            <field name="partner_invoice_id"/>
+                            <field name="payment_terms"/>
+                            <field name="tax_rate"/>
+
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='additional_contacts']" position="after">
+                    <page string="Attachments" name="attachment">
+                        <group>
+                            <field name="attachment_ids">
+                                <tree create="0" delete="0" editable="bottom">
+                                    <field name="label" readonly="1" force_save="1"/>
+                                    <field name="is_required" force_save="1"/>
+                                    <field name="attachments" attrs="{'required': [('is_required','=', True)]}"
+                                           widget="many2many_binary"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </odoo>
+</data>

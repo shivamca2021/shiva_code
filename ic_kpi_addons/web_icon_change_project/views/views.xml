@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Project"
+              id="project.menu_main_pm"
+              groups="project.group_project_manager,project.group_project_user"
+              web_icon="web_icon_change_project,static/description/Project.png"
+              sequence="50"/>
+</odoo>

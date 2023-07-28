@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Staff Surveys"
+              id="survey.menu_surveys"
+              sequence="70"
+              groups="survey.group_survey_user"
+              web_icon="web_icon_change_survey,static/description/Staff_Survey.png"/>
+</odoo>

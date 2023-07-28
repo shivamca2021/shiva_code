@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+            id="im_livechat.menu_livechat_root"
+            name="L-Chat"
+            web_icon="web_icon_change_l_chat,static/description/l-chat.png"
+            groups="im_livechat.im_livechat_group_user"
+            sequence="205"/>
+</odoo>

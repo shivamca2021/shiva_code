@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_import,sale_import,model_sale_import,,1,1,1,0
+access_sale_template,sale_template,model_sale_template,,1,1,1,1
+access_sale_template_line,sale_template_line,model_sale_template_line,,1,1,1,1

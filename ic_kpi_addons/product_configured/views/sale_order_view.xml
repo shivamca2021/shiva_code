@@ -1,0 +1,103 @@
+<odoo>
+    <data>
+        <record id="view_product_configured_sale_order_form" model="ir.ui.view">
+            <field name="name">sale.order.configured.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                    <!--field name="part_ids" widget="many2many_tags" domain="[('product_group', '=', 'parts')]"/>
+                    <field name="sub_assembly_ids" widget="many2many_tags" domain="[('product_group', '=', 'sub_assembly')]"/>
+                    <field name="material_ids" widget="many2many_tags"/-->
+                    <field name="internal_material_ids" widget="many2many_tags"/>
+                    <field name="external_material_ids" widget="many2many_tags"/>
+                    <field name="species_ids" widget="many2many_tags"/>
+                    <field name="product_width"/>
+                    <field name="product_height"/>
+                    <field name="product_depth"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/form//field[@name='name']" position="after">
+                    <!--label for="part_ids" string="Parts"/>
+                    <field name="part_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="sub_assembly_ids" string="Sub Assembly"/>
+                    <field name="sub_assembly_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="material_ids" string="Material"/>
+                    <field name="material_ids" widget="many2many_tags"/>
+                    <br></br-->
+                    <label for="internal_material_ids" string="Internal Material"/>
+                    <field name="internal_material_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="external_material_ids" string="External Material"/>
+                    <field name="external_material_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="species_ids" string="Species"/>
+                    <field name="species_ids" widget="many2many_tags"/>
+                    <br></br>
+                    <label for="product_width" string="Product Width"/>
+                    <field name="product_width"/>
+                    <br></br>
+                    <label for="product_height" string="Product Height"/>
+                    <field name="product_height"/>
+                    <br></br>
+                    <label for="product_depth" string="Product Depth"/>
+                    <field name="product_depth"/>
+                    <br></br>
+                    <label for="length" string="Product Length" invisible="1"/>
+                    <field name="length" invisible="1"/>
+                    <br></br>
+                    <label for="sale_parts_line_ids" string="Parts"/>
+                    <field name="sale_parts_line_ids" nolabel="1">
+                        <tree>
+                            <field name="part_id" domain="[('product_group', '=', 'parts')]" />
+<!--                            <field name="sale_part_id" domain="[('product_group', '=', 'parts')]" />-->
+<!--                            <field name="part_size"/>-->
+                            <field name="width_size" invisible="1"/>
+<!--                            <field name="width" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}" force_save="1" />-->
+<!--                            <field name="width_evaluate" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>-->
+                            <field name="width_results" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>
+                            <field name="height"/>
+                            <field name="length_size" invisible="1"/>
+<!--                            <field name="length" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}" force_save="1" />-->
+<!--                            <field name="length_evaluate" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>-->
+                            <field name="length_results" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="part_id" domain="[('product_group', '=', 'parts')]" required="1" context="{'is_part': 1, 'default_sale_ok': False, 'default_type':'product'}"/>
+<!--                                <field name="sale_part_id" domain="[('product_group', '=', 'parts')]" required="1" context="{'is_part': 1, 'default_sale_ok': False, 'default_type':'product'}"/>-->
+<!--                                <field name="part_size" widget="radio"/>-->
+                                <field name="width_size" widget="radio" invisible="1"/>
+                                <label for="width" string="Width" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}"/>
+                                <div class="o_row d-flex" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}">
+                                    <field name="width" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('width_size', '!=', 'fixed_size')]}" force_save="1" />
+<!--                                    <field name="width_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>-->
+<!--                                    <field name="width_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('width_size', '=', 'fixed_size')]}"/>-->
+                                </div>
+                                <field name="height" style="font-weight: bold; font-style: italic;" readonly="1"/>
+                                <field name="length_size" widget="radio" invisible="1"/>
+                                <label for="length" string="Length" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}"/>
+                                <div class="o_row d-flex" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}">
+                                    <field name="length" style="font-weight: bold; font-style: italic;" attrs="{'readonly': [('length_size', '!=', 'fixed_size')]}" force_save="1" />
+<!--                                    <field name="length_evaluate" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>-->
+<!--                                    <field name="length_results" style="font-weight: bold; font-style: italic;" readonly="1" force_save="1" attrs="{'invisible': [('length_size', '=', 'fixed_size')]}"/>-->
+                                </div>
+                            </group>
+                        </form>
+                    </field>
+                    <br/><br/>
+                </xpath>
+
+                <!--  # commented due to duplicate fields form sale import module
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']" position="after">
+                    <field name="width" groups="product_configured.group_product_configured"/>
+                    <field name="height" groups="product_configured.group_product_configured"/>
+                    <field name="depth" groups="product_configured.group_product_configured"/>
+                </xpath>
+
+                -->
+            </field>
+        </record>
+    </data>
+</odoo>

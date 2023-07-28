@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Vehicles" id="fleet.menu_root" sequence="115" groups="fleet.fleet_group_user"
+              web_icon="web_icon_change_vehicles,static/description/Vehicles.png"/>
+</odoo>

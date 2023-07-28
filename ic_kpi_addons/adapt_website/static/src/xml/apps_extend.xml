@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+
+    <t t-extend="web_responsive.AppIcon">
+        <t t-jquery=".o-app-icon" t-operation="replace">
+            <t t-if="app.web_icon">
+                <img class="o-app-icon" draggable="false" t-attf-src="/{{app.web_icon.split(',')[0]}}/static/description/adaptthemeicon.png"/>
+            </t>
+            <t t-else="!app.web_icon">
+                <img
+                    class="o-app-icon"
+                    draggable="false"
+                    t-attf-src="data:image/png;base64,#{app.web_icon_data}"
+                />
+            </t>
+        </t>
+    </t>
+</template>

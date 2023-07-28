@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- mail template form view  -->
+        <record id="view_mail_mass_sms_form_sms" model="ir.ui.view">
+            <field name="name">mail.mass.mailing.form.view</field>
+            <field name="model">mailing.mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_clicked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='body_plaintext']" position="attributes">
+                    <attribute name="widget"></attribute>
+                </xpath>
+                <field name="template_id" position="attributes">
+                    <attribute name="attrs">{'invisible': [('mailing_type', '!=', 'mail')]}</attribute>
+                </field>
+                <xpath expr="//div[hasclass('alert')]" position="after">
+                    <div class="alert alert-info text-center" role="alert" attrs="{'invisible': [('state', '!=', 'done'),('replied', '=', 0)]}">
+                        <div attrs="{'invisible': ['|', ('state', '!=', 'done'), ('replied', '=', 0),('mailing_type', '!=', 'sms')]}">
+                               <button class="btn-link py-0" name="action_view_sms_traces_replied" type="object">
+                                   <strong>
+                                       <field name="replied" class="oe_inline mr-2"/>
+                                       <span name="replied_text">Contacts have been responded.</span>
+                                   </strong>
+                               </button>
+                           </div>
+                       </div>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_mail_mass_sms_kanban_sms" model="ir.ui.view">
+            <field name="name">mail.mass.mailing.kanban.view</field>
+            <field name="model">mailing.mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='stat_clicks']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+         <record id="view_mail_mass_sms_tree_sms" model="ir.ui.view">
+            <field name="name">mail.mass.mailing.tree.view</field>
+            <field name="model">mailing.mailing</field>
+            <field name="inherit_id" ref="mass_mailing_sms.mailing_mailing_view_tree_sms"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='clicked']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mailing_trace_view_tree_sms_inherit" model="ir.ui.view">
+            <field name="name">mailing.trace.view.tree.sms</field>
+            <field name="model">mailing.trace</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="SMS Traces" create="0">
+                    <field name="sms_number"/>
+                    <field name="partner_id" />
+                    <field name="replied"/>
+                    <field name="original_message"/>
+                    <field name="replied_message" string="Replied Message"/>
+                </tree>
+            </field>
+        </record>
+        
+         <record id="mailing_trace_view_form_sms_inheirt" model="ir.ui.view">
+            <field name="name">mailing.trace.view.form.sms</field>
+            <field name="model">mailing.trace</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <form string="SMS Trace" create="0">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                       
+                        <group>
+                            <group>
+                                <field name="sms_number"/>
+                                <field name="partner_id" />
+                            </group>
+                            <group>
+                                <field name="original_message"/>
+                                <field name="replied_message" string="Replied Message"/>
+                                <field name="replied" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_response_sms" model="ir.actions.act_window">
+            <field name="name">Response SMS </field>
+            <field name="res_model">mailing.trace</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree', 'view_id': ref('send_sms.mailing_trace_view_tree_sms_inherit')}),
+                          (0,0,{'view_mode':'form', 'view_id': ref('send_sms.mailing_trace_view_form_sms_inheirt')})]"/>
+            <field name="context">{}</field>
+            <field name="domain">[('replied','!=',False)]</field>
+            <field name="help">use for response sms</field>
+          </record>
+          <menuitem name="Response Message" id="response_sms" parent="mass_mailing_sms.mass_mailing_sms_menu_root" action="action_response_sms" sequence="6" />
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    
+        <record id="sale_inventory_readonly" model="res.groups">
+            <field name="name">Sale - Inventory Readonly</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <record id="purchase_inventory_readonly" model="res.groups">
+            <field name="name">Purchase Readonly</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+    
+    </data>
+    
+
+</odoo>

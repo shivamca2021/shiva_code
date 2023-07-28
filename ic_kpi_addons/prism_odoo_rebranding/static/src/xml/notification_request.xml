@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t  t-name="NotificationRequest" t-inherit="mail.NotificationRequest" t-inherit-mode="extension" owl="1">
+    	<xpath expr="//div[hasclass('o_NotificationRequest_sidebar')]" position="replace">
+             <div class="o_NotificationRequest_imageContainer o_NotificationRequest_sidebarItem">
+                    <img class="o_NotificationRequest_image rounded-circle"  src="/prism_odoo_rebranding/static/src/img/bot.jpeg" alt="Avatar of OdooBot"/>
+                    <PartnerImStatusIcon
+                        class="o_NotificationRequest_partnerImStatusIcon"
+                        t-att-class="{ 'o-mobile': env.messaging.device.isMobile }"
+                        partnerLocalId="env.messaging.partnerRoot.localId"
+                    />
+                </div>
+    	</xpath>
+    </t>
+</templates>

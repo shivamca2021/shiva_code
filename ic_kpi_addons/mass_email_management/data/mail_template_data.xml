@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+        <!--  Activities  -->
+            <record id="email_template_res_partner_groups" model="mail.template">
+            <field name="name">Send By Email: To Contact Groups</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">${object.name}</field>
+            <field name="email_from">${(user.email_formatted) | safe}</field>
+            <field name="partner_to">${object.user_id.id}</field>
+            <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    ${object.parent_id.name}<br/>
+                    ${object.parent_id.street}<br/>
+                    ${object.parent_id.street2}<br/>
+                    ${object.parent_id.city}<br></br>
+                    ${object.parent_id.state_id.name}<br></br>
+                    ${object.parent_id.zip}<br></br>
+                    ${object.parent_id.country_id.name}<br></br><br></br>
+                    Attn: ${object.name},<br></br>
+                    ${object.email}<br></br>
+                    ${object.phone}<br></br><br></br>
+                    Hello ${object.name},
+                    <br/>
+                    <br/>
+                    <br/>
+                    ${user.signature | safe}
+                </p>
+            </div>
+            </field>
+            <field name="lang">${object.lang}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+</odoo>

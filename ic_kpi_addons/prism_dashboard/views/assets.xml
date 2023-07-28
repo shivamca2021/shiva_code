@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="assets_backend" inherit_id="web.assets_backend" name="Prism Backend Assets (used in backend interface)">
+    
+    <xpath expr="//script[last()]" position="after"><!-- 
+    	<script type="text/javascript" src="/prism_dashboard/static/lib/js/prism_chart.js"></script> -->
+    	<script type="text/javascript" src="/prism_dashboard/static/lib/js/Chart.min.js"></script>
+        <script type="text/javascript" src="/prism_dashboard/static/src/js/prism_dashboard.js"/>
+    </xpath>
+    <xpath expr="//link[last()]" position="after">
+        <link rel="stylesheet" href="/prism_dashboard/static/src/scss/status_dashboard_style.scss"/>
+    </xpath>
+</template>
+
+
+
+</odoo>

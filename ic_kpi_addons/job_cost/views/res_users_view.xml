@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_users_job_cost_form" model="ir.ui.view">
+        <field name="name">res.users.job.cost.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='action_id']" position="after">
+                <separator string="Job Cost"/>
+                <field name="workcenter_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

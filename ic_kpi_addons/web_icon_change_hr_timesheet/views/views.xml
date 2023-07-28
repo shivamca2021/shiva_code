@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="hr_timesheet.timesheet_menu_root"
+            name="Timesheets"
+            sequence="55"
+            groups="hr_timesheet.group_hr_timesheet_user"
+            web_icon="web_icon_change_hr_timesheet,static/description/timesheet.png"/>
+</odoo>

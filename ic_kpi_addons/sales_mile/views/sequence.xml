@@ -1,0 +1,10 @@
+<data>
+    <odoo>
+        <record id="seq_crm_trip" model="ir.sequence">
+            <field name="name">CRM Trip</field>
+            <field name="code">crm.trip.seq</field>
+            <field name="prefix">TRIP-</field>
+            <field name="padding">4</field>
+        </record>
+    </odoo>
+</data>

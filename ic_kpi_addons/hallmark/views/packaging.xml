@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="product_packaging_tree_view_inherit_hallmark" model="ir.ui.view">
+            <field name="name">product.packaging.tree.view.inherit.hallmark</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="width" string="Packaging Width"/>
+                    <field name="height" string="Packaging Height"/>
+                    <field name="packaging_length" string="Packaging Length"/>
+                    <field name="packaging_volume" />
+                </xpath>
+            </field>
+        </record>
+        <record id="product_packaging_form_view_inherit_hallmark" model="ir.ui.view">
+            <field name="name">product.packaging.form.view.inherit.hallmark</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="product.product_packaging_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="width" string="Packaging Width"/>
+                    <field name="height" string="Packaging Height"/>
+                    <field name="packaging_length" string="Packaging Length"/>
+                    <field name="packaging_volume"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="pproduct_packaging_delivery_form_inherit_hallmark" model="ir.ui.view">
+            <field name="name">product.packaging.delivery.form.view.inherit.hallmark</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="delivery.product_packaging_delivery_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='shipper_package_code']" position="after">
+                    <label for="packaging_volume"/>
+                    <div class="o_row" name="packaging_volume">
+                      <field name="packaging_volume"/>
+                      <span><field name="volume_uom_name"/></span>
+                    </div>
+
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

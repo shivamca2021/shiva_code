@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sh_user_audit_form" model="ir.ui.view">
+        <field name="name">user.audit.form</field>
+        <field name="model">sh.user.audit</field>
+        <field name="arch" type="xml">
+            <form string="form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="conf_name" />
+                            <field name="is_full_log" attrs="{'invisible':[('is_write','=',False)]}" />
+                        </group>
+                        <group>
+                            <field name="is_read" />
+                            <p>This configuration may cause issue to your database because read operation perform many time it may increase size of your log.</p>
+                            <field name="is_write" />
+                            <field name="is_create" />
+                            <field name="is_delete" />
+                        </group>
+                        <group name="Users" string="Users">
+                            <field name="is_all_users" />
+                        </group>
+                        <group></group>
+                    </group>
+<!--                    <group>-->
+<!--                    <field name="notification_User_ids" widget="many2many_tags" />-->
+                    <field name="user_line_ids" >
+                            <tree>
+                                    <field name="partner_ids" widget="many2many_tags" required="1"/>
+                                    <field name="notification_type" />
+                                    <field name="sms_template" attrs="{'invisible': [('notification_type','=','mail')]}"/>
+                                    <field name="mail_template" attrs="{'invisible': [('notification_type','=','sms')]}"/>
+                                    <field name="audit_id" invisible="1"/>
+                                </tree>
+                    </field>
+<!--                    </group>-->
+                    <field name="user_ids" attrs="{'invisible':[('is_all_users','=',True)]}" />
+
+                    <group name="Objects" string="Objects"></group>
+                    <field name="model_ids" />
+                    <group name="Fields" string="Fields"></group>
+                    <field name="field_ids" domain="[('model_id.id','in',model_ids)]" />
+                   <group>
+                            <field name="notification_type" />
+                        </group>
+
+                    <group>
+                        <label for="sms_template"  attrs="{'invisible': [('notification_type','!=','sms')]}"/>
+                    </group>
+                        <field name="sms_template" attrs="{'invisible': [('notification_type','!=','sms')]}"/>
+
+                    <group>
+                        <label for="mail_template"  attrs="{'invisible': [('notification_type','!=','mail')]}"/>
+                    </group>
+                        <field name="mail_template" attrs="{'invisible': [('notification_type','!=','mail')]}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="audit_user_line_form" model="ir.ui.view">
+        <field name="name">audit.user.line.form</field>
+        <field name="model">audit.user.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+
+                <group>
+                    <group>
+                     <field name="partner_ids" widget="many2many_tags" required="1" />
+                     <field name="notification_type"  />
+                        </group>
+                </group>
+                <div style="padding-left:150px">
+                  <span  attrs="{'invisible': [('notification_type','!=','sms')]}" class="text-muted">${module} - Model</span>
+                     <span style="" attrs="{'invisible': [('notification_type','!=','mail')]}" class="text-muted">${user} - User who done changes <br/>${module} - Model<br/> ${table} - Shows old value and updated value of fields</span>
+                </div>
+                <group>
+
+                    <field name="sms_template" attrs="{'invisible': [('notification_type','!=','sms')]}"/>
+                    <field name="mail_template" attrs="{'invisible': [('notification_type','!=','mail')]}"/>
+                    <field name="audit_id" invisible="1"/>
+                </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="sh_user_audit_id_tree" model="ir.ui.view">
+        <field name="name">user.audit.id.tree</field>
+        <field name="model">sh.user.audit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="user_ids" />
+                <field name="model_ids" />
+                <field name="field_ids" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sh_user_audit_id_search" model="ir.ui.view">
+        <field name="name">sh.user.audit.id.search</field>
+        <field name="model">sh.user.audit</field>
+        <field name="arch" type="xml">
+            <search string="Search By">
+                <field name="name" />
+                <filter name="filter" string="Read" domain="[('is_read','=',True)]" />
+                <filter name="filter" string="Write" domain="[('is_write','=',True)]" />
+                <filter name="filter" string="Create" domain="[('is_create','=',True)]" />
+                <filter name="filter" string="Delete" domain="[('is_delete','=',True)]" />
+            </search>
+        </field>
+    </record>
+
+    <record id="sh_user_audit_id_action" model="ir.actions.act_window">
+        <field name="name">Configuration</field>
+        <field name="res_model">sh.user.audit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create a new Record</p>
+            <p></p>
+        </field>
+    </record>
+    <menuitem name="Audit Report" id="sh_user_audit" web_icon="sh_user_audit,static/menu_icon/icon.png" groups="sh_user_audit.sh_user_audit_user" />
+    <menuitem  name="Configuration" id="sh_user_detail" parent="sh_user_audit" sequence="3" groups="access_log_config_groups" />
+    <menuitem action="sh_user_audit_id_action" id="sh_user_detail_menu" parent="sh_user_detail" groups="access_log_config_groups" />
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            name="Off Clock"
+            id="hr_holidays.menu_hr_holidays_root"
+            sequence="95"
+            web_icon="web_icon_change_hr_holidays,static/description/Off_Clock.png"
+            groups="base.group_user"/>
+
+    <record id="hr_holidays.menu_hr_holidays_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('hr_holidays.group_hr_holidays_responsible')])]"/>
+    </record>
+</odoo>

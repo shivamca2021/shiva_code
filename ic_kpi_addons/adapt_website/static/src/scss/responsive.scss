@@ -1,0 +1,137 @@
+/* ===== MEDIA QUERIES. ===== */
+@media (max-width: 1500px) {
+  .inner-ws-right {
+    width: 80%;
+    top: 50%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 1400px) {
+  .hero-slider .carousel-cell .slider-caption {}
+}
+
+@media (max-width: 1200px) {
+  .container {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 992px) {
+  .bottom-footer {
+    .copyright, .text-align {
+      text-align: center;
+    }
+  }
+
+  .hero-slider .carousel-cell .slider-caption .title {
+    font-size: 3rem;
+  }
+
+  .home-slider, .hero-slider {
+    height: 668px;
+  }
+
+  .what-included .nav-pills .nav-link {
+    font-size: 22px;
+  }
+
+  .wh-inc ul li {
+    font-size: 20px;
+  }
+
+  .what-included .tab-content > .tab-pane {
+    min-height: 400px;
+  }
+
+  .what-added-box .what-text {
+    font-size: 13px;
+  }
+
+  .cost-box {
+    font-size: 18px;
+  }
+
+  .bf-right li a {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-slider .flickity-prev-next-button {
+    width: 50px;
+    height: 50px;
+  }
+
+  .home-slider, .hero-slider {
+    height: 700px;
+  }
+  .terms-conditions p {
+    font-size: 18px;
+  }
+  .user-information .user-info-box {
+    border-bottom: solid 1px #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    .form-group {
+      max-width: 100%;
+      width: 100%;
+    }
+    .add-new {
+      width: 100%;
+      max-width: 100%;
+      br {
+        display: none;
+      }
+    }
+  }
+  .whats-its-main {
+    .whats-its-text-info {
+      font-size: 16px
+    }
+     .small-buss,
+    .whats-its-text-our {
+      font-size: 18px;
+      strong {
+        font-size: 22px;
+      }
+    }
+  }
+  .what-included {
+    h4 {
+      font-size: 1rem
+    }
+    h3 {
+      font-size: 1.2rem
+    }
+  }
+
+
+}
+
+@media (max-width: 576px) {
+  .hero-slider .flickity-prev-next-button {
+    display: none;
+  }
+
+  .slider-caption {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #FFF;
+    text-align: left;
+    padding: 0px 15px !important;
+  }
+
+  .cloud-host h3 {
+    font-size: 16px;
+  }
+  .payment-information .custom-radio + .pull-right {
+    float: none;
+  }
+}
+
+@media (max-width: 480px) {}
+
+@media (max-width: 380px) {}

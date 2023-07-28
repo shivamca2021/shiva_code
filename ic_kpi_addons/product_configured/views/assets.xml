@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="product_configured assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/product_configured/static/src/js/product_configuator.js"></script>
+            <!-- <script type="text/javascript" src="/product_configured/static/src/js/formula_widget.js"/> -->
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/product_configured/static/src/scss/product_config.scss"/>
+        </xpath>
+    </template>
+</odoo>

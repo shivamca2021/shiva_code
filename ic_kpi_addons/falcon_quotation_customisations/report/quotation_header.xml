@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="quote_header">
+            <t t-set="o" t-value="docs"/>
+            <t t-set="company" t-value="o.company_id"/>
+            <div class="header">
+                <div class="row">
+                    <div class="col-12" style="text-align:center">
+                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" width="120" height="140"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" style="text-align:center; font-size:20px;font-color:##ff0000 !important;">
+                        <strong><span t-field="o.company_id.name"/><t t-if="o.state in ['draft','sent']">&#160;&#160;QUOTATION</t><t t-if="o.state in ['sale','done']">&#160;&#160;ORDER</t></strong>
+                    </div>
+                </div>
+            </div>
+            <div class="article o_report_layout_standard" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout" />
+                <t t-raw="0" />
+            </div>
+            <div t-attf-class="footer o_standard_footer o_env.user.company_id_#{env.user.company_id.id}_layout">
+                <div class="row">
+                    <div class="col-4 text-left">
+                        <div t-if="report_type == 'pdf'">
+                            <span t-field="o.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /> 
+                        </div>
+                    </div>
+                    <div class="col-4 text-center">
+                        <div t-if="report_type == 'pdf'">
+                            Page: <span class="page"/> / <span class="topage"/>
+                        </div>
+                    </div>
+                    <div class="col-4 text-right">
+                        <div t-if="report_type == 'pdf'">
+                            <span t-field="o.company_id.website"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>
+

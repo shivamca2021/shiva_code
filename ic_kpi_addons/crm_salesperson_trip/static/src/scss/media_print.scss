@@ -1,0 +1,10 @@
+@media print {
+    .o_map_right_sidebar {
+        background-color: white;
+    }
+    html, body .o_google_map_container {
+        * {
+            overflow: visible !important;
+        }
+    }
+}

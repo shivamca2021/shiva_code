@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_dashboard_report_tree" model="ir.ui.view">
+         <field name="name">dashboard.report.tree</field>
+         <field name="model">dashboard.report</field>
+         <field name="arch" type="xml">
+             <tree string="Dashboard Analysis" sample="1" create="false" class="status_dashboard" >
+                 <field name="opportunity_id" decoration-success="current_state=='opportunity'"/>
+                 <field name="opportunity_date"/>
+                 <field name="qo_days" decoration-success="current_state=='quote'"/>
+                 <field name="quote_date" />
+                 <field name="so_days" decoration-success="current_state=='sale'"/>
+<!--                 <field name="order_date" />-->
+                 <field name="mo_days" decoration-success="current_state=='manufacture'"/>
+                 <field name="mo_start_date"/>
+                 <field name="po_days" decoration-success="current_state=='purchase'"/>
+                 <field name="po_date"/>
+                 <field name="shipment_days" decoration-success="current_state=='shipping'"/>
+                 <field name="shipping_date" />
+                 <field name="shipping_status" widget="badge" decoration-success="shipping_status == 'done'" decoration-info="shipping_status not in ('done', 'cancel')"/>
+                 <field name="wo_days" decoration-success="current_state=='work-order'"/>
+                 <field name="wo_date"/>
+                 <field name="wo_end_days" decoration-success="current_state=='work-order-end'"/>
+                 <field name="picking_days" decoration-success="current_state=='delivery'"/>
+                 <field name="picking_date" />
+                 <field name="picking_status" widget="badge" decoration-success="picking_status == 'done'" decoration-info="picking_status not in ('done', 'cancel')"/>
+                 <field name="installment_days" decoration-success="current_state=='installment'"/>
+                 <field name="current_state" invisible="1"/>
+<!--                 <field name="installation_date"/>-->
+             </tree>
+         </field>
+    </record>
+
+    <record id="view_dashboard_report_search" model="ir.ui.view">
+        <field name="name">dashboard.report.search</field>
+        <field name="model">dashboard.report</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales Order">
+                <filter string="Opportunity Date" name="opportunity_date" date="opportunity_date"/>
+                <separator/>
+                <filter string="Sale Quote Date" name="quote_date" date="quote_date"/>
+                <separator/>
+                <filter string="Sale Order Date" name="order_date" date="order_date"/>
+                <separator/>
+                <filter string="Purchase order Date" name="po_date" date="po_date"/>
+                <separator/>
+                <filter string="Manufacture Date" name="mo_date" date="mo_date"/>
+                <separator/>
+                <filter string="Manufacture Start Date" name="mo_start_date" date="mo_start_date"/>
+                <separator/>
+                <filter string="Workorder Date" name="wo_date" date="wo_date"/>
+                <separator/>
+                <filter string="Delivery Date" name="picking_date" date="picking_date"/>
+                <separator/>
+                <filter string="Invoice Date" name="invoice_date" date="invoice_date"/>
+                <separator/>
+                <field name="so_name" string="Sale Order" filter_domain="[('so_name', 'ilike', self)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Sale Order Date" name="order_month" domain="[]"
+                            context="{'group_by': 'order_date'}"/>
+                    <filter string="Invoice Date" name="invoice_month" domain="[]"
+                            context="{'group_by': 'invoice_date'}"/>
+                    <filter string="Opportunity Date" name="opportunity_date_month" domain="[]"
+                            context="{'group_by': 'opportunity_date'}"/>
+                    <filter string="Sale Quote Date" name="quote_date_month" domain="[]"
+                            context="{'group_by': 'quote_date'}"/>
+                    <filter string="Purchase order Date" name="po_date_month" domain="[]"
+                            context="{'group_by': 'po_date'}"/>
+                    <filter string="Manufacture Date" name="mo_date_month" domain="[]"
+                            context="{'group_by': 'mo_date'}"/>
+                    <filter string="Manufacture Start Date" name="mo_start_date_month" domain="[]"
+                            context="{'group_by': 'mo_start_date'}"/>
+                    <filter string="Workorder Date" name="wo_date_month" domain="[]" context="{'group_by': 'wo_date'}"/>
+                    <filter string="Delivery Date" name="picking_date_month" domain="[]"
+                            context="{'group_by': 'picking_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_dashboard_report_kanban" model="ir.ui.view">
+         <field name="name">dashboard.report.kanban</field>
+         <field name="model">dashboard.report</field>
+         <field name="arch" type="xml">
+             <kanban class="o_kanban_mobile" sample="1">
+                 <field name="opportunity_name" />
+<!--                 <field name="so_name" />
+                 <field name="quote_date" />-->
+                 <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings mt4">
+                                        <strong class="o_kanban_record_title"><span><t t-esc="record.so_name.value"/></span></strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left text-muted">
+                                        <span><t t-esc="quote_date"/></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                 </templates>
+             </kanban>
+         </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_prism_dashboard_graph">
+        <field name="name">prism.dashboard.graph</field>
+        <field name="model">dashboard.report</field>
+        <field name="arch" type="xml">
+            <graph string="Dashboard" sample="1" type="bar">
+            	
+            	<field name="so_id" type="row"/>
+                <field name="opportunity_name" type="col"/>
+                <field name="diff_so_qo_date_int" type="measure" string="Quote to Sale Order"/>
+                <field name="po_id" type="row"/>
+                <field name="mo_id" type="row"/>
+                <field name="wo_id" type="row"/>
+                <field name="picking_id" type="row"/>
+                <field name="invoice_id" type="row"/>
+                
+                
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_dashboard_report" model="ir.actions.act_window">
+        <field name="name">Status Dashboard</field>
+        <field name="res_model">dashboard.report</field>
+        <field name="view_mode">tree,graph</field>
+        <field name="view_id" ref="view_dashboard_report_tree"/>
+        <field name="help">This report performs analysis on your quotations and sales orders. Analysis check your sales revenues and sort it by different group criteria (salesman, partner, product, etc.) Use this report to perform analysis on sales not having invoiced yet. If you want to analyse your turnover, you should use the Invoice Analysis report in the Accounting application.</field>
+    </record>
+
+        <menuitem id="menu_report_prism_dashboard" name="Reporting"  parent="root_prism_dashboard" sequence="1" action="action_dashboard_report"/>
+
+        <record id="prism_chart_dashboard" model="ir.actions.client">
+            <field name="name">Line Chart</field>
+            <field name="tag">prism_chart_dashboard</field>
+        </record>
+
+    <menuitem id="root_prism_dashboard1" name="Status"  sequence="2" parent="root_prism_dashboard" action="prism_chart_dashboard"/>
+</odoo>

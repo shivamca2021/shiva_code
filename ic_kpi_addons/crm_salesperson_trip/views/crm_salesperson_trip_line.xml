@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_crm_salesperson_trip_line_tree" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.line.tree</field>
+        <field name="model">crm.salesperson.trip.line</field>
+        <field name="arch" type="xml">
+            <tree string="Contacts" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="distance" optional="hide"/>
+                <field name="is_visited" readonly="1"/>
+                <field name="trip_datetime" readonly="1"/>
+                <field name="notes" optional="show" readonly="1"/>
+                <field name="state" invisible="1"/>
+                <button name="action_toogle_visit" icon="fa-check-square-o text-success" type="object" string="Visited" states="running"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_crm_salesperson_trip_line_google_map" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.line.google_map</field>
+        <field name="model">crm.salesperson.trip.line</field>
+        <field name="arch" type="xml">
+            <google_map string="Google Map" lat="latitude" lng="longitude" gesture_handling="cooperative" disable_cluster_marker="1" js_class="google_map_route_direction" colors="orange:source_data=='lead';green:source_data=='contact';">
+                <field name="id"/>
+                <field name="latitude"/>
+                <field name="longitude"/>
+                <field name="lead_id"/>
+                <field name="trip_id"/>
+                <field name="notes"/>
+                <field name="is_visited"/>
+                <field name="trip_datetime"/>
+                <field name="tobe_visited"/>
+                <field name="name"/>
+                <field name="source_data"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading"><field name="name"/></strong>
+                                <div class="o_kanban_tags_section"/>
+                                <ul>
+                                    <li>
+                                        <field name="notes"/>
+                                    </li>
+                                </ul>
+                                <div class="oe_kanban_partner_links"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </google_map>
+        </field>
+    </record>
+    <record id="view_crm_salesperson_trip_line_form" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.line.form</field>
+        <field name="model">crm.salesperson.trip.line</field>
+        <field name="arch" type="xml">
+            <form string="Trip">
+                <header>
+                    <field name="state" invisible="1"/>
+                    <button name="action_toogle_visit" icon="fa-check-square-o" class="oe_highlight" type="object" string="Visited" states="running"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="source_data"/>
+                            <field name="lead_id" attrs="{'invisible': [('source_data', '=', 'contact')]}" domain="[('customer_latitude', '!=', 0.0), ('customer_longitude', '!=', 0.0)]"/>
+                            <field name="partner_id" attrs="{'invisible': [('source_data', '=', 'lead')]}" domain="[('partner_latitude', '!=', 0.0), ('partner_longitude', '!=', 0.0)]"/>
+                            <field name="tobe_visited"/>
+                            <field name="distance" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="is_visited" readonly="1"/>
+                            <field name="trip_datetime" readonly="1"/>
+                            <field name="notes" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_crm_salesperson_trip_line" model="ir.actions.act_window">
+        <field name="name">Contacts to visit</field>
+        <field name="res_model">crm.salesperson.trip.line</field>
+        <field name="view_mode">google_map,tree,form</field>
+    </record>
+    <record id="action_crm_salesperson_trip_line_google_map" model="ir.actions.act_window">
+        <field name="name">Directions</field>
+        <field name="res_model">crm.salesperson.trip.line</field>
+        <field name="view_mode">google_map,tree,form</field>
+    </record>
+</odoo>

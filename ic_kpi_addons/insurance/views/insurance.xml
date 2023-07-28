@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    	<record id="insurance_form_view" model="ir.ui.view">
+        <field name="name">insurance.details.form</field>
+        <field name="model">insurance.details</field>
+        <field name="arch" type="xml">
+            <form string="Insurance Details">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,expire"/>
+                </header>
+                <sheet>
+                <group>
+                	<group>
+                        <field name="partner_id" invisible="1"/>
+                        <field name="insurance_holder_id" />
+                		<field name="type_of_policy_id" />
+                		<field name="hard_copy_filename" invisible="1"/>
+                		<field name="hard_copy" filename="hard_copy_filename" string="Document"/>
+                	</group>
+                	<group>
+                		<field name="carrier" />
+                		<field name="payment_state" />
+                	</group>
+                </group>
+                
+                <group>
+                    <group string="Carrier Data">
+                    	<field name="carrier_name" />
+                    	<span class="o_form_label o_td_label" name="address_name">
+                            Carrier Address
+                        </span>
+                        <div class="o_address_format">
+                             <field name="carrier_street" placeholder="Street..." class="o_address_street" />
+                             <field name="carrier_street2" placeholder="Street 2..." class="o_address_street" />
+                             <field name="carrier_city" placeholder="City" class="o_address_city" />
+                             <field name="carrier_state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" />
+                             <field name="carrier_zip" placeholder="ZIP" class="o_address_zip" />
+                             <field name="carrier_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                         </div>
+                         <field name="carrier_phone" />
+                         <field name="website" />
+                    </group>
+                    <group string="Broker Data">
+                    	<field name="broker_name" />
+                    	<span class="o_form_label o_td_label" name="address_name">
+                            Broker Address
+                        </span>
+                        <div class="o_address_format">
+                             <field name="broker_street" placeholder="Street..." class="o_address_street" />
+                             <field name="broker_street2" placeholder="Street 2..." class="o_address_street" />
+                             <field name="broker_city" placeholder="City" class="o_address_city" />
+                             <field name="broker_state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" />
+                             <field name="broker_zip" placeholder="ZIP" class="o_address_zip" />
+                             <field name="broker_country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                         </div>
+                         <field name="broker_phone" />
+                         <field name="email" />
+                         <field name="coverage" />
+                         <field name="annual_premium" />
+                         <field name="premium_paid" />
+                         <field name="coverage_date" />
+                         <field name="policy_expire_date" />
+                    </group>
+                </group>
+                
+            </sheet>
+           </form>
+        </field>
+    </record>
+    
+    <record id="insurance_tree" model="ir.ui.view">
+        <field name="name">insurance.details.tree</field>
+        <field name="model">insurance.details</field>
+        <field name="arch" type="xml">
+            <tree string="District" >
+                <field name="type_of_policy_id"/>
+                <field name="carrier_name"/>
+                <field name="broker_name"/>
+                <field name="coverage_date"/>
+                <field name="policy_expire_date"/>
+                <field name="payment_state" />
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <record id="insurance_filter" model="ir.ui.view">
+         <field name="name">insurance.details.select</field>
+         <field name="model">insurance.details</field>
+         <field name="arch" type="xml">
+             <search string="Search Insurance">
+             	<field name="policy_expire_date" />
+             	<filter string="Expire 15 days" name="policy_expire_date_15"
+                        domain="[('policy_expire_date', '&lt;', ((context_today()+datetime.timedelta(days=15)).strftime('%Y-%m-%d')))]"/>
+                <separator/>
+                <filter string="Expire 1 month" name="policy_expire_date_30"
+                        domain="[('policy_expire_date', '&lt;', ((context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d')))]"/>
+                <separator/>
+                <filter string="Expire 2 month" name="policy_expire_date_60"
+                        domain="[('policy_expire_date', '&lt;', ((context_today()+datetime.timedelta(days=60)).strftime('%Y-%m-%d')))]"/>
+                <separator/>
+                <filter string="Expire 3 month" name="policy_expire_date_90"
+                        domain="[('policy_expire_date', '&lt;', ((context_today()+datetime.timedelta(days=90)).strftime('%Y-%m-%d')))]"/>
+             </search>
+        	</field>
+    </record>
+    
+    <record id="insurance_action" model="ir.actions.act_window">
+         <field name="name">Insurance Details</field>
+         <field name="type">ir.actions.act_window</field>
+         <field name="res_model">insurance.details</field>
+         <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="insurance_tree"/>
+         <field name="search_view_id" ref="insurance_filter"/>
+         <field name="context">{'search_default_policy_expire_date_15': 1}</field>
+         <field name="help" type="html">
+           <p class="o_view_nocontent_smiling_face">
+             Add new Insurance Details
+           </p>
+         </field>
+     </record>
+     
+     <menuitem id="contacts.res_partner_menu_config"
+        name="Configuration"
+        parent="contacts.menu_contacts"
+        groups="base.group_system"
+        sequence="4"/>
+
+     <menuitem action="insurance_action"
+     			name="Insurance Details"
+     			id="insurance_menu" 
+     			parent="contacts.menu_contacts"
+     			sequence="3"/>
+     			
+	<record id="view_partner_property_form_inheit" model="ir.ui.view">
+       <field name="name">res.partner.property.form.inherit</field>
+       <field name="model">res.partner</field>
+       <field name="priority">2</field>
+       <field name="inherit_id" ref="base.view_partner_form"/>
+       <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+            	<group string="Insurance Details">
+	                <field name="insurance_id" nolabel="1" context="{'default_insurance_holder_id': active_id}">
+	                	<tree>
+	                		<field name="type_of_policy_id"/>
+			                <field name="carrier_name"/>
+			                <field name="broker_name"/>
+			                <field name="coverage_date"/>
+			                <field name="policy_expire_date"/>
+			                <field name="state"/>
+	                	</tree>
+	                </field>
+                </group>
+            </xpath>
+       </field>
+    </record>
+            
+    </data>
+</odoo>

@@ -1,0 +1,156 @@
+<odoo>
+    <data>
+        <template id="hallmark_purchase_report_template">
+            <t t-call="hallmark.hallmark_external_layout">
+                <div class="page">
+                <div class="oe_structure"/>
+                    <div class="row" style="border: 1px;color: black;font-family:Libre Franklin;font-size:9.6px;">
+                    <div class="col-6">
+                        <strong style="font-size: 15px !important;">Vendor:</strong>
+                    </div>
+                    <div class="col-6">
+                        <strong style="font-size: 15px !important;">Ship To:</strong>
+                    </div>
+
+                    </div>
+                    <div class="row" style="color:black;font-family:Libre Franklin;">
+                            <div class="col-6">
+                                <div t-field="doc.partner_id" style="font-weight:bold"
+                                t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                                <t t-if=" doc.partner_id.street or doc.partner_id.street2 or doc.partner_id.city or doc.partner_id.state_id or doc.partner_id.zip or doc.partner_id.country_id">
+                                    <div t-field="doc.partner_id"
+                                    t-options='{"widget": "contact", "fields": ["address","phone"], "no_marker": True}' />
+                                </t>
+                            </div>
+                            <div class="col-6">
+                                <div t-field="doc.dest_address_id" style="font-weight:bold"
+                                    t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                                <t t-if=" doc.dest_address_id.street or doc.dest_address_id.street2 or doc.dest_address_id.city or doc.dest_address_id.state_id or doc.dest_address_id.zip or doc.dest_address_id.country_id">
+                                    <div t-field="doc.dest_address_id"
+                                        t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                                </t><br/>
+                            </div>
+                    </div>
+
+                    <table class="table table-sm o_main_table" style="font-size: 9.6px !important;font-family:Libre Franklin;margin-bottom: 0rem !important;">
+                        <thead>
+                            <tr>
+                                <th name="th_etd" class="text-left" style="text-transform: capitalize">ETA</th>
+                                <th name="th_vendor" class="text-left" style="text-transform: capitalize">Vendor#</th>
+                                <th name="th_phone" class="text-left" style="text-transform: capitalize">Billing Phone</th>
+
+                            </tr>
+                        </thead>
+                        <tbody style="color:black !important;">
+                            <td class="text-left"><span t-field="doc.date_planned"/></td>
+                            <td class="text-left"><span t-field="doc.partner_ref"/></td>
+                            <td class="text-left"><span t-field="doc.partner_id.phone"/></td>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-sm o_main_table" style="font-size: 9.6px !important;font-family:Libre Franklin">
+                        <thead>
+                            <tr>
+                                <th style="text-transform: capitalize" name="th_sr" class="text-left">Sr No.</th>
+                                <th style="width:15% !important;text-transform: capitalize" name="th_item" class="text-left">Item</th>
+                                <th style="width:15% !important;text-transform: capitalize" name="th_barcode" class="text-left">Barcode</th>
+                                <th name="th_quantity" class="text-left" style="text-transform: capitalize">Quantity</th>
+                                <th name="th_description" colspan="4" class="text-left" style="text-transform: capitalize">Description</th>
+                                <th name="th_options" class="text-left" style="text-transform: capitalize">Options</th>
+                                <th name="th_rate" class="text-left" style="text-transform: capitalize">Rate</th>
+                                <th name="th_amount" class="text-left" style="text-transform: capitalize">Amount</th>
+                            </tr>
+                        </thead>
+
+                         <tbody style="color:black !important;">
+                            <t t-set="current_subtotal" t-value="0"/>
+                             <t t-set="i" t-value="1"/>
+                            <t t-foreach="doc.order_line" t-as="line">
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                    <t t-if="not line.display_type">
+                                        <td name="sequence" class="text-center">
+                                               <span t-field="line.sequence2"/>
+                                        </td>
+                                        <t t-set="i" t-value="i+1"/>
+                                        <td name="td_item" class="text-center">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td name="td_barcode" class="text-center">
+                                            <span t-field="line.product_id.barcode"/>
+                                        </td>
+                                        <td name="td_quantity" class="text-center">
+                                            <span t-field="line.product_qty"/>
+                                        </td>
+                                        <td name="th_description" colspan="4" class="text-left">
+                                             <span t-field="line.product_id.description_sale"/>
+                                        </td>
+                                        <td name="th_sf" class="text-left">
+
+                                        </td>
+                                        <td name="th_rate" class="text-right">
+                                             <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td name="th_amount" class="text-right">
+                                             <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_section'">
+                                        <td name="td_section_line" colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <t t-set="current_section" t-value="line"/>
+                                        <t t-set="current_subtotal" t-value="0"/>
+                                    </t>
+                                    <t t-if="line.display_type == 'line_note'">
+                                        <td name="td_note_line" colspan="99">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+
+                            </t>
+                        </tbody>
+                    </table>
+                    <div id="total" class="row justify-content-end">
+                        <div class="col-4">
+                            <table class="table table-sm">
+                        <tr class="border-black">
+                            <td name="td_subtotal_label" style="background-color:white !important;border-right: 1px solid black !important"><strong>Total</strong></td>
+                            <td class="text-right" style="background-color: white !important;    color: black !important;">
+                                <span t-field="doc.amount_total"
+                                    />
+                            </td>
+                        </tr>
+                    </table>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="position:relative; page-break-inside: avoid;">
+                        <div class="col-5" style="position:absolute;bottom:-600px;">
+                            <span style="margin-left:-70px;">
+                                   <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name,600, 100)"
+                                        style="width:350px;height:45px;"/>
+                            </span>
+                    </div>
+                        <div class="col-3" style="text-align:center;position:absolute;bottom:-620px;">
+                            <span t-field="doc.name"/>
+                    </div>
+                    </div>
+            </t>
+        </template>
+
+        <template id="hallmark_report_purchase">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="hallmark.hallmark_purchase_report_template" t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

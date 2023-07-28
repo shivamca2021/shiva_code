@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.shipping.information</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='reminder']" position="after">
+                <field name="po_customer_ref"/>
+                <field name="purchase_container_number"/>
+                <field name="cust_po"/>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="etd"/>
+                <field name="etp"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="purchase_order_tree_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit.shipping.information</field>
+        <field name="model">purchase.order</field>
+        <field name="priority">4</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='date_approve']" position="after">
+                <field name="date_planned" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="purchase_order_kpis_tree_inheri" model="ir.ui.view">
+        <field name="name">purchase.order.inherit.purchase.order.tree.shipping</field>
+        <field name="model">purchase.order</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='date_order']" position="after">
+                <field name="date_planned" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_purchase_order_line_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.line.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Added new fields in Purchase order line Tree After the price_subtotal  -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                <field name="kit_available" optional="hide"/>
+                <button name="add_button_bom_kit_component" string="Add" class="oe_highlight" type="object" attrs="{'invisible': [('kit_available', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

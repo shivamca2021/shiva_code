@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+        id="dms.main_menu_dms"
+        name="Documents"
+        web_icon="web_icon_change_dms,static/description/docs.png"
+        groups="dms.group_dms_user"
+    />
+</odoo>

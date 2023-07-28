@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="M Email" id="mass_mailing.mass_mailing_menu_root" sequence="60"
+              web_icon="web_icon_change_m_email,static/description/M_Email.png"/>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="prism_dashboard_security_groups">
+            <field name="name">Prism Dashboard</field>
+        </record>
+
+        <record id="group_prism_dashboard" model="res.groups">
+            <field name="name">Show Full Prism Dashboard Features</field>
+            <field name="category_id" ref="prism_dashboard.prism_dashboard_security_groups"/>
+        </record>
+    </data>
+</odoo>

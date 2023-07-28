@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_task_stage_model,project_task_stage,model_project_task_stage,project.group_project_manager,1,1,1,1
+access_project_task_stage_group_project_manager_cki,access.project.task.stage group_project_manager_cki,model_project_task_stage,cki_project_custom.group_project_manager_cki,1,1,1,0
+access_project_task_stage_group_project_user,access.project.task.stage group_project_user,model_project_task_stage,project.group_project_user,1,0,0,0
+access_project_task_stage_group_project_viewer,access.project.task.stage group_project_viewer,model_project_task_stage,cki_project_custom.group_project_viewer,1,0,0,0

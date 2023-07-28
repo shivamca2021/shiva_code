@@ -1,0 +1,147 @@
+.customer-infromation {
+  max-width: 730px;
+  margin: 0 auto;
+  width: 100%;
+  padding:30px 20px;
+  background-color: #fff;
+  box-shadow: 0px 0px 5px rgba(0,0,0,.75);
+  border-radius: 15px;
+}
+.form-group {
+  label {
+    font-size: 18px;
+    color: $main-text-color;
+    padding-bottom: 10px;
+  }
+  select,
+  input {
+    line-height: 35px !important;
+    border-radius: 0px !important;
+    height: 49px !important;
+  }
+}
+.btn {
+  background-color: $main-text-color;
+  color: #fff !important;
+  border-color: $main-text-color;
+}
+
+/*====================================================
+8. Payment Information.
+====================================================*/
+.payment-information {
+  .custom-radio {
+    width: auto;
+    display: inline-block;
+    margin-bottom: 10px;
+    label {
+      font-size: 14px;
+      color: $main-text-color;
+    }
+  }
+  .list-of-card {
+    min-height: 250px;
+    label {
+      color: #000;
+    }
+  }
+}
+
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    border-color: $main-text-color;
+    background-color: $main-text-color;
+}
+
+
+
+/*====================================================
+8. User Information.
+====================================================*/
+
+.user-information {
+  max-width: 800px;
+  .user_info_div {
+    margin-bottom: 15px;
+    .form-group {
+      max-width: 26%;
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0 10px;
+    }
+    .add-new {
+      max-width: 10%;
+      display: inline-block;
+      vertical-align: middle;
+      a {
+        background-color: $main-text-color;
+        color: #fff;
+        /*font-weight: 300;*/
+        font-size: 12px;
+        width: 18px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 20px;
+      }
+    }
+  }
+}
+
+/*====================================================
+9. Import Data
+====================================================*/
+
+.import-data {
+  .upload-file-box {
+    position: relative;
+    span {
+      background-color: $main-yellow-color;
+      color: #fff;
+      font-size: 22px;
+      text-align: center;
+      width: 100%;
+      display: block;
+      font-weight: 900;
+      padding: 8px 0;
+    }
+    input {
+      position: absolute;
+      top:0px;
+      left: 0px;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+}
+
+
+
+.what-included {
+  h3 {
+    color: $main-text-color;
+    font-weight: 900;
+  }
+
+  h4 {
+    color: $main-yellow-color;
+  }
+}
+.btn-primary:hover, .btn-secondary:hover {
+    color: #fff;
+    background-color: $main-yellow-color;
+    border-color: $main-yellow-color;
+}
+.error_input{
+    border-color:red !important;
+}
+.error, .syntax_error, .phone_syntax_error, .zip_syntax_error,
+.email_exit_error, .user_email_exit_error{
+    font-size: 0.9em!important;
+    color: chocolate;
+}
+
+.custom_checkbox {
+    width: 22px;
+    height: 22px !important;
+}

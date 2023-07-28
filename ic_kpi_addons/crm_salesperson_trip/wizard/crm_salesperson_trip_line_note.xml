@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_crm_salesperson_trip_line_note_form" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.line.note.form</field>
+        <field name="model">crm.salesperson.trip.line.note</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="trip_line_id" invisible="1"/>
+                    <field name="note"/>
+                    <field name="trip_datetime" required="1"/>
+                </group>
+                <footer>
+                    <button string="Save" name="action_set_note" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_salesperson_trip_note" model="ir.actions.act_window">
+        <field name="name">Trip notes</field>
+        <field name="res_model">crm.salesperson.trip.line.note</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

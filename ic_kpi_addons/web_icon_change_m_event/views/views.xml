@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="M-Events"
+              id="event.event_main_menu"
+              sequence="65"
+              groups="event.group_event_user"
+              web_icon="web_icon_change_m_event,static/description/M-Events.png"/>
+</odoo>

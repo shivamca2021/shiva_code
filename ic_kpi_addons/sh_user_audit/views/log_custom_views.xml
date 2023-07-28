@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--        Log tree view-->
+    <record id="log_customs_tree" model="ir.ui.view">
+        <field name="name">log.custom.tree</field>
+        <field name="model">log.custom</field>
+        <field name="arch" type="xml">
+            <tree string="log audit tree">
+
+                <field name="name"/>
+                <field name="model_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--  Field custom tree view-->
+    <record id="tree_view_custom" model="ir.ui.view">
+        <field name="name">model.fields.tree</field>
+        <field name="model">ir.model.fields</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="field_description"/>
+                <field name="model_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--        Log form view-->
+    <record id="log_custom_form" model="ir.ui.view">
+        <field name="name">log.custom.form</field>
+        <field name="model">log.custom</field>
+        <field name="arch" type="xml">
+            <form string="log audit form">
+                <sheet>
+                    <h1>
+                        <div class="row">
+                            <div >
+
+                                <field name="module_icon" widget="image" style="height:100px;width:100px"/>
+                            </div>
+                            <div>
+
+                                <span style="text-align:center;padding-left:150px;font-size:20px"><field name="heading" readonly="1"/></span>
+                            </div>
+                        </div>
+
+
+                    </h1>
+                    <group>
+                        <group>
+                             <field name="name" />
+                            <field name="audit_id" widget="selection" invisible="1"/>
+                            <field name="model_ids" widget="many2many_tags" />
+                        </group>
+                        <group>
+                            <field name="model_id" invisible="1"/>
+                        </group>
+                            <field name="log_line_ids" >
+                                <tree>
+<!--                                    <field name="partner_id" required="1" invisible="1"/>-->
+                                    <field name="partner_ids" widget="many2many_tags" required="1"/>
+                                    <field name="notification_type" />
+                                    <field name="sms_template" attrs="{'invisible': [('notification_type','=','mail')]}"/>
+                                    <field name="mail_template" attrs="{'invisible': [('notification_type','=','sms')]}"/>
+                                    <field name="log_id" invisible="1"/>
+                                </tree>
+                            </field>
+                    </group>
+                    <group>
+                        <label  for="field_ids" style="font-size:15px" string="Track your Activity"/>
+                    </group>
+                        <field name="field_ids" context="{'tree_view_ref' : 'sh_user_audit.tree_view_custom'}">
+                            <tree create="0">
+                                <field name="field_description"/>
+                                <field name="model_id"/>
+                            </tree>
+                        </field>
+                </sheet>
+                <footer>
+              <button string="Set" name="set_alert" type="object"  class="btn-primary"/> or
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+            </footer>
+            </form>
+        </field>
+    </record>
+
+    <!--        Log line form view-->
+    <record id="log_line_form" model="ir.ui.view">
+        <field name="name">log.line.form</field>
+        <field name="model">log.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <group>
+                    <group>
+                     <field name="partner_ids" widget="many2many_tags" required="1" />
+                     <field name="notification_type"  />
+                        </group>
+                </group>
+                <div style="padding-left:150px">
+                  <span  attrs="{'invisible': [('notification_type','!=','sms')]}" class="text-muted">${module} - Model</span>
+                     <span style="" attrs="{'invisible': [('notification_type','!=','mail')]}" class="text-muted">${user} - User who done changes <br/>${module} - Model<br/>${ref} - Reference<br/> ${table} - Shows old value and updated value of fields</span>
+                </div>
+                <group>
+
+                    <field name="sms_template" attrs="{'invisible': [('notification_type','!=','sms')]}"/>
+                    <field name="body_html" class="oe_read_only" widget="html"
+                                    options="{'cssReadonly': 'mass_mailing.iframe_css_assets_readonly'}"/>
+                    <field name="mail_template"  class="o_mail_body oe_edit_only" widget="mass_mailing_html"
+                           options="{
+                                        'snippets': 'mass_mailing.email_designer_snippets',
+                                        'cssEdit': 'mass_mailing.iframe_css_assets_edit',
+                                        'inline-field': 'body_html'
+                                }" attrs="{'invisible': [('notification_type','!=','mail')]}"/>
+                    <field name="log_id" invisible="1"/>
+                </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+     <!--        Log custom search view-->
+    <record id="log_audit_custom_search" model="ir.ui.view">
+        <field name="name">log.custom.new.search</field>
+        <field name="model">log.custom</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="model_id"/>
+                <field name="field_ids"/>
+                <group string="Group By">
+                    <filter name="group_by_model" string="Model"
+                            context="{'group_by': 'model_id'}"/>
+                    <filter name="group_by_field" string="Field"
+                            context="{'group_by': 'field_ids'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!--        action for log-->
+    <record model="ir.actions.act_window" id="action_log_custom">
+        <field name="name">Audit Configuration</field>
+        <field name="res_model">log.custom</field>
+        <field name="view_mode">tree,form,search</field>
+    </record>
+    <menuitem id="menu_log_custom" parent="sh_user_detail" name="Audit Configuration"
+              action="action_log_custom" groups="access_log_config_groups"/>
+</odoo>

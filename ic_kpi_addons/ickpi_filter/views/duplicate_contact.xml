@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="model_res_partner_action_duplicate" model="ir.actions.server">
+            <field name="name">Duplicate</field>
+            <field name="model_id" ref="ickpi_filter.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_duplicate_contacts()</field>
+        </record>
+
+        <record id="model_res_partner_action_contacts" model="ir.actions.server">
+            <field name="name">Contacts</field>
+            <field name="model_id" ref="account.model_res_partner"/>
+            <field name="state">code</field>
+            <field name="code">action = model.action_server_contacts()</field>
+        </record>
+
+        <record id="ickpi_duplicate_view_partner_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree.ickpi.duplicate</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Contacts" sample="1" multi_edit="1" create="false" edit="false">
+                    <field name="display_name" string="Name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone" class="o_force_ltr" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="user_id" optional="show" widget="many2one_avatar_user" domain="[('share', '=', False)]"/>
+                    <field name="city" optional="show"/>
+                    <field name="state_id" optional="hide" readonly="1"/>
+                    <field name="country_id" optional="show" readonly="1"/>
+                    <field name="vat" optional="hide" readonly="1"/>
+                    <field name="category_id" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="company_id" groups="base.group_multi_company" readonly="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1" readonly="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="write_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_duplicates_contacts" model="ir.actions.act_window">
+        <field name="name">Duplicate Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="view_ids" eval="[(5,0,0),
+                          (0,0,{'view_mode':'tree', 'view_id': ref('ickpi_filter.ickpi_duplicate_view_partner_tree')}),
+                          (0,0,{'view_mode':'form'})]"/>
+        <field name="context">{'default_is_company': True,'duplicate': True}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a contact in your address book
+          </p><p>
+            prism helps you to easily track all activities related to a customer.
+          </p>
+        </field>
+    </record>
+
+         <menuitem id="contacts.res_partner_menu_contacts"
+        name="Contacts"
+        action="contacts.action_contacts"
+        parent="contacts.menu_contacts"
+        sequence="1"/>
+
+        <menuitem id="contacts.res_partner_menu_config"
+        name="Configuration"
+        parent="contacts.menu_contacts"
+        groups="base.group_system"
+        sequence="4"/>
+        <menuitem id="menu_duplicate_contacts" name="Duplicate Contact" action="ickpi_filter.model_res_partner_action_duplicate" parent="contacts.menu_contacts" sequence="2"/>
+    </data>
+</odoo>

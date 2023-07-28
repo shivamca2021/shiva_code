@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_frontend_custom" inherit_id="website.assets_frontend" name="Custom Frontend">
+    	<xpath expr="//link[last()]" position="after">
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/css/font_style.css"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/variable.scss"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/body.scss"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/header.scss"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/responsive.scss"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/footer.scss"/>
+        	<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/navbar.scss"/>
+			<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/style.scss"/>
+			<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/form_css.scss"/>
+        	<script type="text/javascript" src="/adapt_website/static/src/js/main.js"/>
+        </xpath>
+	</template>
+	<template id="assets_backend" name="Backend Theme" inherit_id="web.assets_backend">
+		<xpath expr=".">
+			<link rel="stylesheet" type="text/scss" href="/adapt_website/static/src/scss/variable.scss"/>
+			<link rel="stylesheet" href="/adapt_website/static/src/scss/backend.scss"/>
+		</xpath>
+	</template>
+	<record id="ickpi_prism_theme.assets_backend" model="ir.ui.view">
+        <field name="active">False</field>
+    </record>
+	<record id="ickpi_prism_theme.assets_frontend" model="ir.ui.view">
+        <field name="active">False</field>
+    </record>
+</odoo>

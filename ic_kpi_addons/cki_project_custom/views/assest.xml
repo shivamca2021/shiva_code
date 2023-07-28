@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_backend" inherit_id="web.assets_backend" name="Kanban Backend Assets">
+	    <xpath expr="//link[last()]" position="after">
+	        <script type="text/javascript" src="/cki_project_custom/static/src/js/kanaban_header.js"></script>
+	        <script type="text/javascript" src="/cki_project_custom/static/src/js/hide_action_buttons.js"></script>
+	    </xpath>
+	</template>
+</odoo>

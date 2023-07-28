@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="form_project_task_type_inherit_view" model="ir.ui.view">
+        <field name="name">project.task.type.form.inherit</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='mail_template_id']" position="after">
+                <field name="buffer_days"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="form_project_task_inherit_view" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra_info']" position="after">
+                <page name="stages_schedule" string="Stages Schedule">
+                    <field name="stage_schedule_ids" string="Stage Name" editable="top">
+                        <tree editable="bottom">
+                            <field name="stage_id"/>
+<!--                            <field name="task_id"/>-->
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

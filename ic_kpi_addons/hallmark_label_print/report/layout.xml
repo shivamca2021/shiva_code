@@ -1,0 +1,111 @@
+<odoo>
+    <data>
+        <record id="action_hallmark_delivery_zpl_barcode" model="ir.actions.report">
+            <field name="name">Hallmark 2.5*8 label (single)</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">hallmark_label_print.hallmark_zpl_barcode_template_view_pdf</field>
+            <field name="report_file">hallmark_label_print.hallmark_zpl_barcode_template_view_pdf</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="action_hallmark_delivery_product_zpl_barcode" model="ir.actions.report">
+            <field name="name">Hallmark 2.5*4 label (single)</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-text</field>
+            <field name="report_name">hallmark_label_print.hallmark_product_barcode_zpl_print_view_pdf</field>
+            <field name="report_file">hallmark_label_print.hallmark_product_barcode_zpl_print_view_pdf</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="paperformat_delivery_label_barcod" model="report.paperformat">
+            <field name="name">A4 Formate for Delivery barcode</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">280</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">12.70</field>
+            <field name="margin_bottom">12.70</field>
+            <field name="margin_left">3.35</field>
+            <field name="margin_right">6.35</field>
+            <field name="header_line" eval="False"/>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="action_hallmark_delivery_label_barcode"
+                model="stock.picking"
+                string="Hallmark 2.5*8 label (laser)"
+                report_type="qweb-pdf"
+                name="hallmark_label_print.hallmark_label_barcode_template_view_pdf"
+                file="hallmark_label_print.hallmark_label_barcode_template_view_pdf"
+                paperformat="hallmark_label_print.paperformat_delivery_label_barcod"/>
+
+        <record id="paperformat_product_label_barcod" model="report.paperformat">
+            <field name="name">A4 Formate for Product barcode</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">286</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">12.70</field>
+            <field name="margin_bottom">12.70</field>
+            <field name="margin_left">3.5</field>
+            <field name="margin_right">3.5</field>
+            <field name="header_line" eval="False"/>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="paperformat_delivery_label_1_x_5" model="report.paperformat">
+            <field name="name">A4 Formate for Product barcode label 1 * 5</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">286</field>
+            <field name="page_width">216</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">16.5</field>
+            <field name="margin_bottom">7.20</field>
+            <field name="margin_left">41.3</field>
+            <field name="margin_right">41.3</field>
+            <field name="header_line" eval="False"/>
+            <field name="dpi">90</field>
+        </record>
+
+        <report id="action_hallmark_delivery_label_barcode_1_x_5"
+                model="stock.picking"
+                string="Hallmark 1*5 label (laser)"
+                report_type="qweb-pdf"
+                name="hallmark_label_print.hallmark_delivery_label_barcode_1_x_5_template_view_pdf"
+                file="hallmark_label_print.hallmark_delivery_label_barcode_1_x_5_template_view_pdf"
+                paperformat="hallmark_label_print.paperformat_delivery_label_1_x_5"/>
+
+
+        <report id="action_hallmark_delivery_product_label_barcode"
+                model="stock.picking"
+                string="Hallmark 2.5*4 label (laser)"
+                report_type="qweb-pdf"
+                name="hallmark_label_print.hallmark_product_barcode_laser_print_view_pdf"
+                file="hallmark_label_print.hallmark_product_barcode_laser_print_view_pdf"
+                paperformat="hallmark_label_print.paperformat_product_label_barcod"/>
+
+        <report id="stock.action_label_transfer_template_pdf"
+                string="Barcodes (PDF)"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                file="stock.label_transfer_template_view_pdf"
+                name="stock.label_transfer_template_view_pdf"
+                menu="False"/>
+
+        <report id="stock.action_label_transfer_template_zpl"
+                string="Barcodes (ZPL)"
+                model="stock.picking"
+                report_type="qweb-pdf"
+                file="stock.label_transfer_template_view_zpl"
+                name="stock.label_transfer_template_view_zpl"
+                menu="False"/>
+        
+
+    </data>
+</odoo>

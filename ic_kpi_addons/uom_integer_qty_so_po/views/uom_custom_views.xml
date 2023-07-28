@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_uom_uom_form_inherit_is_integer" model="ir.ui.view">
+        <field name="name">uom.uom.form.inherit</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/group/group[@name='active_rounding']/field[@name='rounding']" position="after">
+                <field name="is_integer_qty"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_sale_order_line_inherit_digit" model="ir.ui.view">
+        <field name="name">sale.order.line.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                    <t t-if="product_uom.is_integer_qty">
+                        <attribute name="digits">[12,0]</attribute>
+                    </t>
+                </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_line_inherit_digit" model="ir.ui.view">
+        <field name="name">purchase.order.line.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
+                    <t t-if="product_uom.is_integer_qty">
+                        <attribute name="digits">[12,0]</attribute>
+                    </t>
+                </xpath>
+        </field>
+    </record>
+
+</odoo>

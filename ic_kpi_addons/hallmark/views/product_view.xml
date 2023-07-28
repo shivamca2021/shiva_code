@@ -1,0 +1,16 @@
+<odoo>
+    <record model="ir.ui.view" id="product_hallmark_inherit">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="tax_schedule"/>
+                <field name="cost_estimate_type"/>
+                <field name="item_defined_cost"/>
+                <field name="is_label_size"/>
+                <field name="sale_price_wolf"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

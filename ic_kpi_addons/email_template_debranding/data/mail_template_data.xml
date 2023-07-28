@@ -1,0 +1,661 @@
+<odoo>
+    <data>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'crm_iap_lead'),
+                       ('name', '=', 'lead_generation_no_credits')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="crm_iap_lead.lead_generation_no_credits" model="mail.template">
+            <field name="name">IAP Lead Generation Notification</field>
+            <field name="email_from"></field>
+            <field name="email_to"></field>
+            <field name="subject">IAP Lead Generation Notification</field>
+            <field name="model_id" ref="iap.model_iap_account"/>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p>Dear,</p>
+    <p>There are no more credits on your IAP Lead Generation account.<br/>
+    You can charge your IAP Lead Generation account in the settings of the CRM app.<br/></p>
+    <p>Best regards,</p>
+    <p>Prism</p>
+</div></field>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'crm_iap_lead'),
+                       ('name', '=', 'lead_generation_no_credits')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'gamification'),
+                       ('name', '=', 'email_template_badge_received')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="gamification.email_template_badge_received" model="mail.template">
+            <field name="name">Received Badge</field>
+            <field name="subject">New badge ${object.badge_id.name} granted</field>
+            <field name="model_id" ref="gamification.model_gamification_badge_user"/>
+            <field name="partner_to">${object.user_id.partner_id.id}</field>
+            <field name="body_html" type="xml">
+<table border="0" cellpadding="0" style="padding-top: 16px; background-color: #F1F1F1; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" width="590" cellpadding="0" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;" summary="o_mail_notification">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 10px;">Your Badge</span><br/>
+                    <span style="font-size: 20px; font-weight: bold;">
+                        ${object.badge_id.name}
+                    </span>
+                </td><td valign="middle" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="top" style="font-size: 14px;">
+                    <div>
+                        Congratulations ${object.user_id.name} !<br/>
+                        You just received badge <strong>${object.badge_id.name}</strong> !<br/>
+                        % if object.badge_id.description
+                            <table cellspacing="0" cellpadding="0" border="0" style="width: 560px; margin-top: 5px;">
+                            <tbody><tr>
+                                <td valign="center">
+                                    <img src="/web/image/gamification.badge/${object.badge_id.id}/image_128/80x80" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${user.company_id.name}"/>
+                                </td>
+                                <td valign="center">
+                                    <cite>${object.badge_id.description}</cite>
+                                </td>
+                            </tr></tbody>
+                            </table>
+                        % endif
+                        <br/>
+                        % if object.sender_id
+                            This badge was granted by <strong>${object.sender_id.name}</strong>.
+                        % endif
+                        <br/>
+                        % if object.comment
+                            ${object.comment}
+                        % endif
+                        <br/><br/>
+                        Thank you,
+                        % if object.sender_id.signature:
+                            <br />
+                            ${object.sender_id.signature | safe}
+                        % endif
+                    </div>
+                </td></tr>
+                <tr><td style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" style="min-width: 590px; background-color: white; font-size: 12px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle" align="left">
+                    ${object.user_id.company_id.name}
+                </td></tr>
+                <tr><td valign="middle" align="left" style="opacity: 0.7;">
+                    ${object.user_id.company_id.phone}
+                    % if object.user_id.company_id.email
+                        | <a href="'mailto:%s' % ${object.user_id.company_id.email}" style="text-decoration:none; color: #454748;">${object.user_id.company_id.email}</a>
+                    % endif
+                    % if object.user_id.company_id.website
+                        | <a href="'%s' % ${object.user_id.company_id.website}" style="text-decoration:none; color: #454748;">
+                        ${object.user_id.company_id.website}
+                    </a>
+                    % endif
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+<!-- POWERED BY -->
+<tr><td align="center" style="min-width: 590px;">
+    <table width="590" border="0" cellpadding="0" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+      <tr><td style="text-align: center; font-size: 14px;">
+        Powered by <a target="_blank" href="#" style="color: #875A7B;">Prism</a>
+      </td></tr>
+    </table>
+</td></tr>
+</table></field>
+            <field name="lang">${object.user_id.lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'gamification'),
+                       ('name', '=', 'email_template_badge_received')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <record id="website_crm_partner_assign.email_template_lead_forward_mail" model="mail.template">
+            <field name="name">Lead Forward: Send to partner</field>
+            <field name="model_id" ref="website_crm_partner_assign.model_crm_lead_forward_to_partner" />
+            <field name="subject">Fwd: Lead: ${ctx['partner_id'].name}</field>
+            <field name="email_from">${user.email_formatted | safe}</field>
+            <field name="email_to">${ctx['partner_id'].email_formatted |safe}</field>
+            <field name="body_html" type="html">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 16px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 10px;">Your leads</span><br/>
+                </td><td valign="middle" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr>
+                    <td valign="top" style="font-size: 13px;">
+                        <div>
+                            Hello,<br/>
+                            We have been contacted by those prospects that are in your region. Thus, the following leads have been assigned to ${ctx['partner_id'].name}:<br/>
+                            <ol>
+                                % for lead in ctx['partner_leads']:
+                                    <li><a href="${lead.lead_link}">${lead.lead_id.name or 'Subject Undefined'}</a>, ${lead.lead_id.partner_name or lead.lead_id.contact_name or 'Contact Name Undefined'}, ${lead.lead_id.country_id and lead.lead_id.country_id.name or 'Country Undefined' }, ${lead.lead_id.email_from or 'Email Undefined'}, ${lead.lead_id.phone or ''} </li><br/>
+                                % endfor
+                            </ol>
+                            % if ctx.get('partner_in_portal'):
+                                Please connect to your <a href="${object.get_portal_url()}">Partner Portal</a> to get details. On each lead are two buttons on the top left corner that you should press after having contacted the lead: "I'm interested" &amp; "I'm not interested".<br/>
+                            % else:
+                                You do not have yet a portal access to our database. Please contact
+                                ${ctx['partner_id'].user_id and ctx['partner_id'].user_id.email and 'your account manager %s (%s)' % (ctx['partner_id'].user_id.name,ctx['partner_id'].user_id.email) or 'us'}.<br/>
+                            % endif
+                            The lead will be sent to another partner if you do not contact the lead before 20 days.<br/><br/>
+                            Thank you,<br/>
+                            ${ctx['partner_id'].user_id and ctx['partner_id'].user_id.signature | safe or ''}
+                            <br/>
+                            % if not ctx['partner_id'].user_id:
+                                PS: It looks like you do not have an account manager assigned to you, please contact us.
+                            % endif
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center;">
+                        <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;">
+                <tr><td valign="middle" align="left">
+                    ${user.company_id.name}
+                </td></tr>
+                <tr><td valign="middle" align="left" style="opacity: 0.7;">
+                    ${user.company_id.phone}
+                    % if user.company_id.phone and (user.company_id.email or user.company_id.website)
+                    |
+                    % endif
+                    % if user.company_id.email
+                    <a href="'mailto:%s' % ${user.company_id.email}" style="text-decoration:none; color: #454748;">${user.company_id.email}</a>
+                    % endif
+                    % if user.company_id.email and user.company_id.website
+                    |
+                    % endif
+                    % if user.company_id.website
+                    <a href="'%s' % ${user.company_id.website}" style="text-decoration:none; color: #454748;">
+                    ${user.company_id.website}
+                    </a>
+                    % endif
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+<!-- POWERED BY -->
+<tr><td align="center" style="min-width: 590px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="590" style="min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;">
+      <tr><td style="text-align: center; font-size: 13px;">
+        Powered by <a target="_blank" href="#" style="color: #875A7B;">Prism</a>
+      </td></tr>
+    </table>
+</td></tr>
+</table>
+            </field>
+            <field name="lang">${ctx['partner_id'].lang}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_paynow')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.mail_notification_paynow" name="Quotation: Sign and Pay mail notification template">
+            <table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <t t-set="access_action" t-value="record.with_context(force_website=True).get_access_action()"/>
+            <t t-set="is_online" t-value="access_action and access_action['type'] == 'ir.actions.act_url'"/>
+            <t t-set="base_url" t-value="record.get_base_url()"/>
+            <t t-set="share_url" t-value="record._get_share_url(redirect=True, signup_partner=notification_is_customer, share_token=notification_is_customer)"/>
+            <t t-set="access_url" t-value="is_online and share_url and base_url + share_url or ''"/>
+            <t t-set="access_name">
+                View <t t-esc="model_description or 'document'"/>
+            </t>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: white; padding: 0; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 10px;">Your <t t-esc="model_description or 'document'"/></span><br/>
+                    <span style="font-size: 20px; font-weight: bold;">
+                        <t t-esc="message.record_name"/>
+                    </span>
+                </td><td valign="middle" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:#5EC269;border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td style="padding: 0">
+            <t t-raw="message.body"/>
+            <div t-if="is_online and not record._context.get('proforma')" style="margin: 32px 0px 32px 0px; text-align: center;">
+                <a t-att-href="access_url"
+                    style="background-color: #5EC269; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                    <t t-esc="access_name"/>
+                </a>
+            </div>
+            <t t-if="record.user_id and not record.env.user._is_superuser()">
+                <div style="margin: 0px; padding: 0px; font-size:13px;">
+                    Best regards,
+                </div>
+                <div>&amp;nbsp;</div>
+                <div t-if="record.user_id.sudo().signature" style="font-size: 13px;">
+                    <div t-raw="record.user_id.sudo().signature"/>
+                </div>
+            </t>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td style="padding: 0; font-size:11px;">
+            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 32px 0px 4px 0px;"/>
+            <b t-esc="company.name"/><br/>
+            <div style="color: #999999">
+                <t t-esc="company.phone"/>
+                <t t-if="company.email"> |
+                    <a t-att-href="'mailto:%s' % company.email" style="text-decoration:none; color: #999999;"><t t-esc="company.email"/></a>
+                </t>
+                <t t-if="company.website"> |
+                    <a t-att-href="'%s' % company.website" style="text-decoration:none; color: #999999;">
+                        <t t-esc="company.website"/>
+                    </a>
+                </t>
+            </div>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+<!-- POWERED BY -->
+<tr><td align="center" style="min-width: 590px; padding: 8px; font-size:11px;">
+    Powered by <a target="_blank" href="https://ic-kpi.com/" style="color: #875A7B;">Prism</a>
+</td></tr>
+</table>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_paynow')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_notification_email')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.message_notification_email">
+            <div>
+            <div t-if="has_button_access" itemscope="itemscope" itemtype="http://schema.org/EmailMessage">
+                <div itemprop="potentialAction" itemscope="itemscope" itemtype="http://schema.org/ViewAction">
+                    <link itemprop="target" t-att-href="button_access['url']"/>
+                    <link itemprop="url" t-att-href="button_access['url']"/>
+                    <meta itemprop="name" t-att-content="button_access['title']"/>
+                </div>
+            </div>
+            <div t-if="has_button_access or len(actions) &gt; 0 or not is_discussion"
+                    summary="o_mail_notification" style="padding: 0px; width:600px;">
+                <table cellspacing="0" cellpadding="0" border="0" style="width: 600px; margin-top: 5px;">
+                <tbody><tr>
+                <td valign="center">
+                    <a t-if="has_button_access"
+                            t-att-href="button_access['url']"
+                            style="padding: 8px 12px; font-size: 12px; color: #FFFFFF; text-decoration: none !important; font-weight: 400; background-color: #5EC269; border: 0px solid #875A7B; border-radius:3px">
+                        <t t-esc="button_access['title']"/>
+                    </a>
+                    <t t-if="actions">
+                        <t t-foreach="actions" t-as="action">
+                            |
+                            <a t-att-href="action['url']" style="color: #5EC269; text-decoration:none !important;">
+                                <t t-esc="action['title']"/>
+                            </a>
+                        </t>
+                    </t>
+                </td>
+                <td valign="center" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td>
+                </tr><tr>
+                <td colspan="2" style="text-align:center;">
+                    <hr width="100%"
+                        style="background-color:#5EC269;border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0 12px 0;"/>
+                    <p t-if="subtype.internal" style="background-color: #f2dede; padding: 5px; margin-bottom: 16px;">
+                        <strong>Internal communication</strong>: Replying will post an internal note. Followers won't receive any email notification.
+                    </p>
+                </td>
+                </tr></tbody>
+                </table>
+            </div>
+            <div t-raw="message.body"/>
+            <ul t-if="tracking_values">
+                <t t-foreach="tracking_values" t-as="tracking">
+                    <li><t t-esc="tracking[0]"/>: <t t-esc="tracking[1]"/> -&gt; <t t-esc="tracking[2]"/></li>
+                </t>
+            </ul>
+            <div t-if="signature" t-raw="signature" style="font-size: 13px;"/>
+            <p style="color: #555555; margin-top:32px;">
+                Sent
+                <span t-if="company.name">
+                by
+                <a t-if="website_url" t-att-href="website_url" style="text-decoration:none; color: #875A7B;">
+                    <span t-esc="company.name"/>
+                </a>
+                <span t-if="not website_url" t-esc="company.name"/>
+                </span>
+                using
+                <a target="_blank" href="https://ic-kpi.com" style="text-decoration:none; color: #875A7B;">Prism</a>.
+            </p>
+            </div>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_notification_email')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_borders')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.mail_notification_borders">
+<div>
+<table border="0" width="100%" cellpadding="0" bgcolor="#ededed" style="padding: 20px; background-color: #ededed; border-collapse:separate;" summary="o_mail_notification">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" bgcolor="#875A7B" style="min-width: 590px; background-color: #5EC269; padding: 20px; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size:20px; color:white; font-weight: bold;">
+                        <t t-esc="message.record_name"/>
+                    </span>
+                </td><td valign="middle" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" bgcolor="#ffffff" style="min-width: 590px; background-color: rgb(255, 255, 255); padding: 20px; border-collapse:separate;">
+                <tbody><td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                    <t t-raw="message.body"/>
+                </td></tbody>
+            </table>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table width="590" border="0" cellpadding="0" bgcolor="#875A7B" style="min-width: 590px; background-color: rgb(135,90,123); padding: 20px; border-collapse:separate;">
+                <tr><td valign="middle" align="left" style="color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <t t-esc="company.name"/><br/>
+                    <t t-esc="company.phone"/>
+                </td><td valign="middle" align="right" style="color: #fff; padding-top: 10px; padding-bottom: 10px; font-size: 12px;">
+                    <t t-if="company.email">
+                        <a t-att-href="'mailto:%s' % company.email" style="text-decoration:none; color: white;"><t t-esc="company.email"/></a><br/>
+                    </t>
+                    <t t-if="company.website">
+                        <a t-att-href="'%s' % company.website" style="text-decoration:none; color: white;">
+                            <t t-esc="company.website"/>
+                        </a>
+                    </t>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding: 8px; font-size:11px;">
+            Powered by <a target="_blank" href="https://ic-kpi.com">Prism</a>.
+        </td>
+    </tr>
+</tbody>
+</table>
+</div>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_borders')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_light')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.mail_notification_light">
+<table border="0" cellpadding="0" cellspacing="0" style="padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;"><tr><td align="center">
+<table border="0" cellpadding="0" cellspacing="0" width="590" style="padding: 24px; background-color: white; color: #454748; border-collapse:separate;">
+<tbody>
+    <!-- HEADER -->
+    <tr>
+        <td align="center" style="min-width: 590px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: white; padding: 0; border-collapse:separate;">
+                <tr><td valign="middle">
+                    <span style="font-size: 10px;">Your <t t-esc="model_description or 'document'"/></span><br/>
+                    <span style="font-size: 20px; font-weight: bold;">
+                        <t t-esc="message.record_name and message.record_name.replace('/','-') or ''"/>
+                    </span>
+                </td><td valign="middle" align="right">
+                    <t t-if="company.logo_web">
+                        <img t-att-src="'/web/image/res.company/%s/logo_web' % (company.id)" style="padding: 0px; margin: 0px; height: auto; width: 80px;" t-att-alt="'%s' % company.name"></img>
+                    </t>
+                </td></tr>
+                <tr><td colspan="2" style="text-align:center;">
+                  <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:4px 0px 32px 0px;"/>
+                </td></tr>
+            </table>
+        </td>
+    </tr>
+    <!-- CONTENT -->
+    <tr>
+        <td style="min-width: 590px;">
+            <t t-raw="message.body"/>
+        </td>
+    </tr>
+    <!-- FOOTER -->
+    <tr>
+        <td align="center" style="min-width: 590px; padding: 0 8px 0 8px; font-size:11px;">
+            <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 4px 0px;"/>
+            <b t-esc="company.name"/><br/>
+            <div style="color: #999999;">
+                <t t-esc="company.phone"/>
+                <t t-if="company.email"> |
+                    <a t-att-href="'mailto:%s' % company.email" style="text-decoration:none; color: #999999;"><t t-esc="company.email"/></a>
+                </t>
+                <t t-if="company.website"> |
+                    <a t-att-href="'%s' % company.website" style="text-decoration:none; color: #999999;">
+                        <t t-esc="company.website"/>
+                    </a>
+                </t>
+            </div>
+        </td>
+    </tr>
+</tbody>
+</table>
+</td></tr>
+<!-- POWERED BY -->
+<tr><td align="center" style="min-width: 590px;">
+        Powered by <a target="_blank" href="https://ic-kpi.com" style="color: #875A7B;">Prism</a>
+</td></tr>
+</table>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'mail_notification_light')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_user_assigned')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.message_user_assigned">
+<p style="margin: 0px;">
+    <span>Dear <t t-esc="object.user_id.sudo().name"/>,</span><br />
+    <span style="margin-top: 8px;">You have been assigned to the <t t-esc="model_description or 'document'"/> <t t-esc="object.display_name"/>.</span>
+</p>
+<p style="margin-top: 24px; margin-bottom: 16px;">
+    <a t-att-href="access_link" t-att-data-oe-model="object._name" t-att-data-oe-id="object.id" style="background-color:#5EC269; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px;">
+            View <t t-esc="model_description or 'document'"/>
+    </a>
+</p>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_user_assigned')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_activity_assigned')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <template id="mail.message_activity_assigned">
+<div style="margin: 0px; padding: 0px; font-size: 13px;">
+    <span t-field="activity.create_uid.name"/> assigned you an activity <span t-field="activity.activity_type_id.name"/>
+    <t t-if="activity.summary">(<span t-field="activity.summary"/>)</t>
+    on <span t-field="activity.res_name"/>
+    to close for <span t-field="activity.date_deadline"/>.<br />
+    <p style="margin: 16px 0px 16px 0px;">
+        <a t-att-href="access_link" t-att-data-oe-model="activity.res_model" t-att-data-oe-id="activity.res_id"
+            style="background-color:#5EC269; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;">
+            View <t t-esc="model_description or 'document'"/>
+        </a>
+    </p>
+    <div t-if="activity.note" style="margin-top: 8px;" t-field="activity.note"/>
+</div>
+        </template>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'mail'),
+                       ('name', '=', 'message_activity_assigned')]"/>
+            </function>
+            <value eval="{'noupdate': True}"/>
+        </function>
+
+
+    </data>
+</odoo>

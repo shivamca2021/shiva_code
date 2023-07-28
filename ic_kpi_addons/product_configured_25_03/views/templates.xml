@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="configure_parts" inherit_id="sale_product_configurator.configure">
+        <xpath expr="//t[@t-if='product._is_add_to_cart_possible()']//div[hasclass('col-lg-5','d-inline-block','text-left')]" position="attributes">
+            <attribute name="class">col-md-6</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if='product._is_add_to_cart_possible()']//div[hasclass('col-lg-1','d-inline-block')]" position="replace"/>
+        <xpath expr="//t[@t-if='product._is_add_to_cart_possible()']//div[hasclass('col-lg-5','d-inline-block', 'align-top', 'text-left')]" position="attributes">
+            <attribute name="class">col-md-6</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('main_product')]//div[@t-if='product.visible_qty_configurator']" position="replace"/>
+        <xpath expr="//div[hasclass('main_product')]//h2" position="replace"/>
+
+        <xpath expr="//div[hasclass('main_product')]//t[@t-else='']" position="after">
+            <t t-set="material_ids" t-value="material_ids if material_ids else []"/>
+            <t t-set="species_ids" t-value="species_ids if species_ids else []"/>
+            <t t-set="parts" t-value="part_ids if part_ids else []"/>
+            <t t-set="subassembly" t-value="sub_assembly_ids if sub_assembly_ids else []"/>
+            <div class="col-md-6 d-inline-block text-left mt-3" t-if="product.product_internal_material_tmpl_ids">
+                <h4>Internal Product Material</h4>
+                <div t-attf-class="product_config_div #{'product_config_div_over_flow' if len(product.product_internal_material_tmpl_ids) >= 10 else ''}">
+                     <t t-foreach="product.product_internal_material_tmpl_ids" t-as="internal_product">
+                        <!--input type="checkbox" t-att-material-data-name="material_product.name" t-att-material-data-id="material_product.id"
+                               t-att-checked="material_product.id in material_ids"></input-->
+                        <t t-if="len(internal_product.product_variant_ids) > 1">
+                            <span t-field="internal_product.name"/><br></br>
+                            <div style="padding-left:30px;" t-if="len(internal_product.product_variant_ids) > 1">
+                                <ul style="list-style: none;">
+                                    <t t-foreach="internal_product.product_variant_ids" t-as="variant_product">
+                                        <li>
+                                            <input type="checkbox" t-att-internal-material-product-data-name="variant_product.product_tmpl_id.name" t-att-internal-product-data-id="variant_product.id"
+                                            t-att-checked="variant_product.id in internal_material_ids"></input>
+                                            <t t-foreach="variant_product.product_template_attribute_value_ids" t-as="variant_name">
+                                                <span class="comma"><t t-esc="variant_name.name"/> </span>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <input type="checkbox" t-att-internal-material-product-data-name="internal_product.product_variant_ids.product_tmpl_id.name" t-att-internal-product-data-id="internal_product.product_variant_ids.id"
+                                    t-att-checked="internal_product.product_variant_ids.id in internal_material_ids"></input>
+                            <span t-field="internal_product.name"/><br></br>
+                        </t>
+                    </t>
+                </div>
+            </div>
+            <div class="col-md-6 d-inline-block align-top text-left mt-3" t-if="product.product_external_material_tmpl_ids">
+                <h4>External Product Material</h4>
+                <div t-attf-class="product_config_div #{'product_config_div_over_flow' if len(product.product_external_material_tmpl_ids) >= 10 else ''}" >
+                    <t t-foreach="product.product_external_material_tmpl_ids" t-as="external_product">
+                        <!--input type="checkbox" t-att-material-data-name="material_product.name" t-att-material-data-id="material_product.id"
+                               t-att-checked="material_product.id in material_ids"></input-->
+                        <t t-if="len(external_product.product_variant_ids) > 1">
+                            <span t-field="external_product.name"/><br></br>
+                            <div style="padding-left:30px;">
+                                <ul style="list-style: none;">
+                                    <t t-foreach="external_product.product_variant_ids" t-as="variant_product">
+                                        <li>
+                                            <input type="checkbox" t-att-external-material-product-data-name="variant_product.product_tmpl_id.name" t-att-external-product-data-id="variant_product.id"
+                                            t-att-checked="variant_product.id in external_material_ids"></input>
+                                            <t t-foreach="variant_product.product_template_attribute_value_ids" t-as="variant_name">
+                                                <span class="comma"><t t-esc="variant_name.name"/> </span>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <input type="checkbox" t-att-external-material-product-data-name="external_product.product_variant_ids.product_tmpl_id.name" t-att-external-product-data-id="external_product.product_variant_ids.id" t-att-checked="external_product.product_variant_ids.id in external_material_ids"></input>
+                            <span t-field="external_product.name"/><br></br>
+                        </t>
+                    </t>
+                </div>
+            </div>
+            <div class="col-md-6 d-inline-block align-top text-left mt-3" t-if="product.product_species_tmpl_ids">
+                <h4>Species</h4>
+                <div t-attf-class="product_config_div #{'product_config_div_over_flow' if len(product.product_species_tmpl_ids) >= 10 else ''}">
+                    <t t-foreach="product.product_species_tmpl_ids" t-as="species_product">
+                        <!--input type="checkbox" t-att-species-data-name="species_product.name" t-att-species-data-id="species_product.id"
+                               t-att-checked="species_product.id in species_ids"></input-->
+                        <t t-if="len(species_product.product_variant_ids) > 1">
+                            <span t-field="species_product.name"/><br></br>
+                            <div style="padding-left:30px;">
+                                <ul style="list-style: none;">
+                                    <t t-foreach="species_product.product_variant_ids" t-as="variant_product">
+                                        <li>
+                                            <input type="checkbox" t-att-species-product-data-name="variant_product.product_tmpl_id.name" t-att-species-product-data-id="variant_product.id"
+                                            t-att-checked="variant_product.id in species_ids"></input>
+                                            <t t-foreach="variant_product.product_template_attribute_value_ids" t-as="variant_name">
+                                                <span class="comma"><t t-esc="variant_name.name"/> </span>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <input type="checkbox" t-att-species-product-data-name="species_product.product_variant_ids.product_tmpl_id.name" t-att-species-product-data-id="species_product.product_variant_ids.id" t-att-checked="species_product.product_variant_ids.id in species_ids"></input>
+                            <span t-field="species_product.name"/><br></br>
+                        </t>
+                    </t>
+                </div>
+            </div>
+            <div class="col-md-6 d-inline-block text-left mt-3" t-if="product.parts_line_ids">
+                <h4>Parts</h4>
+                <div t-attf-class="product_config_div #{'product_config_div_over_flow' if len(product.parts_line_ids) >= 10 else ''}" >
+                     <t t-foreach="product.parts_line_ids" t-as="part_product">
+                        <!--input type="checkbox" t-att-material-data-name="material_product.name" t-att-material-data-id="material_product.id"
+                               t-att-checked="material_product.id in material_ids"></input-->
+                        <t t-if="len(part_product.part_id.product_variant_ids) > 1">
+                            <span t-field="part_product.name"/><br></br>
+                            <div style="padding-left:30px;">
+                                <ul style="list-style: none;">
+                                    <t t-foreach="part_product.part_id.product_variant_ids" t-as="variant_product">
+                                        <li>
+                                            <input type="checkbox" t-att-parts-product-data-name="variant_product.product_tmpl_id.name" t-att-part-data-id="variant_product.id"
+                                            t-att-checked="variant_product.id in part_ids"></input>
+                                            <t t-foreach="variant_product.product_template_attribute_value_ids" t-as="variant_name">
+                                                <span class="comma"><t t-esc="variant_name.name"/> </span>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <input type="checkbox" t-att-parts-product-data-name="part_product.part_id.product_variant_ids.product_tmpl_id.name" t-att-part-data-id="part_product.part_id.product_variant_ids.id" t-att-checked="part_product.part_id.product_variant_ids.id in part_ids"></input>
+                            <span t-field="part_product.name"/><br></br>
+                        </t>
+                    </t>
+                </div>
+            </div>
+            <div class="col-md-6 d-inline-block align-top text-left mt-3" t-if="product.sub_assembly_line_ids">
+                <h4>Sub Assembly</h4>
+                <div t-attf-class="product_config_div #{'product_config_div_over_flow' if len(product.sub_assembly_line_ids) >= 10 else ''}">
+                    <t t-foreach="product.sub_assembly_line_ids" t-as="sub_assembly_product">
+                        <!--input type="checkbox" t-att-material-data-name="material_product.name" t-att-material-data-id="material_product.id"
+                               t-att-checked="material_product.id in material_ids"></input-->
+                        <t t-if="len(sub_assembly_product.sub_assembly_id.product_variant_ids) > 1">
+                            <span t-field="sub_assembly_product.name"/>
+                            <div style="padding-left:30px;">
+                                <ul style="list-style: none;">
+                                    <t t-foreach="sub_assembly_product.sub_assembly_id.product_variant_ids" t-as="variant_product">
+                                        <li>
+                                            <input type="checkbox" t-att-subassembly-product-data-name="variant_product.product_tmpl_id.name" t-att-subassembly-data-id="variant_product.id"
+                                            t-att-checked="variant_product.id in sub_assembly_ids"></input>
+                                            <t t-foreach="variant_product.product_template_attribute_value_ids" t-as="variant_name">
+                                                <span class="comma"><t t-esc="variant_name.name"/> </span>
+                                            </t>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <input type="checkbox" t-att-subassembly-product-data-name="sub_assembly_product.sub_assembly_id.product_variant_ids.product_tmpl_id.name" t-att-subassembly-data-id="sub_assembly_product.sub_assembly_id.product_variant_ids.id" t-att-checked="sub_assembly_product.sub_assembly_id.product_variant_ids.id in sub_assembly_ids"></input>
+                            <span t-field="sub_assembly_product.name"/>
+                        </t>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('main_product')]//div[hasclass('col-lg-12','text-center','mt-5')]" position="after">
+            <div class='row m-5'>
+                <div class="col-md-6">
+                    <div class="css_quantity input-group" t-if="product.visible_qty_configurator">
+                        <div class="input-group-prepend">
+                            <button t-attf-href="#" class="btn btn-primary js_add_cart_json d-none d-md-inline-block" aria-label="Remove one" title="Remove one">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="js_quantity form-control quantity" data-min="1" name="add_qty" t-att-value="add_qty or 1"/>
+                        <div class="input-group-append">
+                            <button t-attf-href="#" class="btn btn-primary float_left js_add_cart_json d-none d-md-inline-block" aria-label="Add one" title="Add one">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <h2 class="mt-3">
+                        <span t-attf-class="text-danger oe_default_price oe_striked_price {{'' if combination_info['has_discounted_price'] else 'd-none'}}"
+                            t-esc="combination_info['list_price']"
+                            t-options='{
+                                "widget": "monetary",
+                                "display_currency": (pricelist or product).currency_id
+                            }'/>
+                        <span class="oe_price product_id mt-3" style="white-space: nowrap;"
+                            t-att-data-product-id="product.id"
+                            t-esc="combination_info['price']"
+                            t-options='{
+                                "widget": "monetary",
+                                "display_currency": (pricelist or product).currency_id
+                            }'/>
+                    </h2>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('main_product')]//div[hasclass('col-lg-12','text-center','mt-5')]" position="attributes">
+            <attribute name="class">row m-5</attribute>
+        </xpath>
+    </template>
+</odoo>

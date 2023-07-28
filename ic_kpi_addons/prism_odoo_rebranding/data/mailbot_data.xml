@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="base.partner_root" model="res.partner">
+            <field name="name">Bot</field>
+            <field name="email">bot@example.com</field>
+            <field name="image_1920" type="base64" file="prism_odoo_rebranding/static/src/img/bot.jpeg"/>
+        </record>
+        <record id="digest.digest_digest_default" model="digest.digest">
+            <field name="name">Your Prism Periodic Digest</field>
+        </record>
+    </data>
+
+</odoo>

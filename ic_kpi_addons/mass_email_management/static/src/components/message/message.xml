@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.Message" t-inherit-mode="extension">
+        <xpath expr="//*[hasclass('o_Message_trackingValue')]" position="after">
+            <t t-if="value.changed_field == 'Opt Out:'">
+                <div t-if="value.old_value == 'True'">
+                    <br/>
+                    <span>Cancelled Opt Out for email</span>
+                </div>
+                <div t-if="value.new_value == 'True'">
+                    <br/>   
+                    <span>Opt Out for email</span>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

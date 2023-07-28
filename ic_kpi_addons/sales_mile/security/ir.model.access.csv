@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_trip,crm.trip,model_crm_trip,base.group_user,1,1,1,0
+access_wz_trip,create.trip.wz,model_create_trip_wz,base.group_user,1,1,1,0

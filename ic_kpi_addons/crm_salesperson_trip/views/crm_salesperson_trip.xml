@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_crm_saleperson_trip_tree" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.tree</field>
+        <field name="model">crm.salesperson.trip</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Trip">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="location" optional="show"/>
+                <field name="state" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_crm_saleperson_trip_google_map" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.google_map</field>
+        <field name="model">crm.salesperson.trip</field>
+        <field name="arch" type="xml">
+            <google_map string="Map Location" lat="location_latitude" lng="location_longitude">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="location_latitude"/>
+                <field name="location_longitude"/>
+                <field name="user_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+                <field name="location"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <div class="o_kanban_tags_section"/>
+                                <ul>
+                                    <li>
+                                        <field name="user_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="start_date"/>
+                                        <span> - </span>
+                                        <field name="end_date"/>
+                                    </li>
+                                    <li>
+                                        <field name="location"/>
+                                    </li>
+                                </ul>
+                                <div class="oe_kanban_partner_links"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </google_map>
+        </field>
+    </record>
+    <record id="action_view_crm_saleperson_trip_google_map" model="ir.actions.act_window">
+        <field name="name">Location</field>
+        <field name="res_model">crm.salesperson.trip</field>
+        <field name="view_mode">google_map</field>
+        <field name="view_id" ref="crm_salesperson_trip.view_crm_saleperson_trip_google_map"/>
+        <field name="domain">[('id', '=', active_id)]</field>
+    </record>
+    <record id="view_crm_saleperson_trip_form" model="ir.ui.view">
+        <field name="name">view.crm.salesperson.trip.form</field>
+        <field name="model">crm.salesperson.trip</field>
+        <field name="arch" type="xml">
+            <form string="Trip" geo_field="{'lat': 'location_latitude', 'lng': 'location_longitude'}">
+                <header>
+                    <button name="action_running" states="draft" type="object" string="In Progress"/>
+                    <button name="action_done" states="running" type="object" string="Done"/>
+                    <button name="action_cancel" states="running,done" type="object" string="Cancel"/>
+                    <button name="action_draft" states="cancel,done" type="object" string="Set to draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,running,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_contact_google_map" type="object" class="oe_stat_button" icon="fa-map-signs" string="Route" />
+                        <button name="%(crm_salesperson_trip.action_view_crm_saleperson_trip_google_map)d" type="action" class="oe_stat_button" icon="fa-map-marker" string="Location" attrs="{'invisible': ['|',('location_latitude', '=', 0.0), ('location_longitude', '=', 0.0)]}"/>
+                        <button name="action_start_travel" type="object" class="oe_stat_button" icon="fa-car" string="Start Travel"/>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Trip name.." required="True" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                            <label for="start_date" string="Period"/>
+                            <div>
+                                <field name="start_date" class="oe_inline" placeholder="Start date" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                                <span> - </span>
+                                <field name="end_date" class="oe_inline" placeholder="End date" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="trip_mode"/>
+                            <div>
+                                <small class="text-muted">
+                                    <i>*Prism will used this information as your location start point</i>
+                                </small>
+                                <field name="trip_mode" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                                <div attrs="{'invisible': [('trip_mode', '!=', 'lead_location')]}">
+                                    <field name="location_lead_id" nolabel="1" placeholder="Lead/opportunity as location point" attrs="{'invisible': [('trip_mode', '!=', 'lead_location')], 'required': [('trip_mode', '=', 'lead_location')], 'readonly': [('state', 'in', ['done','running','cancel'])]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                </div>
+                                <div attrs="{'invisible': [('trip_mode', '!=', 'contact_location')]}">
+                                    <field name="location_contact_id" nolabel="1" placeholder="Contact as location point" attrs="{'invisible': [('trip_mode', '!=', 'contact_location')], 'required': [('trip_mode', '=', 'contact_location')], 'readonly': [('state', 'in', ['done','running','cancel'])]}" options="{'no_create': True, 'no_create_edit': True}"/>
+                                </div>
+                                <div attrs="{'invisible': [('trip_mode', '!=', 'location')]}">
+                                    <field name="location" placeholder="Location point" attrs="{'invisible': [('trip_mode', '!=', 'location')], 'required': [('trip_mode', '=', 'location')], 'readonly': [('state', 'in', ['done','running','cancel'])]}" widget="gplaces_address_autocomplete" options="{'mode': 'no_address_format', 'lat': 'location_latitude', 'lng': 'location_longitude', 'display_name': 'formatted_address', 'types': []}"/>
+                                </div>
+                            </div>
+                            <field name="location_latitude" invisible="1"/>
+                            <field name="location_longitude" invisible="1"/>
+                            <label for="radius"/>
+                            <div>
+                                <field name="radius" nolabel="1" class="oe_inline" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                                <span> miles </span>
+                            </div>
+                            <label for="max_contacts"/>
+                            <div>
+                                <field name="max_contacts" nolabel="1" class="oe_inline" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                                <span> records </span>
+                                <div><button confirm="Contacts will be reset, are you sure want to delete current contacts?" name="action_compute_contacts" class="btn-secondary" type="object" string="Calculate destination" attrs="{'invisible': [('state', 'in', ['running', 'done', 'cancel'])]}"/></div>
+                            </div>
+                        </group>
+                    </group>
+                    <separator string="Location to visit"/>
+                    <field name="trip_line" mode="google_map" attrs="{'readonly': [('state', 'in', ['done','running','cancel'])]}"/>
+                    <p class="float-right">
+                        <span style="color: orange;"><small>Lead/opportunity / </small></span>
+                        <span style="color: green;"><small> Contacts</small></span>
+                    </p>
+                    <separator string="Notes"/>
+                    <field name="notes" class="oe_inline" nolabel="1"/>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_crm_saleperson_trip" model="ir.actions.act_window">
+        <field name="name">Sales Trip</field>
+        <field name="res_model">crm.salesperson.trip</field>
+        <field name="view_mode">tree,google_map,form</field>
+    </record>
+    <menuitem id="menu_crm_saleperson_trip" name="Sales Trip" sequence="10" parent="crm.crm_menu_sales" action="action_crm_saleperson_trip"/>
+</odoo>

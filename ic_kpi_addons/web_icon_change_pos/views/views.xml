@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="point_of_sale.menu_point_root"
+            name="P-Sales"
+            groups="point_of_sale.group_pos_manager,point_of_sale.group_pos_user"
+            web_icon="web_icon_change_pos,static/description/p-sales.png"
+            sequence="20"/>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record id="view_project_task_wizard" model="ir.ui.view">
+		   <field name="name">project.task.wizard.view</field>
+		   <field name="model">project.task.wizard</field>
+		   <field name="type">form</field>
+		   <field name="arch" type="xml">
+		       <form>
+		           <field name="confirm" />
+		           <footer>
+		               <button name="action_done" string="Confirm" type="object" class="oe_highlight"/>
+		               <button string="Cancel" name="action_cancel" class="btn btn-default" type="object" />
+		           </footer>
+		       </form>
+		   </field>
+		</record>
+	</data>
+</odoo>

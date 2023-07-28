@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="GoogleMapView.MapViewRouteDirection" t-extend="GoogleMapView.MapView">
+        <t t-jquery="div.o_google_map_view" t-operation="before">
+            <div class="o_map_left_sidebar opened">
+                <div class="sidenav-body">
+                    <div class="search-result">
+                        <div id="content"></div>
+                    </div>
+                </div>
+                <div class="toggle_left_sidebar">
+                    <button data-toggle="tooltip" data-placement="right" title="Expand side panel"></button>
+                </div>
+            </div>
+        </t>
+    </t>
+    <t t-name="GoogleMapView.WaypointDirection">
+        <div class="card">
+            <h5 class="card-header">
+                Directions
+            </h5>
+            <t t-set="waypoints" t-value="widget.getData()"/>
+            <div class="card-body">
+                <b>Start:</b>
+                <div class="form-group">
+                    <select id="start" class="form-control">
+                        <option value="#"></option>
+                        <t t-foreach="waypoints" t-as="point">
+                            <option t-att-value="point.id" t-att-data-lat="point.latitude" t-att-data-lng="point.longitude"><t t-esc="point.name"/></option>
+                        </t>
+                    </select>
+                </div>
+                <b>Waypoints:</b>
+                <i>(Ctrl+Click or Cmd+Click for multiple selection)</i>
+                <div class="form-group">
+                    <select multiple="multiple" id="waypoints" class="form-control" size="10">
+                        <t t-foreach="waypoints" t-as="point">
+                            <option t-att-value="point.id" t-att-data-lat="point.latitude" t-att-data-lng="point.longitude"><t t-esc="point.name"/></option>
+                        </t>
+                    </select>
+                </div>
+                <b>End:</b>
+                <div class="form-group">
+                    <select id="end" class="form-control">
+                        <option value="#"></option>
+                        <t t-foreach="waypoints" t-as="point">
+                            <option t-att-value="point.id" t-att-data-lat="point.latitude" t-att-data-lng="point.longitude"><t t-esc="point.name"/></option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex flex-row justify-content-between">
+                    <button type="button" class="btn btn-info" id="print" disabled="1">
+                        <i class="fa fa-print"></i> Print
+                    </button>
+                    <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="GoogleMapView.RouteDirectionSegment">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row justify-content-between">
+                    <h4>
+                        <span class="fa fa-car"/>
+                    </h4>
+                    <h4>
+                        <span class="fa fa-road"/>
+                        <span class="text-monospace"><t t-esc="total_route.distance"/> mi</span>
+                    </h4>
+                    <h4>
+                        <i class="fa fa-clock-o"/>
+                        <span class="text-monospace"><t t-esc="total_route.duration"/> mins</span>
+                    </h4>
+                </div>
+            </div>
+        </div>
+        <div class="list-group">
+            <t t-foreach="routes" t-as="route">
+                <div href="javascript:void(0)" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1"><span t-esc="route.title"/></h5>
+                    </div>
+                    <p class="mb-1" id="start_address" t-att-data-idx="route.id">
+                        <span t-esc="route.start_address.title"/>
+                        <small t-esc="route.start_address.subtitle"/>
+                    </p>
+                    <p class="text-muted text-center">to</p>
+                    <p class="mb-1" id="end_address" t-att-data-idx="route.id">
+                        <span t-esc="route.end_address.title"/>
+                        <small t-esc="route.end_address.subtitle"/>
+                    </p>
+                    <div class="d-flex w-100 justify-content-around">
+                        <small class="text-monospace"><i class="fa fa-road"/> <t t-esc="route.distance"/></small>
+                        <small class="text-monospace"><i class="fa fa-clock-o"/> <t t-esc="route.duration"/></small>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+</templates>

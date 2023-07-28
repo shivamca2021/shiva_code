@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+        id="stock_barcode.stock_barcode_menu"
+        action="stock_barcode.stock_barcode_action_main_menu"
+        web_icon="web_icon_change_barcode,static/description/barcode.png"
+        sequence="50"
+        groups="stock.group_stock_user" />
+</odoo>

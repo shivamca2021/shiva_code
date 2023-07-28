@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_backend_theme_extension,sidebar.menu,model_sidebar_menu,,1,1,1,1
+access_fav_menu,access_fav_menu,model_fav_menu,base.group_user,1,1,1,1

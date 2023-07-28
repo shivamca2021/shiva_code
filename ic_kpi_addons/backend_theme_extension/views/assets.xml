@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+		<template id="assets_backend" name="Backend Theme" inherit_id="web.assets_backend">
+		<xpath expr=".">
+				<link rel="stylesheet" href="/backend_theme_extension/static/src/scss/sidebar.scss"/>
+				<script type="application/javascript" src="/backend_theme_extension/static/src/js/swal.js"/>
+				<script type="application/javascript" src="/backend_theme_extension/static/src/js/sidebar.js"/>
+				<script type="application/javascript" src="/backend_theme_extension/static/src/js/action_manager.js"/>
+				<script type="text/javascript" src="/backend_theme_extension/static/src/js/backend_appdrawer_edit.js"/>
+			</xpath>
+		</template>
+
+		<template id="assets_frontend" inherit_id="portal.assets_frontend" name="Website Assets">
+            <xpath expr="//script[last()]" position="after">
+                <script type="text/javascript" src="/backend_theme_extension/static/src/js/content_page.js"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

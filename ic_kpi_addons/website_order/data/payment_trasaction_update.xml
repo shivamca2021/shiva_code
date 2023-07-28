@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_ach_status_response" model="ir.cron">
+        <field name="name">Get ACH Trasaction Status</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="payment.model_payment_transaction"/>
+        <field name="code">model.get_transaction_details()</field>
+        <field name="state">code</field>
+        <field name="user_id" ref="base.user_root" />
+           
+    </record>
+</odoo>

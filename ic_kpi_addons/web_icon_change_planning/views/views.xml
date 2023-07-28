@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="planning.planning_menu_root"
+        name="Planning"
+        sequence="25"
+        groups="base.group_user"
+        web_icon="web_icon_change_planning,static/description/Plan.png"/>
+
+    <record id="planning.planning_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('planning.group_planning_user')])]"/>
+    </record>
+</odoo>

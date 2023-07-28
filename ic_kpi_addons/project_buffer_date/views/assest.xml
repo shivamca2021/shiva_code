@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="assets_backend" inherit_id="web.assets_backend" name="Kanban Backend Assets">
+	    <xpath expr="//link[last()]" position="after">
+	        <script type="text/javascript" src="/project_buffer_date/static/src/js/project_kanaban_buffer.js" />
+	        <script type="text/javascript" src="/project_buffer_date/static/src/js/calendar_popover.js" />
+	        <script type="text/javascript" src="/project_buffer_date/static/src/js/calendar_controller.js" />
+	        <script type="text/javascript" src="/project_buffer_date/static/src/js/kanban_controller.js" />
+	        <script type="text/javascript" src="/project_buffer_date/static/src/js/calendar.js" />
+	        <link rel="stylesheet" href="/project_buffer_date/static/src/css/stage_color.css"/>
+	    </xpath>
+	</template>
+</odoo>

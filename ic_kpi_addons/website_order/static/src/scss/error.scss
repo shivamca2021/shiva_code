@@ -1,0 +1,8 @@
+.error_input{
+    border-color:red !important;
+}
+.error, .syntax_error, .phone_syntax_error, .zip_syntax_error,
+.email_exit_error, .user_email_exit_error{
+    font-size: 0.9em!important;
+    color: chocolate;
+}

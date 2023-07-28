@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+         <record id="formula_variable_tree_view" model="ir.ui.view">
+            <field name="name">formula.variable.tree</field>
+            <field name="model">formula.variable</field>
+            <field name="arch" type="xml">
+                <tree string="Formula Variable">
+                    <field name="name"/>
+                    <field name="abbreviation"/>
+                    <field name="is_fixed_size"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="formula_variable_form_view" model="ir.ui.view">
+            <field name="name">formula.variable.form</field>
+            <field name="model">formula.variable</field>
+            <field name="arch" type="xml">
+                <form string="Formula Variable">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="abbreviation"/>
+                                <field name="is_fixed_size"/>
+                                <field name="product_template_field_id" domain="[('model_id.name','=','Product Template')]" attrs="{'required': [('is_fixed_size', '!=', True)]}"/>
+                                <field name="product_group"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_formula_variable" model="ir.actions.act_window">
+            <field name="name">Formula Variable</field>
+            <field name="res_model">formula.variable</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a New Formula Variable.
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="action_formula_variable" id="menu_action_formula_variable" parent="sale.prod_config_main" sequence="1" active="True" />
+
+    </data>
+</odoo>

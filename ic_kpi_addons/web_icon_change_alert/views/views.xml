@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="sh_user_audit.sh_user_audit"
+            name="Alerts"
+            web_icon="web_icon_change_alert,static/description/Alerts.png"
+            groups="sh_user_audit.sh_user_audit_user"/>
+</odoo>

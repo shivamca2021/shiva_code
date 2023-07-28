@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="product_configured_tree_view" model="ir.ui.view">
+            <field name="name">product.configured.tree</field>
+            <field name="model">product.configured</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="product_material_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_configured_form_view" model="ir.ui.view">
+            <field name="name">product.configured.form</field>
+            <field name="model">product.configured</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="product_material_id"/>
+                            </group>
+                            <field name="product_configured_line_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="width"/>
+                                    <field name="length"/>
+                                    <field name="thickness"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_configured" model="ir.actions.act_window">
+            <field name="name">Product Configured</field>
+            <field name="res_model">product.configured</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a New Product Configured.
+              </p>
+            </field>
+        </record>
+
+        <record id="product_material_tree_view" model="ir.ui.view">
+            <field name="name">product.materialtree</field>
+            <field name="model">product.material</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="product_material_form_view" model="ir.ui.view">
+            <field name="name">product.material.form</field>
+            <field name="model">product.material</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_material" model="ir.actions.act_window">
+            <field name="name">Product Material</field>
+            <field name="res_model">product.material</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a New Product Material.
+              </p>
+            </field>
+        </record>
+
+
+
+
+
+<!--        <menuitem-->
+<!--        id="product_configured_menuitem"-->
+<!--        name="Product Configurated"-->
+<!--        parent="sale.sale_menu_root"-->
+<!--        action="product_configured.action_product_configured"-->
+<!--        sequence="4"-->
+<!--        groups="product_configured.group_product_configured"-->
+<!--    />-->
+
+<!--     <menuitem-->
+<!--        id="product_material_menuitem"-->
+<!--        name="Product Material"-->
+<!--        parent="sale.sale_menu_root"-->
+<!--        action="product_configured.action_product_material"-->
+<!--        sequence="4"-->
+<!--        groups="product_configured.group_product_configured"-->
+<!--    />-->
+
+    </data>
+</odoo>

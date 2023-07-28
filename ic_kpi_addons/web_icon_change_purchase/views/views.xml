@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Purchase"
+              id="purchase.menu_purchase_root"
+              groups="purchase.group_purchase_manager,purchase.group_purchase_user"
+              web_icon="web_icon_change_purchase,static/description/Purchase.png"
+              sequence="25"/>
+</odoo>

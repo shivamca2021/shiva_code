@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+    <odoo>
+
+        <record id="view_partners_form_crm1_ickpi" model="ir.ui.view">
+            <field name="name">view.res.partner.form.crm.inherited.ickpi1</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="1" name="priority"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="industry_id" position="replace"></field>
+                    <field name="website" position="after">
+                        <field name="industry_id" attrs="{'invisible': [('is_company', '=', False)]}" options="{'no_create': True}"/>
+
+                    </field>
+                    <field name="vat" position="after">
+                            <field name="fax"/>
+                    </field>
+                    <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
+                        <field name="old_sales_person"/>
+                    </xpath>
+                    <xpath expr="//page[@name='sales_purchases']//field[@name='ref']" position="before">
+                        <field name="source_id"/>
+                    </xpath>
+                    <page name="internal_notes" position="after">
+<!--                        <page string="Company Details">-->
+<!--                           <group>-->
+<!--                                <group>-->
+<!--                                    <field name="parent_company" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                    <field name="no_of_employee" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                    <field name="annual_sales" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                </group>-->
+<!--                                <group>-->
+<!--                                    <field name="year_establishment" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                    <field name="assigned_cs" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                    <field name="structure_id" attrs="{'invisible': [('is_company', '=', False)]}"/>-->
+<!--                                </group>-->
+<!--                           </group>-->
+<!--                        </page>-->
+                        <page string="Personal Contact Info" attrs="{'invisible': [('is_company', '=', True)]}">
+                           <group>
+                                <group>
+                                    <field name="Private_mo"/>
+                                    <field name="private_Mail"/>
+                                    <field name="reports_to"/>
+                                </group>
+                                <group>
+                                    <field name="joined_company"/>
+                                    <field name="birth_date"/>
+                                </group>
+                           </group>
+                        </page>
+                        <page string="Family Info" attrs="{'invisible': [('is_company', '=', True)]}">
+                           <group>
+                                <group>
+                                    <field name="spouse_name"/>
+                                    <field name="num_children"/>
+                                </group>
+                                <group>
+                                    <field name="anniversary"/>
+                                    <field name="Children_name"/>
+                                </group>
+                           </group>
+                            <group string="Home Address">
+                                <group>
+                                    <field name="home_address_1"/>
+                                    <field name="home_city"/>
+                                    <field name="home_zip"/>
+                                </group>
+                                <group>
+                                    <field name="home_address_2"/>
+                                    <field name="home_sate" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                                    <field name="home_country" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <page string="Additional Company Information" attrs="{'invisible': [('is_company', '!=', True)]}">
+                           <group>
+                                <group>
+
+                                    <field name="is_parent"/>
+                                    <field name="parent_company_id" domain="[('is_company', '=', True)]" attrs="{'invisible': [('is_parent', '=', True)]}"/>
+                                    <field name="structure_id"/>
+                                    <field name="cs_rep_id"/>
+                                    <field name="year_sales"/>
+                                    <field name="annual_revenue"/>
+                                    <field name="annual_rev_currency"/>
+                                    <field name="buy_rating"/>
+                                    <field name="current_software"/>
+                                    <field name="last_activity_date"/>
+                                </group>
+                               <group>
+                                   <field name="no_emp"/>
+                                   <field name="no_emp_count"/>
+                                    <field name="year_registered"/>
+                                    <field name="sic_code"/>
+                                    <field name="sic_status"/>
+                                    <field name="inds_membership"/>
+                                   <field name="cnc_type"/>
+                                   <field name="company_creation_date"/>
+                               </group>
+                           </group>
+                        </page>
+
+                        <page string="Credit Information">
+                           <group>
+                                <group>
+                                    <field name="credit_rate"/>
+                                    <field name="credit_term"/>
+                                    <field name="credit_limit"/>
+                                </group>
+                                <group>
+                                    <field name="primary_discount"/>
+                                    <field name="special_discount"/>
+                                </group>
+                           </group>
+                        </page>
+                    </page>
+
+                </data>
+            </field>
+        </record>
+
+        <record id="ickpi_structure_view_form" model="ir.ui.view">
+            <field name="name">Structure</field>
+            <field name="model">ickpi.structure</field>
+            <field name="arch" type="xml">
+                <form string="Structure">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ickpi_structure_view_tree" model="ir.ui.view">
+            <field name="name">Structure</field>
+            <field name="model">ickpi.structure</field>
+            <field name="arch" type="xml">
+                <tree string="Structure">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ickpi_sales_view_form" model="ir.ui.view">
+            <field name="name">Annual Sales</field>
+            <field name="model">ickpi.sales</field>
+            <field name="arch" type="xml">
+                <form string="Annual Sales">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ickpi_sales_view_tree" model="ir.ui.view">
+            <field name="name">Sales</field>
+            <field name="model">ickpi.sales</field>
+            <field name="arch" type="xml">
+                <tree string="Sales">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="ickpi_contact_type_view_form" model="ir.ui.view">
+            <field name="name">Contact</field>
+            <field name="model">contact.type</field>
+            <field name="arch" type="xml">
+                <form string="Contact">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="ickpi_contact_type_view_tree" model="ir.ui.view">
+            <field name="name">Contact</field>
+            <field name="model">contact.type</field>
+            <field name="arch" type="xml">
+                <tree string="Contact">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_ickpi_structure_form" model="ir.actions.act_window">
+            <field name="name">Ickpi Structure</field>
+            <field name="res_model">ickpi.structure</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new structure
+              </p>
+            </field>
+        </record>
+
+        <record id="action_ickpi_sales_form" model="ir.actions.act_window">
+            <field name="name">ickpi_sales</field>
+            <field name="res_model">ickpi.sales</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new sales
+              </p>
+            </field>
+        </record>
+
+        <record id="action_ickpi_contact_type_form" model="ir.actions.act_window">
+            <field name="name">contact_type</field>
+            <field name="res_model">contact.type</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new contact type
+              </p>
+            </field>
+        </record>
+
+        <menuitem
+            id="menu_ickpi_structure_form"
+            name="Structure"
+            parent="crm.crm_menu_config"
+            groups="base.group_system"
+            action="ickpi_crm_extension.action_ickpi_structure_form"
+            sequence="7"/>
+
+        <!--menuitem
+            id="menu_ickpi_sales_form"
+            name="Settings"
+            parent="crm.crm_menu_config"
+            groups="base.group_system"
+            action="ickpi_crm_extension.action_ickpi_sales_form"
+            sequence="8"/>
+
+        <menuitem
+            id="menu_ickpi_contact_type_form"
+            name="Settings"
+            parent="crm.crm_menu_config"
+            groups="base.group_system"
+            action="ickpi_crm_extension.action_ickpi_contact_type_form"
+            sequence="9"/-->
+    </odoo>

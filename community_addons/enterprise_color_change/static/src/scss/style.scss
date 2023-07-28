@@ -1,0 +1,36 @@
+
+$brand-primary-dark: darken($brand-primary, 10%);
+
+.o_loading {
+    background-color: $brand-primary;
+}
+
+.o_main_navbar {
+    background-color : $brand-primary;
+}
+
+.o_main_navbar > a:hover, .o_main_navbar > a:focus, .o_main_navbar > button:hover, .o_main_navbar > button:focus {
+
+    background-color: $brand-primary-dark;
+    color: inherit;
+
+}
+
+.o_main_navbar > ul > li > a:hover, .o_main_navbar > ul > li > label:hover {
+    background-color: $brand-primary-dark;
+}
+
+.o_main_navbar .show .dropdown-toggle {
+
+    background-color: $brand-primary-dark;
+
+}
+
+.o_home_menu .o_apps .o_app .o_caption {
+        color: #212529;
+        
+}
+.o_main_navbar > ul > li > a {                             
+        color: #212529;
+}     
+

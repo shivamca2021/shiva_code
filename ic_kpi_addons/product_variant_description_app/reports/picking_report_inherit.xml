@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="report_picking_inherit" inherit_id="stock.report_picking">
+		
+		<xpath expr="//table[@class='table table-sm']//tbody//tr//td//span[2]" position="replace">
+			<t t-if="docs.picking_type_id.name == 'Receipts'">
+				<span t-field="move.product_id.description_for_receipt"/>
+			</t>
+			<t t-if="docs.picking_type_id.name == 'Delivery Orders'">
+				<span t-field="move.product_id.description_for_delivery"/>
+			</t>
+		</xpath>
+
+	</template>
+
+</odoo>

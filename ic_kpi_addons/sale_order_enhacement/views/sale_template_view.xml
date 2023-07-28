@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="sale_template_view" model="ir.ui.view">
+            <field name="name">Sale Template Form</field>
+            <field name="model">sale.template</field>
+            <field name="arch" type="xml">
+                <form string="Sale Template">
+                    <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                        <notebook>
+                            <page name="sale_template_id" string="Sale Template">
+                                <field name="sale_template_line_ids">
+                                    <tree string="Sale Template">
+                                        <field name="column"/>
+                                        <field name="field_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_template_tree" model="ir.ui.view">
+            <field name="name">sale.template.tree</field>
+            <field name="model">sale.template</field>
+            <field name="arch" type="xml">
+                <tree string="Sale Template">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_template_action" model="ir.actions.act_window">
+            <field name="name">Sale Template</field>
+            <field name="res_model">sale.template</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="sale_template_configuration"
+                name="Sale Template Configuration"
+                parent="sale.menu_sale_config"
+                action="sale_template_action"
+        />
+
+    </data>
+</odoo>

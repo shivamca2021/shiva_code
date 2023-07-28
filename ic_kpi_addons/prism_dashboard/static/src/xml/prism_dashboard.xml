@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	 <t t-name="prismDashboardMain">
+        <div class="o_dashboards" style="background:#fff;">
+			<canvas id="canvas" height="400" width="1060"></canvas>
+        </div>
+    </t>
+</templates>

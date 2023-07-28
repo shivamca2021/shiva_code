@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="Setup"
+              id="base.menu_administration"
+              web_icon="web_icon_change_setup,static/description/Setup.png"
+              sequence="500"
+              groups="base.group_erp_manager"/>
+</odoo>

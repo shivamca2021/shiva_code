@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_contacts_import_form_inherit" model="ir.ui.view">
+        <field name="name">Contacts Import</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+           <xpath expr="//div[@name='button_box']" position="before">
+              <group>
+                <button type="object" name="partner_import_file" class="btn-sm btn-link mb4 fa fa-globe" string="Customer Import"/>
+                <button type="object" name="partner_vendor_import_file" class="btn-sm btn-link mb4 fa fa-globe" string="Vendor Import"/>
+                <button type="object" name="partner_employee_import_file" class="btn-sm btn-link mb4 fa fa-globe" string="Employee Import"/>
+              </group>
+          </xpath>
+        </field>
+    </record>
+    <record id="view_users_import_form_inherit" model="ir.ui.view">
+        <field name="name">Users Import</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+           <xpath expr="//div[@name='button_box']" position="before">
+              <group>
+                <button type="object" name="user_import_data" class="btn-sm btn-link mb4 fa fa-globe" string="User Import"/>
+              </group>
+          </xpath>
+        </field>
+    </record>
+    <record id="view_company_import_form_inherit" model="ir.ui.view">
+        <field name="name">Company Import</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+           <xpath expr="//div[@name='button_box']" position="before">
+              <group>
+                <button type="object" name="company_import_data" class="btn-sm btn-link mb4 fa fa-globe" string="Company Import"/>
+              </group>
+          </xpath>
+        </field>
+    </record>
+</odoo>

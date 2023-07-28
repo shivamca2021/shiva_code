@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_inherit_dfm" model="ir.ui.view">
+            <field name="name">account.move.form.dfm</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']//tree//field[@name='price_unit']" position="after">
+                    <field name="discount" string="Disc.%"/>
+                    <field name="net_price_unit"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

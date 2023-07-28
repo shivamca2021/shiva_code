@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="vpicktree_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.picking.view.list.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inventory_tree_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.inventory.view.list.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_tree"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_scrap_tree_view_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.scrap.view.list.inherit</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_tree_view"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.picking.view.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,assigned,done"/>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_inventory_form_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.inventory.view.form.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_scrap_form_view_inherit_stock" model="ir.ui.view">
+            <field name="name">stock.scrap.view.form.inherit</field>
+            <field name="model">stock.scrap</field>
+            <field name="inherit_id" ref="stock.stock_scrap_form_view"/>
+            <field name="groups_id" eval="[(4, ref('sale_stock_readonly.sale_inventory_readonly'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="edit">false</attribute>
+                    <attribute name="delete">false</attribute>
+                </xpath>
+            </field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

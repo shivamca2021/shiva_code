@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_attribute_default_form" model="ir.ui.view">
+            <field name="name">product.attribute.default.form.view</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.product_attribute_view_form"/>
+            <field name="arch" type="html">
+                <xpath expr="//notebook/page[@name='attribute_values']/field[@name='value_ids']/tree/field[@name='is_custom']" position="after">
+                    <field name="is_default"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

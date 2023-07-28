@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--  Form View  -->
+        <record id="view_res_partner_groups_form" model="ir.ui.view">
+            <field name="name">res.partner.groups.form.view</field>
+            <field name="model">res.partner.groups</field>
+            <field name="arch" type="xml">
+                <form string="Partner Groups">
+                    <header></header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="partner_ids"/>
+                            <field name="count_of_partner" invisible="1"/> <!-- 1st feb added -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--  Tree View  -->
+        <record id="view_res_partner_groups_tree" model="ir.ui.view">
+            <field name="name">res.partner.groups.tree.view</field>
+            <field name="model">res.partner.groups</field>
+            <field name="arch" type="xml">
+                <tree string="Partner Groups" multi_edit="1">
+                    <field name="name"/>
+                    <field name="count_of_partner"/> <!-- 1st feb added -->
+                </tree>
+            </field>
+        </record>
+
+        <!--  Action  -->
+        <record id="action_partner_groups" model="ir.actions.act_window">
+            <field name="name">Contact Group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.groups</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_res_partner_groups_tree"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face"> Create New Contact Group, First step Of Creating A New Group</p>
+            </field>
+        </record>
+
+        <!-- Menu -->
+        <menuitem id="menu_partner_group" name="Contact Group" parent="mass_mailing.mass_mailing_menu_root" sequence="3" action="action_partner_groups"/>
+    </data>
+</odoo>

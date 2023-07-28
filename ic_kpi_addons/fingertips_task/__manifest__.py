@@ -1,0 +1,20 @@
+{
+    'name': 'Project',
+    'version': '1.1',
+    'category': 'Services/Project',
+    'sequence': 45,
+    'summary': 'Organize and plan your projects',
+    'depends': ['project'],
+    'description': "Project Task Stage Schedule",
+    'data': [
+        'security/ir.model.access.csv',
+        'views/project_task_schedule.xml',
+        'views/project_task_type_view.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

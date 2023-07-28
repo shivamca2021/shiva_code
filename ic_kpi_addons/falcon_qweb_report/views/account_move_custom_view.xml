@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_move_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_right_group']" position="after">
+                <group>
+                    <field name="work_description"/>
+                </group>
+            </xpath>
+
+            <xpath expr="//page[@id='other_tab']" position="after">
+                <page name="terms" string="Terms">
+                    <label for="terms_note"/>
+                    <field name="terms_note" widget="html"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

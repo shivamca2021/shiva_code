@@ -1,0 +1,244 @@
+<odoo>
+    <data>
+        <template id="falcon_sale_order_estimation_report_template">
+            <t t-call="falcon_qweb_report.falcon_external_layout_sale_estimation">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <style>
+                        <!--                            .table-sm {-->
+                        <!--                                border-bottom: 1px solid;-->
+                        <!--                            }-->
+                    </style>
+                    <div class="row"
+                         style="border: 1px;color: black;font-family:Libre Franklin;font-size:9.6px;margin: 0px 1px;border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;">
+                        <div class="col-6" style="border-right:1px solid black">
+                            <strong>To</strong>
+                        </div>
+                        <div class="col-3" style="border-right:1px solid black">
+                            <strong>CONTACT</strong>
+                        </div>
+                        <div class="col-3">
+                            <strong>VALID UNTIL</strong>
+                        </div>
+
+
+                    </div>
+                    <div class="row"
+                         style="color:black;font-fami   ly:Libre Franklin;font-size:9.6px;border: 1px solid;margin: 0px 1px;">
+                        <div class="col-6" style="border-right: 1px solid;">
+                            <div t-field="doc.partner_id" style="font-weight:bold"
+                                 t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                            <t t-if=" doc.partner_id.street or doc.partner_id.street2 or doc.partner_id.city or doc.partner_id.state_id or doc.partner_id.zip or doc.partner_id.country_id">
+                                <div t-field="doc.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                            </t>
+                        </div>
+                        <div class="col-3" style="border-right: 1px solid;">
+                            <div t-field="doc.partner_id" style="font-weight:bold"
+                                 t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                            <t t-if=" doc.partner_id.street or doc.partner_id.street2 or doc.partner_id.city or doc.partner_id.state_id or doc.partner_id.zip or doc.partner_id.country_id">
+                                <div t-field="doc.partner_id"
+                                     t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            </t>
+                            <br/>
+                        </div>
+                        <div class="col-3">
+                            <span t-field="doc.validity_date"/>
+                            <!--                            <div t-field="doc.partner_id" style="font-weight:bold"-->
+                            <!--                                 t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>-->
+                            <!--                            <t t-if=" doc.partner_id.street or doc.partner_id.street2 or doc.partner_id.city or doc.partner_id.state_id or doc.partner_id.zip or doc.partner_id.country_id">-->
+                            <!--                                <div t-field="doc.partner_id"-->
+                            <!--                                     t-options='{"widget": "contact", "fields": ["address", "phone"], "no_marker": True, "phone_icons": True}'/>-->
+                            <!--                            </t>-->
+                            <br/>
+                        </div>
+                    </div>
+                    <table class="table table-sm o_main_table"
+                           style="font-size: 9.6px !important;border-bottom:1px solid;font-family:Libre Franklin;margin-bottom: 0rem !important;">
+                        <thead style="display: table-row-group; ">
+                            <tr>
+                                <!--                                <th name="th_terms" class="text-left" style="width: 16.666666667%;text-transform: capitalize">Terms</th>-->
+                                <th name="th_po" class="text-left"
+                                    style="width: 16.666666667%;text-transform: capitalize">DESCRIPTION OF WORK
+                                </th>
+                                <!--                                <th name="th_project" class="text-left"-->
+                                <!--                                    style="width: 16.666666667%;text-transform: capitalize">Shipper-->
+                                <!--                                </th>-->
+                                <!--                                <th name="th_shipping" class="text-left"-->
+                                <!--                                    style="width: 16.666666667%;text-transform: capitalize">PREPAID-->
+                                <!--                                </th>-->
+                                <!--                                <th name="th_ship_date" class="text-left"-->
+                                <!--                                    style="width: 16.666666667%;text-transform: capitalize">WORK ORDER #-->
+                                <!--                                </th>-->
+                                <!--                                <th name="th_tracking" class="text-left"-->
+                                <!--                                    style="width: 16.666666667%;text-transform: capitalize">QUOTE #-->
+                                <!--                                </th>-->
+                            </tr>
+                        </thead>
+                        <!--                        <span/>-->
+                        <tbody class="sale_tbody" style="color:black !important;">
+                            <td class="text-left">
+                                <span t-field="doc.work_description"/>
+                            </td>
+                            <!--                            <td class="text-left">-->
+                            <!--                                <span t-field="doc.shipper"/>-->
+                            <!--                            </td>-->
+                            <!--                            <td class="text-left">-->
+                            <!--                                <span t-field="doc.prepaid"/>-->
+                            <!--                            </td>-->
+                            <!--                            <td class="text-left">-->
+                            <!--                                <span t-field="doc.picking_ids.name"/>-->
+                            <!--                            </td>-->
+                            <!--                            &lt;!&ndash;                            <td class="text-left">&ndash;&gt;-->
+                            <!--                            &lt;!&ndash;                                <t t-if="schedule_date">&ndash;&gt;-->
+                            <!--                            &lt;!&ndash;                                    &lt;!&ndash;                                    <span t-esc="datetime.datetime.strftime(schedule_date,'%m/%d/%Y')"/>&ndash;&gt;&ndash;&gt;-->
+                            <!--                            &lt;!&ndash;                                </t>&ndash;&gt;-->
+                            <!--                            &lt;!&ndash;                            </td>&ndash;&gt;-->
+                            <!--                            <td class="text-left">-->
+                            <!--                                <span t-field="doc.name"/>-->
+                            <!--                            </td>-->
+                            <!--                            <tr></tr>-->
+                        </tbody>
+
+                    </table>
+                    <!--                    &lt;!&ndash;                    <div class="row">&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                        <div class="col-2"></div>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                        <div class="col-10" style="padding-left: 11px !important;">&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                            <table class="table table-sm o_main_table" style="font-size: 9.6px !important;border-bottom:1px solid;font-family:Libre Franklin">&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                <thead style="display: table-row-group">&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <tr>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                        <th name="th_inside" class="text-left" style="width: 19.99%;text-transform: capitalize">Inside Salesper...</th>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                        <th name="th_bill" class="text-left" style="width: 19.99%;text-transform: capitalize">Bill to Phone</th>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                        <th name="th_ship" class="text-left" style="width: 19.99%;text-transform: capitalize">Ship to Phone</th>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                        <th name="th_weight" class="text-left" style="width: 19.99%;text-transform: capitalize">Estimated Weight</th>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                        <th name="th_code" class="text-left" style="width: 19.99%;text-transform: capitalize">Shipping Code (2)</th>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    </tr>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                </thead>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                <tbody class="sale_tbody">&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <td class="text-left" style="background-color: white !important;color: black !important;border: 1px solid;"><span t-field="doc.user_id.name"/></td>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <td class="text-left"  style="background-color: white !important;color: black !important;"><t t-if="doc.partner_invoice_id"><span t-esc="doc.partner_invoice_id.phone or doc.partner_invoice_id.mobile"/></t></td>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <td class="text-left" style="background-color: white !important;color: black !important;"><t t-if="doc.partner_shipping_id"><span t-esc="doc.partner_shipping_id.phone or doc.partner_shipping_id.mobile"/></t></td>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <td class="text-right" style="background-color: white !important;color: black !important;"><span t-esc="weight"/></td>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                    <td sclass="text-left" style="background-color: white !important;color: black !important;"><span></span></td>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                                </tbody>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                            </table>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+                    <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                    <table class="table table-sm o_main_table"
+                           style="font-size: 9.6px !important;font-family:Libre Franklin">
+                        <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                        <thead>
+                            <tr>
+                                <th style="width:50% !important;text-transform: capitalize" name="th_item"
+                                    class="text-left">ITEMIZED COSTS
+                                </th>
+
+                                <th name="th_quantity" class="text-left" style="text-transform: capitalize">QTY
+                                </th>
+                                <th name="th_rate" class="text-left" style="text-transform: capitalize">UNIT PRICE</th>
+                                <th name="th_amount" class="text-left" style="text-transform: capitalize">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody style="color:black !important;">
+                            <t t-set="current_subtotal" t-value="0"/>
+                            <t t-set="count" t-value="0"/>
+                            <!--                            <t t-set="i" t-value="1"/>-->
+                            <t t-foreach="doc.order_line" t-as="line">
+                                <t t-if="not line.is_delivery">
+                                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"
+                                       groups="account.group_show_line_subtotals_tax_excluded"/>
+                                    <t t-set="current_subtotal" t-value="current_subtotal + line.price_total"
+                                       groups="account.group_show_line_subtotals_tax_included"/>
+
+                                    <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                        <t t-if="not line.display_type">
+                                            <t t-set="count" t-value="count+1"/>
+                                            <td name="th_item" class="text-left">
+                                                <span t-field="line.product_id.name"/>
+                                            </td>
+                                            <td name="th_quantity" class="text-left">
+                                                <span t-field="line.product_uom_qty"/>
+                                            </td>
+
+                                            <td name="th_rate" class="text-left">
+                                                <span t-field="line.price_unit"/>
+                                            </td>
+                                            <td name="th_amount" class="text-right">
+                                                <span t-field="line.price_subtotal"/>
+                                            </td>
+
+                                        </t>
+
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                        <tbody style="color:black !important;border-top: 1px solid black !important;">
+                            <tr>
+                                <td class="text-left" colspan="3"
+                                    style="border-right: 1px solid black;;border-bottom: 1px solid black;">
+                                    TERMS: 50% DEPOSIT
+                                </td>
+
+                                <td class="text-right">
+                                    <span class="text-nowrap" t-esc="doc.deposit_amount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" colspan="3"
+                                    style="border-right: 1px solid black;;border-bottom: 1px solid black;">
+                                    BALANCE DUE ON COMPLETION
+                                </td>
+
+                                <td class="text-right" style="border-bottom: 1px solid black;">
+                                    <span class="text-nowrap" t-field="doc.balance_amount"/>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-left">
+                                    <span>
+                                        <strong>THANK YOU FOR YOUR BUSINESS!</strong>
+                                    </span>
+                                </td>
+                                <td class="text-right" colspan="2">
+                                    <span>
+                                        <strong>TOTAL ESTIMATE $</strong>
+                                    </span>
+                                </td>
+                                <td class="text-right" style="border-bottom: 1px solid black;">
+                                    <span class="text-nowrap" t-field="doc.total_estimate_amount"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="text-left" style="bottom:-620px;">
+                        <span t-field="doc.estimation_note"/>
+                    </div>
+                    <table class="table table-sm o_main_table"
+                           style="font-size: 9.6px !important;border-top:0px solid;font-family:Libre Franklin;margin-bottom: 0rem !important;">
+                        <thead>
+                            <tr>
+                                <th width="50%">CUSTOMER SIGNATURE OF ACCEPTANCE</th>
+                                <th width="30%"></th>
+                                <th width="20%">DATE :</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="falcon_report_sale_order_estimation">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="falcon_qweb_report.falcon_sale_order_estimation_report_template"
+                       t-lang="doc.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

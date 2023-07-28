@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+	 	<record id="task_type_edit_inherit" model="ir.ui.view">
+			<field name="name">project.task.type.form</field>
+			<field name="model">project.task.type</field>
+	        <field name="priority">2</field>
+	        <field name="inherit_id" ref="project.task_type_edit"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//sheet/group[1]" position="after">
+	            	<group  colspan="4" col="4">
+					    <field name="buffer_days" />
+					    <field name="colorpicker"  widget="color" options="{'readonly_mode': 'color'}"/>
+					</group>
+	            </xpath>
+	       </field>
+	    </record>
+	    
+	    <record id="view_project_buffer_kanban_inherit" model="ir.ui.view">
+		     <field name="name">project.task.inherit</field>
+		     <field name="model">project.task</field>
+		     <field name="inherit_id" ref="project.view_task_kanban"/>
+		     <field name="arch" type="xml">
+	     		<field name="stage_id" position="before">
+		             <field name="is_start_date_exceed"  />
+		         </field>
+		          <xpath expr="//kanban/templates/t[@t-name='kanban-box']/div[1]" position='attributes'>
+	                <attribute name="t-attf-class">{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click {{ record.is_start_date_exceed.raw_value}}</attribute>
+	            </xpath>
+		     </field>
+		</record>
+	    
+		<record id="view_task_stage_buffer_form2_inherit" model="ir.ui.view">
+			<field name="name">project.task.buffer.form</field>
+			<field name="model">project.task</field>
+	        <field name="priority">2</field>
+	        <field name="inherit_id" ref="project.view_task_form2"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//notebook/page[@name='extra_info']" position="after">
+	            	<page name="buffer" string="Stages" groups="project.group_project_manager,cki_project_custom.group_project_manager_cki,project.group_project_user,cki_project_custom.group_project_viewer">
+					   <field name="buffer_stage_id">
+					   		<tree create="false">
+					   			<field name="display_name" />
+					   			<field name="stage_id" />
+					   			<field name="stage_task_id" invisible="1" />
+					   			<field name="hide_on_calender" />
+					   			<field name="start_date" />
+					   			<field name="end_date" />
+					   			<field name="show_new_stage" invisible="1"/>
+					   			<field name="is_start_date_exceed" invisible="1"/>
+					   		</tree>
+					   </field>
+					</page>
+	            </xpath>
+	           
+	       </field>
+	    </record>
+	    
+	    <record id="view_task_stage_calendar" model="ir.ui.view">
+            <field name="name">project.task.calendar</field>
+            <field name="model">project.task.stage</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+            		<calendar date_start="start_date" all_day="allday" date_stop="end_date" string="Tasks" mode="month"  event_limit="5"
+                          quick_add="False" color="stage_id">
+	                    <field name="project_id"  filters="1"/>
+	                    <field name="stage_task_id" string='Task'/>
+	                    <field name="user_id" avatar_field="image_128" filters="1"/>
+	                    <field name="start_date" readonly="1"/>
+	                    <field name="end_date" string="Stage End Date"/>
+	                    <field name="stage_id"/>
+	                    <field name="show_new_stage" invisible="1"/>
+	                    <field name="is_start_date_exceed" invisible="1"/>
+	                    <field name="hide_on_calender" invisible="1"/>
+	                    <field name="colorpicker"  widget="color" options="{'readonly_mode': 'color'}" invisible="1"/>
+	                </calendar>
+            </field>
+        </record>
+        
+        <record id="view_task_stage_form" model="ir.ui.view">
+            <field name="name">project.task.form</field>
+            <field name="model">project.task.stage</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+           		<form>
+           			<group>
+           				<group>
+           					<field name="project_id"  readonly="1"/>
+		                    <field name="stage_task_id" string='Task' readonly="1"/>
+		                    <field name="user_id" readonly="1" string="Assigned to"/>
+							<field name="tag_ids" widget="many2many_tags"/>
+           				</group>
+           				<group>
+           					<field name="stage_id" readonly="1"/>
+           					<field name="hide_on_calender" />
+           					<field name="start_date" />
+                    		<field name="end_date" string="Stage End Date" />
+           				</group>
+           			</group>
+                    
+                </form>
+            </field>
+        </record>
+        
+        <record id="calendar_search" model="ir.ui.view">
+	        <field name="name">calendar.search</field>
+	         <field name="model">project.task.stage</field>
+	         <field name="arch" type="xml">
+	             <search string="Search Stage">
+             		<field name="stage_task_id" string="Task" />
+	                <field name="stage_id" string="Stage" />
+<!--					 <field name="tag_ids" string="Tag" filter_domain="[('tag_ids', 'child_of', self)]"/>-->
+	                 <field name="tag_ids"/>
+	             </search>
+	         </field>
+	    </record>
+        
+        <record id="task_stage_calendar_action" model="ir.actions.act_window">
+	         <field name="name">Calendar</field>
+	         <field name="type">ir.actions.act_window</field>
+	         <field name="res_model">project.task.stage</field>
+	         <field name="view_mode">calendar</field>
+	         <field name="view_id" ref="view_task_stage_calendar"/>
+	         <field name="search_view_id" ref="calendar_search"/>
+	     </record>
+     
+     
+
+     <menuitem action="task_stage_calendar_action"
+     			name="Calendar"
+     			id="stage_calendar_menu" 
+     			parent="project.menu_main_pm"
+     			groups="base.group_no_one,project.group_project_user,project.group_project_manager,cki_project_custom.group_project_manager_cki,cki_project_custom.group_project_viewer"
+     			sequence="3"/>
+     			
+	<menuitem 
+		action="project.open_task_type_form" 
+		id="project.menu_project_config_project" 
+		name="Stages" parent="project.menu_project_config" sequence="3" groups="base.group_no_one,project.group_project_manager"/>
+
+		<record id="project_project_prism_inherit" model="ir.ui.view">
+            <field name="name">project.project.prism.tree</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+				 <xpath expr="//div[@name='options_active']" position="before">
+                    <div name="template_project">
+                            <div>
+                                <label for="template_project" class="oe_inline" string="Template Project:"/>
+                                <field name="template_project" class="oe_inline oe_input_align"/>
+                            </div>
+                        </div>
+                </xpath>
+			</field>
+		</record>
+
+		<record id="project_project_view_form_simplified_prism_inherit" model="ir.ui.view">
+            <field name="name">project.project.view.form.simplified.prism_inherit</field>
+            <field name="model">project.project</field>
+			<field name="inherit_id" ref="project.project_project_view_form_simplified"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="template_project"/>
+				</xpath>
+			</field>
+		</record>
+	
+    </data>
+</odoo>

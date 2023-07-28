@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem
+            id="hr.menu_hr_root"
+            name="Our Team"
+            groups="hr.group_hr_manager,hr.group_hr_user,base.group_user"
+            web_icon="web_icon_change_hr,static/description/Our_Team.png"
+            sequence="75"/>
+
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('hr.group_hr_manager'),ref('hr.group_hr_user')])]"/>
+    </record>
+</odoo>

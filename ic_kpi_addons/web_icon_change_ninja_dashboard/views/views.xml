@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem name="My Dashboard" id="ks_dashboard_ninja.board_menu_root"
+                  web_icon="web_icon_change_ninja_dashboard,static/description/KPI.png"
+                  action="ks_dashboard_ninja.board_dashboard_action_window"/>
+
+    <record id="ks_dashboard_ninja.board_menu_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('ks_dashboard_ninja.ks_dashboard_ninja_group_manager')])]"/>
+    </record>
+</odoo>

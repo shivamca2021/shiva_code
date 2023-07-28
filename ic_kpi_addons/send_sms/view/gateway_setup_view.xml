@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+      <record id="gateway_setup_form_view" model="ir.ui.view">
+        <field name="name">gateway.setup.form</field>
+        <field name="model">gateway_setup</field>
+        <field name="arch" type="xml">
+            <form string="GateWay Setup">
+              <group>
+                <field name="name"/>
+                <field name="gateway_url"/>
+                <field name="username"/>
+                <field name="password"/>
+                <field name="key"/>
+                <field name="from_number"/>
+                <field name="response"/>
+                <field name="response_url"/>
+              </group>
+              <notebook>
+                <page string="Help" class="sms-page">
+                  <group>
+                    <div>
+                      <h4>Please follow below step to setup SMS Gateway:</h4>
+                      <ul>
+                        <li>Use {mobile} variable in Mobile no. place.</li>
+                        <li>User {message} variable in Message content place.</li>
+                      </ul>
+                      <h4>Example:</h4>
+                      <p style="margin-left: 3%;">http://test.sms/sendsms?username=xxxxxxx&amp;password=xxxxxx&amp;type=0&amp;dlr=1&amp;destination={mobile}&amp;source=xxxxx&amp;message={message}</p>
+                    </div>
+                  </group>
+                </page>
+                <page string="SMS Test" class="sms-page">
+                  <group>
+                    <field name="number"/>
+                  </group>
+                    <field name="body" placeholder="Write Your Message"/>
+                    <button string="Send" name="sms_test_action"  type="object" class="btn-primary"/>
+                </page>
+              </notebook>
+            </form>
+        </field>
+      </record>
+      <record id="gateway_setup_tree_view" model="ir.ui.view">
+        <field name="name">gateway_setup.list</field>
+        <field name="model">gateway_setup</field>
+        <field name="arch" type="xml">
+            <tree string="GateWay Setup">
+                <field name="name"/>
+            </tree>
+        </field>
+      </record>
+      <record id="action_gateway_setup" model="ir.actions.act_window">
+        <field name="name">GateWay Setup</field>
+        <field name="res_model">gateway_setup</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="context">{}</field>
+      </record>
+
+      <menuitem action="action_gateway_setup" id="menu_action_gateway_setup" parent="base.send_sms" sequence="4" />
+         <record id="make_invisible" model="res.groups">
+        <field name="name">Invisible</field>
+    </record>
+
+    <record model="ir.ui.menu" id="phone_validation.phone_menu_main">
+        <field name="groups_id" eval="[(6,0,[ref('make_invisible')])]"/>
+    </record>
+      <record id="sms.res_partner_act_window_sms_composer_single" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+        <record id="sms.res_partner_act_window_sms_composer_multi" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+        <record id="crm_sms.crm_lead_act_window_sms_composer_single" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+        <record id="crm_sms.crm_lead_act_window_sms_composer_multi" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+
+       <record id="sms.sms_composer_action_form" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+      <record id="calendar_sms.calendar_event_act_window_sms_composer_single" model="ir.actions.act_window">
+             <field name="binding_model_id" eval="False" />
+        </record>
+
+  </data>
+</odoo>

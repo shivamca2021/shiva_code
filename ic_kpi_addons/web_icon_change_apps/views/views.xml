@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="base.menu_management" name="Apps" sequence="310" web_icon="web_icon_change_apps,static/description/options.png" groups="base.group_system"/>
+</odoo>

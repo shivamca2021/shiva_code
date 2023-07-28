@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="utm.menu_link_tracker_root" name="Link Tracker" sequence="30" web_icon="web_icon_change_link_tracker,static/description/Link_Tracker.png" groups="base.group_no_one"/>
+</odoo>

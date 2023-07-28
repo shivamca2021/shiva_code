@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="0">
+        <record id="digest.digest_digest_default" model="digest.digest">
+            <field name="name">Your IC-KPI Periodic Digest</field>
+        </record>
+    </data>
+</odoo>

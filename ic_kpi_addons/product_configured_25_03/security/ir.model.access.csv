@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_configured,product.configured,model_product_configured,base.group_user,1,1,1,1
+access_product_configured_line,product.configured.line,model_product_configured_line,base.group_user,1,1,1,1
+access_product_material,product.material,model_product_material,base.group_user,1,1,1,1
+access_standard_dimension,standard.dimension,model_standard_dimension,base.group_user,1,1,1,1
+access_parts,parts,model_parts,base.group_user,1,1,1,1
+access_sub_assembly,sub.assembly,model_sub_assembly,base.group_user,1,1,1,1
+access_parts_add_wizard,parts.add.wizard,model_parts_add_wizard,base.group_user,1,1,1,1
+access_sale_product_part_configurator,sale.product.part.configurator,model_sale_product_part_configurator,base.group_user,1,1,1,1
+access_sale_product_sub_assembly_configurator,sale.product.sub.assembly.configurator,model_sale_product_sub_assembly_configurator,base.group_user,1,1,1,1
+access_product_configuration_wizard,product.configuration.wizard,model_product_configuration_wizard,,1,1,1,1
+access_formula_variable,formula.variable,model_formula_variable,,1,1,1,1
+

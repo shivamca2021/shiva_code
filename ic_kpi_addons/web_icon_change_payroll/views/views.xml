@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+            id="om_hr_payroll.menu_hr_payroll_root"
+            name="Pay"
+            web_icon="web_icon_change_payroll,static/description/Pay.png"
+            groups="om_hr_payroll.group_hr_payroll_user"
+            sequence="76"/>
+</odoo>

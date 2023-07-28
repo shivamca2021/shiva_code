@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="authorize_ach_form">
+        <input type="hidden" name="data_set" data-create-route="/payment/test/s2s/create_json_3ds"/>
+        <input type="hidden" name="acquirer_id" t-att-value="id"/>
+        <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+        <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+        <div t-attf-class="row mt8 #{'' if bootstrap_formatting else 'o_card_brand_detail'}">
+            <div t-att-class="'form-group col-lg-12' if bootstrap_formatting else 'form-group'">
+                <input type="tel" name="bank_name" id="ac_number" class="form-control" placeholder="Bank Name" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-lg-6' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="bank_phone" id="bank_phone" class="form-control" placeholder="Bank Phone" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-lg-6' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="account_name" id="account_name" class="form-control" placeholder="Account Name" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-lg-6' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="routing_number" id="routing_number" class="form-control" placeholder="Routing Number" data-is-required="true"/>
+            </div>
+            <div t-att-class="'form-group col-lg-6' if bootstrap_formatting else 'form-group'">
+                <input type="text" name="account_number" id="account_number" class="form-control" placeholder="Account Number" data-is-required="true"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="authorize_ach_form_1">
+        <input type="hidden" name="data_set" value="/payment/authorize/s2s/create_json_3ds"/>
+        <input type="hidden" name="acquirer_id" t-att-value="id"/>
+        <input type="hidden" name="acquirer_state" t-att-value="acq.state"/>
+        <input type="hidden" name="login_id" t-att-value="acq.sudo().authorize_login"/>
+        <input type="hidden" name="client_key" t-att-value="acq.sudo().authorize_client_key"/>
+        <input class="d-none" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input t-if="return_url" type="hidden" name="return_url" t-att-value="return_url"/>
+        <input t-if="partner_id" type="hidden" name="partner_id" t-att-value="partner_id"/>
+        <input type="tel" name="cc_number" id="cc_number" class="form-control" placeholder="Card number" data-is-required="true"/>
+        <input type="text" name="bank" id="bank" />
+    </template>
+
+    <template id="form_customer_detais" name="Customer Details Form">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Customer Form</t>
+            <div id="wrap">
+                <div class="oe_website_sale mt-4 cst_website_order">
+                    <div class="container mt-3 mb-2 what-included">
+                        <div class="row">
+                            <div class="col-12">
+                                <h3 class="text-center">Customer Information</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mb-5 whats-its-main">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="customer-infromation">
+                                    <form action="/website_order/customer_details_submit" method="post" class="checkout_autoformat o_payment_form" id="company_info_form" enctype="multipart/form-data" novalidate="novalidate">
+
+                                        <div class="company_info">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="name">Company Name*</label>
+                                                        <input type="text" name="name" class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Company Name is required</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label for="uclogo">Company logo*</label>
+                                                        <input type="file" accept="image/*" class="form-control form-req" name="uclogo" required="required"/>
+                                                        <p class="error o_hidden">Please upload Company logo</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="email">Company Email*</label>
+                                                        <input type="email" name="email" class="form-control form-req" required="required" id="email_from"/>
+                                                        <p class="error o_hidden">Company Email ID is required</p>
+                                                        <p class="syntax_error o_hidden">Provide Valid Email ID (eg: comapny_name@abc.com). Email id format is not proper.</p>
+                                                        <p class="email_exit_error o_hidden">Email ID already exist. Please provide another valid Email ID.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="street">Street and Number*</label>
+                                                        <input type="text" name="street" t-attf-class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Street and Number is required</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="street2">Street 2*</label>
+                                                        <input type="text" name="street2" class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Street 2 is required</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="city">City</label>
+                                                        <input type="text" name="city" class="form-control" required=""/>
+                                                        <p class="error o_hidden">City is required</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="zip">Zip Code*</label>
+                                                        <input type="text" name="zip" t-attf-class="form-control form-req" required="required" id="zip"/>
+                                                        <p class="error o_hidden">Zip is Required</p>
+                                                        <p class="zip_syntax_error o_hidden">Please provide Zip Code in Proper format (000000, 00 0000, 00000 0000, as per your country code).</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12 div_country">
+                                                    <div class="form-group">
+                                                        <label for="country_id">Country*</label>
+                                                        <select id="country_id" name="country_id" t-attf-class="form-control custom-select mr-sm-2 form-req" t-attf-mode='shipping' required="required">
+                                                            <option value="">Country...</option>
+                                                            <t t-foreach="countries" t-as="c">
+                                                                <option t-att-value="c.id">
+                                                                    <t t-esc="c.name" />
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                        <p class="error o_hidden">Please select the country</p>
+                                                    </div>
+                                                </div>
+                                                <div t-attf-class="col-lg-6 col-md-6 col-sm-12 col-12 div_state" style="display: none">
+                                                    <div class="form-group">
+                                                        <label for="state_id">State / Province</label>
+                                                        <select id="state_id" name="state_id" t-attf-class="form-control custom-select mr-sm-2">
+                                                            <option value="">State / Province...</option>
+                                                            <t t-foreach="states" t-as="s">
+                                                                <option t-att-value="s.id">
+                                                                    <t t-esc="s.name" />
+                                                                </option>
+                                                            </t>
+                                                        </select>
+                                                        <p class="error o_hidden">State is required</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                                    <div class="form-group">
+                                                        <label for="phone">Company Phone</label>
+                                                        <input type="tel" name="phone" t-attf-class="form-control" required=""/>
+                                                        <p class="error o_hidden">Company Phone number is required</p>
+                                                        <p class="phone_syntax_error o_hidden">Please provide proper phone number (+91-8125698857, (123) 456 7899, (123).456.7899, (123)-456-7899, 123-456-7899, 123 456 7899, 1234567899)</p>
+                                                    </div>
+                                                </div>
+                                                <div class=" col-12 text-center">
+                                                    <input type="submit" class="company_form_submit btn btn-primary action-button" value="Next"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="order_form_payment_details" name="Order Company Form">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Payment Form</t>
+            <div id="wrap">
+                <div class="oe_website_sale mt-4 cst_website_order">
+                    <div class="container mt-3 mb-2 what-included">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h3>Payment Information</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mb-5 whats-its-main">
+                        <div class="row">
+                            <div class="col-12 customer-infromation">
+                                <div class="payment-information">
+                                    <form action="/website_order/order_payment_form_submit" method="post" class="checkout_autoformat o_payment_form" enctype="multipart/form-data">
+                                        <div class="company_info">
+                                            <div id="payment_method" class="mt-3" t-if="(acquirers or pms)">
+                                                <!-- <input type="hidden" name="is_from_custom_payment_form" class="form-control" value="True"/> -->
+                                                <t t-call="payment.payment_tokens_list">
+                                                    <t t-set="mode" t-value="'payment'"/>
+                                                    <t t-set="submit_txt">Pay Now</t>
+                                                    <t t-set="icon_right" t-value="1"/>
+                                                    <t t-set="icon_class" t-value="'fa-chevron-right'"/>
+                                                    <t t-set="submit_class" t-value="'btn btn-primary text-center'"/>
+                                                    <t t-set="pms" t-value="pms"/>
+                                                    <t t-set="form_action" t-value="'/website_order/order_payment_form_submit'"/>
+                                                    <t t-set="prepare_tx_url" t-value="'/shop/payment/transaction/'"/>
+                                                    <t t-set="partner_id" t-value="int(partner_id)"/>
+                                                    <input type="hidden" t-att-value="partner_id"/>
+                                                </t>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="form_user_detais" name="Order User Form">
+        <t t-call="website.layout">
+            <t t-set="additional_title">User Information Form</t>
+            <div id="wrap">
+                <div class="oe_website_sale mt-4 cst_website_order">
+                    <div class="container mt-3 mb-2 what-included">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h3 class="user-information-title">User Information</h3>
+                                <h3 class="import-data-title o_hidden">Import Data</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mb-5 whats-its-main">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="customer-infromation user-information import-data">
+                                    <form action="/website_order/user_details_submit_form" enctype="multipart/form-data" method="post" id="user_info_form">
+
+                                        <div class="row company_info o_web_user_info_div">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                            <input type="hidden" name="partner_id" t-att-value="partner_id"/>
+                                            <t t-foreach="range(9)" t-as="l">
+                                                <div t-attf-class="col-12 user-info-box user_info_div #{'o_hidden ' if l != 0 else ''}">
+                                                    <div t-attf-class="form-group">
+                                                        <label class="col-form-label label-optional" for="user_name">Name</label>
+                                                        <input type="text" t-att-name="'user_name_%s' %l" class="form-control"/>
+                                                        <p class="error o_hidden">Name is required</p>
+                                                    </div>
+                                                    <div t-attf-class="form-group">
+                                                        <label class="col-form-label label-optional" for="user_email">Email</label>
+                                                        <input type="email" t-att-name="'user_email_%s' %l" class="form-control email_from" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                                                        <p class="error o_hidden">Email ID is required</p>
+                                                        <p class="syntax_error o_hidden">Provide Valid Email ID (eg: comapny_name@abc.com). Email id format is not proper.</p>
+                                                        <p class="email_exit_error o_hidden">Email ID already exist in form. Please provide another valid Email ID.</p>
+                                                        <p class="user_email_exit_error o_hidden">Email ID already exist in Database. Please provide another valid Email ID.</p>
+                                                    </div>
+                                                    <div t-attf-class="form-group">
+                                                        <label class="col-form-label label-optional" for="user_pwd">Password</label>
+                                                        <input type="password" t-att-name="'user_pwd_%s' %l" class="form-control"/>
+                                                        <p class="error o_hidden">Password is required</p>
+                                                    </div>
+                                                    <div t-attf-class="form-group">
+                                                        <label class="col-form-label label-optional" for="is_admin">Is Admin</label><br/>
+                                                        <input type="checkbox" class="radio custom_checkbox" t-att-name="'is_admin_%s' %l" t-att-checked="None if l != 0 else 'checked'"/>
+                                                    </div>
+                                                    <div class="add-new">
+                                                        <a role="button" style="cursor: pointer;"> <i class="fa fa-plus add_user_info"/> </a>
+                                                        <a role="button" style="cursor: pointer;"><i class="fa fa-minus remove_user_info o_hidden"/> </a>
+                                                    </div>
+                                                </div>
+                                                <t t-value="l+1" t-set="l"/>
+                                            </t>
+                                            <div class="col-12 text-center">
+                                                <input type="button" name="next" class="next action-button btn btn-primary" value="Next"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row company_info file_upload" style="display: none;">
+                                            <div class="form-row">
+                                                <div t-attf-class="form-group col-md-6 div_customer">
+                                                    <label class="col-form-label label-optional" style="font-size:14px;" for="customer_file">Customers Details(xls,xlsx,csv)</label>
+                                                    <a href="/website_order/static/src/excel/customer.xlsx" style="font-size:12px;text-decoration: underline;">Download Sample Template</a>
+                                                    <div class="upload-file-box">
+                                                        <span class="">Upload File</span>
+                                                        <input type="file" name="customer_file" class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Please upload Customer File.</p>
+                                                    </div>
+                                                </div>
+                                                <div t-attf-class="form-group col-md-6 div_vendor">
+                                                    <label class="col-form-label label-optional" style="font-size:14px;" for="vendor_file">Vendors Details(xls,xlsx,csv)</label>
+                                                    <a href="/website_order/static/src/excel/vendor.xlsx" style="font-size:13px;text-decoration: underline;">Download Sample Template</a>
+                                                    <div class="upload-file-box">
+                                                        <span class="">Upload File</span>
+                                                        <input type="file" name="vendor_file" class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Please upload Vendor File.</p>
+                                                    </div>
+                                                </div>
+                                                <div t-attf-class="form-group col-md-6 div_employee">
+                                                    <label class="col-form-label label-optional" style="font-size:14px;" for="emp_file">Employees Details(xls,xlsx,csv)</label>
+                                                    <a href="/website_order/static/src/excel/Employee.xlsx" style="font-size:12px;text-decoration: underline;">Download Sample Template</a>
+                                                    <div class="upload-file-box">
+                                                        <span class="">Upload File</span>
+                                                        <input type="file" name="emp_file" class="form-control form-req" required="required"/>
+                                                        <p class="error o_hidden">Please upload Employee File.</p>
+                                                    </div>
+                                                </div>
+                                                <!--                                                <div t-attf-class="form-group col-md-6 div_chat_of_account">-->
+                                                <!--                                                    <label class="col-form-label label-optional" for="chat_of_acc_file">Chart of Accounts Details</label>-->
+                                                <!--                                                    <div class="upload-file-box">-->
+                                                <!--                                                        <span class="">Upload File</span>-->
+                                                <!--                                                        <input type="file" name="chat_of_acc_file" class="form-control" required="required"/>-->
+                                                <!--                                                    </div>-->
+                                                <!--                                                </div>-->
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <input type="button" name="previous" class="previous action-button-previous btn btn-primary" value="Previous" />
+                                                <input type="button" class="user_form_submit action-button btn btn-primary" value="Submit"/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="thank_you_page" name="User Thank You Page">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Thank you</t>
+            <div id="wrap">
+                <div class="container oe_website_sale mt-4 cst_website_order">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3 class="text-center">Thank you for your order. <br></br>
+                                Your Order has been placed successfully. <br></br>
+                                Our support team will contact you in 24 hours.
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

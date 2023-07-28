@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="hr_attendance.menu_hr_attendance_root" name="C-Time" sequence="90"
+              groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_kiosk"
+              web_icon="web_icon_change_hr_attendance,static/description/C-Time.png"/>
+</odoo>

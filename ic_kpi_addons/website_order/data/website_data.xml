@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="order_now_page" model="website.page">
+            <field name="url">/order_now_btn_page</field>
+            <field name="is_published">True</field>
+            <field name="view_id" ref="website_order.order_now_btn_page"/>
+            <field name="cache_time">0</field>
+            <field name="track">True</field>
+        </record>
+        <record id="menu_order_now" model="website.menu">
+            <field name="name">Order Now</field>
+            <field name="url">/order_now_btn_page</field>
+            <field name="page_id" ref="website_order.order_now_page"/>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">60</field>
+        </record>
+    </data>
+</odoo>

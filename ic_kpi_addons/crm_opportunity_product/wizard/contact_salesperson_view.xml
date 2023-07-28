@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="add_saleperson_contact_wizard" model="ir.ui.view">
+            <field name="name">salesperson.contact.wizard.form</field>
+            <field name="model">salesperson.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="salesperson_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                         <button name="action_add_salesperson" type="object" class="oe_highlight" string="Add"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="add_saleperson_contact_wizard_action" model="ir.actions.act_window">
+            <field name="name">Add Salesperson to select contacts</field>
+            <field name="res_model">salesperson.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

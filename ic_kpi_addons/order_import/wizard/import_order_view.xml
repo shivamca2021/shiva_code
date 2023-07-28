@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_import_order_wizard_form" model="ir.ui.view">
+        <field name="name">Import Order</field>
+        <field name="model">import.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="file_name"/>
+                </group>
+                <footer>
+                    <button name="import_orders" string="Import Order" type="object"
+                            class="btn-primary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_order_wizard" model="ir.actions.act_window">
+        <field name="name">Import Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_import_order_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

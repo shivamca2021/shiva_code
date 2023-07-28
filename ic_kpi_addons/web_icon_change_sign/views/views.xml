@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <menuitem id="sign.menu_document" name="Sign" web_icon="web_icon_change_sign,static/description/E_Sign.png" groups="sign.group_sign_employee"/>
+</odoo>

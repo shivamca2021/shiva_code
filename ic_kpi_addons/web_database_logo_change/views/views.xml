@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="Website"
+              id="website.menu_website_configuration"
+              sequence="9"
+              groups="base.group_user"
+              web_icon="web_icon_change_website,static/description/website.png"/>
+
+    <record id="website.menu_website_configuration" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('website.group_website_publisher')])]"/>
+    </record>
+</odoo>

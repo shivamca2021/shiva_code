@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="gen_sale_wizard_view" model="ir.ui.view">
+            <field name="name">wizard for import sale order from csv file </field>
+            <field name="model">sale.import</field>
+            <field name="arch" type="xml">
+                <form string="Import Sale Order">
+                    <group>
+                        <group>
+                            <field name="import_option" widget="radio" />
+                            <label for="template_id"/>
+                            <div>
+                                <field name="template_id"/>
+                                <field name="assign" nolabel="1" class="oe_inline"/>
+                            </div>
+                            <field name="file" filename="name" attrs="{'invisible': [('assign', '!=', True)]}"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button name="import_sale" string="Import" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="import_order_action" model="ir.actions.act_window">
+            <field name="name">Import Sale Order</field>
+            <field name="res_model">sale.import</field>
+
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="sale_order_import"
+                name="Import Sale Order"
+                parent="sale.menu_sale_config"
+                action="import_order_action"
+        />
+
+<!--                <record id="sale_order_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">sale.order.form.inherit</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--            <field name="priority" eval="8"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//button[@name='action_quotation_send']" position="after">-->
+<!--                    <button name="%(import_order_action)d"-->
+<!--						string="Import Sale Order"-->
+<!--                        type="action"-->
+<!--                        class="btn-primary"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+    </data>
+</odoo>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="parts_add_product_wizard" model="ir.ui.view">
+            <field name="name">parts.add.wizard.form</field>
+            <field name="model">parts.add.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="product_id" domain="[('remove_placeholder','=',False)]" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <footer>
+                         <button name="action_add_parts_in_product" type="object" class="oe_highlight" string="Add"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="add_saleperson_contact_wizard_action" model="ir.actions.act_window">
+            <field name="name">Add Parts in Product</field>
+            <field name="res_model">parts.add.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="sale_product_configurator_view_form_inherit" model="ir.ui.view">
+            <field name="name">sale_product_configurator.product.configurator.view.form.inherit</field>
+            <field name="model">sale.product.configurator</field>
+            <field name="inherit_id" ref="sale_product_configurator.sale_product_configurator_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]" position="after">
+                    <group>
+                        <group>
+                            <field name="material_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+			    <field name="species_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+                            <field name="part_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+                            <field name="sub_assembly_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+                            <field name="internal_material_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+                            <field name="external_material_ids" invisible="1">
+                                <tree limit="10000"/>
+                            </field>
+<!--                            <separator string="Parts" colspan="2"/>-->
+<!--                            <field name="part_line_ids"  nolabel="1">-->
+<!--                                    <tree string="Parts" editable="bottom">-->
+<!--                                        <field name="configured_checkbox" nolabel="1"/>-->
+<!--                                        <field name="part_id"/>-->
+<!--                                    </tree>-->
+<!--                            </field><separator string="Parts" colspan="2"/>-->
+<!--                            <field name="sub_assembly_line_ids"  nolabel="1">-->
+<!--                                    <tree string="Sub Assembly" editable="bottom">-->
+<!--                                        <field name="configured_checkbox" nolabel="1"/>-->
+<!--                                        <field name="sub_assembly_id"/>-->
+<!--                                    </tree>-->
+<!--                            </field>-->
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="fav_applist_bottom" name="Apps bottom list">
+        <t t-if="backend_all_fav_app">
+            <t t-foreach="backend_all_fav_app" t-as="fav_app">
+                <a t-attf-href="#menu_id=#{fav_app.backend_ir_ui_menu.id}">
+                    <t t-if="adapt_state=='installed'">
+                        <img t-attf-src="/{{r_apps.web_icon.split(',')[0]}}/static/description/adaptthemeicon.png" t-att-alt="r_apps.name" class="o-app-icon" t-att-title="r_apps.name"/>
+                    </t>
+                    <t t-else="adapt_state!='installed'">
+                        <img t-attf-src="data:image/png;base64,#{fav_app.backend_ir_ui_menu.web_icon_data}" class="app-sidebar-menuitem" style="height:30px;width:30px;" t-att-title="fav_app.backend_ir_ui_menu.name"/>
+                    </t>
+                    <span t-esc="fav_app.backend_ir_ui_menu.name" />
+                </a><br/>
+            </t>
+        </t>
+        <t t-else="">
+            <span>No Favourite Apps Found</span>
+        </t>
+    </template>
+    <template id="app_sidebar_custom" inherit_id="backend_theme_v14.app_sidebar" name="Apps Sidebar custom">
+        <xpath expr="//div[hasclass('app-sidebar')]" position="replace">
+            <div id="app-sidebar" class="app-sidebar-panel">
+                <div class="app-sidebar">
+                    <ul id="sidebar" class="app-sidebar-menu">
+                        <li class="nav-item" name="HR" t-as="s_menu" t-foreach="sidebar_menu" >
+                            <a
+                               t-att-class="'nav-link nav-toggle' if s_menu.related_apps else 'nav-link '">
+                                <img t-attf-src="/web/image/sidebar.menu/{{s_menu.id}}/sidebar_image" t-att-alt="s_menu.name" class="app-sidebar-menuitem" t-att-title="s_menu.name"/>
+                                <span class="title app-menu-name">
+                                    <t t-esc="s_menu.name"/>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="app_menu_data" name="Apps menu">
+        <t t-if="request.env.user.company_id.logo_image">
+            <div class="left_side_image_wrap">
+                <img t-attf-src="/web/image/res.company/{{request.env.user.company_id.id}}/logo_image" t-att-alt="sidebar_obj.name"
+                     class="o-app-icon" t-att-title="sidebar_obj.name" style="width: 70%;padding-left: 20px;"/>
+            </div>
+        </t>
+        <t t-as="r_apps" t-foreach="related_apps">
+            <div class="menu_item_list_wrp">
+                <a role="menuitem" t-attf-href="#menu_id=#{r_apps.id}"
+                class="dropdown-item o_appss"
+                t-att-data-menu-id="r_apps.id"
+                t-att-data-action-id="r_apps.action">
+                    <t t-if="adapt_state=='installed'">
+                        <img t-attf-src="/{{r_apps.web_icon.split(',')[0]}}/static/description/adaptthemeicon.png" t-att-alt="r_apps.name" class="o-app-icon" t-att-title="r_apps.name"/>
+                    </t>
+                    <t t-else="adapt_state!='installed'">
+                        <img t-attf-src="/web/image/ir.ui.menu/{{ r_apps.id }}/web_icon_data" t-att-alt="r_apps.name" class="o-app-icon" t-att-title="r_apps.name"/>
+                    </t>
+                </a>
+                <i class="star_icon_fun" t-att-data-menu-id="r_apps.id"><img src="/backend_theme_extension/static/src/img/fav_ic.svg" /></i>
+            </div>
+        </t>
+        <t t-if="sidebar_obj.right_side_image">
+            <div class="right_side_image_wrap">
+                <img t-attf-src="/web/image/sidebar.menu/{{sidebar_obj.id }}/right_side_image" t-att-alt="sidebar_obj.name" class="o-app-icon-right" t-att-title="sidebar_obj.name"/>
+            </div>
+        </t>                            
+    </template>
+</odoo>

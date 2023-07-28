@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 2 * 8 label -->
+        <template id="hallmark_label_barcode_template_view_pdf">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-set="uom_categ_unit" t-value="env.ref('uom.product_uom_categ_unit')"/>
+                    <t t-foreach="docs" t-as="picking">
+                        <t t-set="picking_qty_done" t-value="any(picking.move_lines.move_line_ids.mapped('qty_done'))"/>
+                        <table class="table table-bordered" style="width:901px !important;" t-if="picking.move_lines">
+                            <t t-foreach="picking.move_lines" t-as="move">
+                                <t t-foreach="move.move_line_ids.filtered(lambda x: not x.product_id.is_label_size)" t-as="move_line">
+                                    <t t-if="move_line.product_uom_id.category_id == uom_categ_unit">
+                                        <t t-set="qty" t-value="int(move_line.product_uom_qty or move_line.qty_done)"/>
+                                    </t>
+                                    <t t-foreach="range(qty)" t-as="item">
+                                        <tr>
+                                            <td class="table-active text-center"
+                                                style="border-right:1px solid black;border-left:1px solid #FFFFFF;border-top:1px solid #FFFFFF;border-bottom:1px solid #FFFFFF;height:68mm !important;font-size:25px;background:white;vertical-align: middle;">
+                                                <span t-esc="move_line.product_id.description_sale"/>
+                                            </td>
+                                            <td style="border-right:1px solid #FFFFFF;border-top:1px solid #FFFFFF;border-bottom:1px solid #FFFFFF;height:68mm !important;background-color: white;width:14%"></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <!-- 1 * 5 label -->
+        <template id="hallmark_delivery_label_barcode_1_x_5_template_view_pdf">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-set="uom_categ_unit" t-value="env.ref('uom.product_uom_categ_unit')"/>
+                    <t t-foreach="docs" t-as="picking">
+                        <t t-set="picking_qty_done" t-value="any(picking.move_lines.move_line_ids.mapped('qty_done'))"/>
+                        <table class="table" t-if="picking.move_lines">
+                            <t t-set="line_count" t-value="0"/>
+                            <t t-foreach="picking.move_lines" t-as="move">
+                                <t t-foreach="move.move_line_ids.filtered(lambda x: x.product_id.is_label_size)" t-as="move_line">
+                                    <t t-if="move_line.product_uom_id.category_id == uom_categ_unit">
+                                        <t t-set="qty" t-value="int(move_line.product_uom_qty or move_line.qty_done)"/>
+                                    </t>
+                                    <t t-foreach="range(qty)" t-as="item">
+                                        <tr>
+                                            <t t-set="line_count" t-value="line_count + 1"/>
+                                            <td class="table-active text-center"
+                                                style="border-left:1px solid #FFFFFF;border-top:1px solid #FFFFFF;border-bottom:1px solid #FFFFFF;border-right:1px solid #000000;height:24mm !important;background:white;vertical-align: middle;width: 60.1mm !important;">
+                                                <span t-esc="move_line.product_id.description_sale"/>
+                                            </td>
+                                            <td style="border-top:1px solid #FFFFFF;height:24mm !important;background-color: white;width:30.3mm !important;"></td>
+                                            <td class="table-active text-center"
+                                                style="border-left:1px solid #000000;border-top:1px solid #FFFFFF;border-bottom:1px solid #FFFFFF;border-right:1px solid #FFFFFF;height:24mm !important;background:white;width: 60.1mm !important;line-height: 0.8 !important;">
+                                                <t t-if="line_count == 1 or line_count == 2">
+                                                    <p class="" style="margin: 3px;"></p>
+                                                </t>
+                                                <t t-if="line_count == 3 or line_count == 4">
+                                                    <p class="" style="margin: 2px;"></p>
+                                                </t>
+                                                <span style="margin-left: 16px;font-size:10px;vertical-align: top;line-height: 0.8 !important;">DESC#:</span>
+                                                <span style="font-size:10px;vertical-align: top;line-height: 0.8 !important;" t-esc="move_line.product_id.name"/>
+                                                <t t-if="move_line.product_id.barcode">
+                                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s' % ('EAN13', move_line.product_id.barcode)"
+                                                            style="width:100%;max-height:13px;margin-left: -10px;vertical-align: top;line-height: 0.8 !important;"
+                                                            alt="Barcode"/>
+                                                    <p class="" style="margin: 2px;"></p>
+                                                    <span style="margin-left: 30px;font-size:10px;vertical-align: top;line-height: 0.8 !important;">Item#:</span>
+                                                    <span style="font-size:10px;vertical-align: top;line-height: 0.8 !important;" t-esc="move_line.product_id.barcode"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <span class="text-muted">No barcode available</span>
+                                                </t>
+                                                <t t-if="move_line.product_id.barcode">
+                                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s' % ('EAN13', picking.sale_id.customer_po)"
+                                                            style="width:100%;max-height:13px;margin-left: -14px;vertical-align: top;line-height: 0.8 !important;"
+                                                            alt="Barcode"/>
+                                                    <span style="margin-left: 15px;font-size:10px;vertical-align: middle;line-height: 0.8 !important;">Customer
+                                                        PO#:
+                                                    </span>
+                                                    <span style="font-size:10px;vertical-align: middle;line-height: 0.8 !important;" t-esc="picking.sale_id.customer_po"/>
+                                                </t>
+
+                                                <t t-else="">
+                                                    <span class="text-muted">No barcode available</span>
+                                                </t>
+                                                <p class="" style="margin: 2px;"></p>
+                                                <p style="text-align:center;font-size:10px;vertical-align: bottom;line-height: 0.8 !important;">MADE IN VIETNAM</p>
+                                            </td>
+                                        </tr>
+                                        <t t-if="line_count % 7 == 0">
+                                            <tr>
+                                                <p class="" style="margin: 3px;"></p>
+                                            </tr>
+                                        </t>
+                                        <t t-if="line_count != 8 and line_count != 7">
+                                            <tr>
+                                                <td colspan="3" style="border:1px solid #FFFFFF;height:1.5mm !important;background-color: white;width:140mm !important;"></td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </t>
+                                <t t-if="line_count == 8">
+                                    <t t-set="line_count" t-value="0"/>
+                                </t>
+                            </t>
+                        </table>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="hallmark_product_barcode_laser_print_view_pdf">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-set="uom_categ_unit" t-value="env.ref('uom.product_uom_categ_unit')"/>
+                    <t t-foreach="docs" t-as="picking">
+                        <t t-set="move_ids" t-value="picking.move_lines.move_line_ids.ids"/>
+                        <t t-foreach="picking.move_lines.move_line_ids.filtered(lambda x: not x.product_id.is_label_size)" t-as="move_line">
+                            <t t-set="qty" t-value="int(move_line.product_uom_qty or move_line.qty_done)"/>
+                            <t t-foreach="range(qty)" t-as="item">
+                                <div style="display: inline-table;width:118mm !important;height:76mm !important;border: 1px solid white;vertical-align: top !important;">
+                                    <table t-if="picking.move_lines">
+                                        <tr>
+                                            <th>
+                                                <br/>
+                                                <span style="margin-left: 18px;">DESC#:</span>
+                                                <span style="" t-esc="move_line.product_id.name"/>
+                                                <div class="col-10">
+                                                    <t t-if="move_line.product_id.barcode">
+                                                        <strong>
+                                                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', move_line.product_id.barcode, 600, 100)"
+                                                                    style="width:100%;height:3rem;margin-left: -10px;"
+                                                                    alt="Barcode"/>
+                                                            <span style="margin-left: 60px;">Item#:</span>
+                                                            <span t-esc="move_line.product_id.barcode"/>
+                                                        </strong>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <span class="text-muted">No barcode available</span>
+                                                    </t>
+                                                </div>
+                                                <div class="col-12">
+                                                    <t t-if="move_line.product_id.barcode">
+                                                        <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', picking.sale_id.customer_po, 600, 100)"
+                                                                style="width:100%;height:3rem;margin-left: -14px;"
+                                                                alt="Barcode"/>
+                                                        <span style="margin-left: 15px;font-size: 9px;">Customer
+                                                            PO#:
+                                                        </span>
+                                                        <span style="font-size: 9px;"
+                                                                t-esc="picking.sale_id.customer_po"/>
+                                                    </t>
+
+                                                    <t t-else="">
+                                                        <span class="text-muted">No barcode available</span>
+                                                    </t>
+                                                </div>
+                                                <div class="col-12" style="text-align:center;margin-top: 5px;">
+                                                    <span style="text-align:center">MADE IN VIETNAM</span>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

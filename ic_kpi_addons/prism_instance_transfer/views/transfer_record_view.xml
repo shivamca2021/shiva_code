@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="root_server_instance" name="Server Instance" sequence="7" parent="base.menu_administration"></menuitem>
+
+        <record id="instance_server_tree" model="ir.ui.view">
+            <field name="name">server.instance.tree</field>
+            <field name="model">server.instance</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="host_name"/>
+                    <field name="ip_address"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="instance_server_form" model="ir.ui.view">
+            <field name="name">server.instance.form</field>
+            <field name="model">server.instance</field>
+            <field name="arch" type="xml">
+                <form string="Server Instance">
+<!--                    <header>-->
+<!--                        <button string="Connect Server"/>-->
+<!--                    </header>-->
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Server Name.." required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="host_name" placeholder="https://www.ic-kpi.com" />
+                                <field name="ip_address"/>
+                            </group>
+                            <group>
+                                <field name="db_name"/>
+                                <field name="user_name"/>
+                                <field name="password" password="True"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+         <record id="action_instance_server" model="ir.actions.act_window">
+            <field name="name">Instance Server</field>
+            <field name="res_model">server.instance</field>
+            <field name="view_id" ref="instance_server_tree"/>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Create new server instance.</field>
+        </record>
+
+        <record id="transfer_record_form" model="ir.ui.view">
+            <field name="name">transfer.record.form</field>
+            <field name="model">transfer.record</field>
+            <field name="arch" type="xml">
+                <form string="Transfer Record">
+                    <group>
+                        <field name="server_id"/>
+                    </group>
+                    <footer>
+                        <button name="transfer_record" string="Transfer Record" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="server_instance_menu" name="Server Instance" sequence="1" parent="root_server_instance" action="action_instance_server"></menuitem>
+    </data>
+</odoo>

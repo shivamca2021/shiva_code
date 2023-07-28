@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="template_header_default_cst" inherit_id="website.template_header_default">
+    	<xpath expr="//t[@t-call='portal.placeholder_user_sign_in']" position="replace"/>
+    	<xpath expr="//t[@t-call='portal.user_dropdown']" position="replace"/>
+    	<xpath expr="//div[@id='oe_structure_header_default_1']" position="replace"/>
+    	<xpath expr="//t[@t-set='_nav_class']" position="attributes">
+    		<attribute name="t-value">'ml-auto'</attribute>
+    	</xpath>
+	</template>
+	<template id="navbar_toggler_cst" inherit_id="website.navbar_toggler">
+		<xpath expr="//button" position="attributes">
+    		<attribute name="t-attf-class" add="collapsed" separator=" "/>
+		</xpath>
+		<xpath expr="//button/span" position="attributes">
+    		<attribute name="class" add="menu-icon-bar" separator=" "/>
+    	</xpath>
+    	<xpath expr="//button/span" position="after">
+    		<span class="menu-icon-bar"/>
+    		<span class="menu-icon-bar"/>
+    	</xpath>
+	</template>
+	<template id="template_footer_cst" inherit_id="website.footer_custom">
+    	<xpath expr="//div[@id='footer']" position="replace">
+    		<div class="container" id="footer">
+            	<div class="row">
+	                <div class="col-md-6 col-12">
+	                    <div class="footer-col">
+							<ul class="bf-right">
+								<li> <a href="" class="nav-item nav-link">What’s it cost?</a> </li>
+								<li> <a href="">Terms &amp; Conditions</a></li>
+								<li> <a href="">Who are we</a></li>
+							</ul>
+	                    </div>
+	                </div>
+	                <div class="col-md-6 col-12 col-mt-lg" >
+	                    <div class="footer-col">
+							<ul class="bottom-social">
+	                            <li><a href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+	                            <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fa fa-youtube-play"></i></a></li>
+								<li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+	                        </ul>
+	                    </div>
+	                </div>
+            	</div>
+	            <div class="bottom-footer">
+	                <div class="row">
+	                    <div class="col-12 text-center">
+	                        <div class="copyright">
+	                            <p>Copyright © 2022 Techex. All Rights Reserved by Affordable </p>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <a href="#0" class="cd-top cd-is-visible">Top</a>
+    	</xpath>
+    </template>
+	<template id="template_homepage_cst" inherit_id="website.homepage">
+    	<xpath expr="//div[@id='wrap']" position="replace">
+    		<div class="oe_structure oe_empty">
+		        <section class="banner_slider s_carousel_wrapper home-slider">
+		        	<div class="hero-slider">
+			            <div id="myCarousel" class="s_carousel s_carousel_default carousel slide carousel-cell" data-interval="10000">
+			                <div class="carousel-inner">
+			                    <!-- #01 -->
+			                    <div class="carousel-item active oe_custom_bg oe_img_bg pt96 pb96" style="background-image:url('/adapt_website/static/src/images/slider-img-1.jpg')" data-name="Slide">
+			                        <div class="container slider-caption">
+			                            <div class="row content">
+			                                <div class="col-md-6 col-xs-12">
+					                        	<h2 class="title">Affordable Applications</h2>
+												<h5 class="subtitle">Business Management Designed for Small Businesses</h5>
+											</div>
+											<div class="col-md-6 col-xs-12">
+												<img src="/adapt_website/static/src/images/slider-icons.png" alt="" />
+											</div>
+										</div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+		        </section>
+		        <section class="full_banner">
+			        <div class="container mt-5 mb-5 what-included">
+						<div class="row ">
+							<div class="col-12 text-center">
+								<h3>What’s included?</h3>
+								<h4>9 Licenses, that’s right NINE LICENSES</h4>
+							</div>
+						</div>
+					</div>
+					<div class="ab-bg what-included">
+						<div class="container mt-5 mb-5">
+							<div class="row">
+								<div class="col-md-6 col-12">
+								    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+								      	<a class="nav-link active" id="v-pills-sales-tab" data-toggle="pill" href="#v-pills-sales" role="tab" aria-controls="v-pills-sales" aria-selected="true">Sales</a>
+								      	<a class="nav-link" id="v-pills-marketing-tab" data-toggle="pill" href="#v-pills-marketing" role="tab" aria-controls="v-pills-marketing" aria-selected="false">Marketing / Company Communications</a>
+								      	<a class="nav-link" id="v-pills-accounting-tab" data-toggle="pill" href="#v-pills-accounting" role="tab" aria-controls="v-pills-accounting" aria-selected="false">Accounting / Finance</a>
+								      	<a class="nav-link" id="v-pills-purchasing-tab" data-toggle="pill" href="#v-pills-purchasing" role="tab" aria-controls="v-pills-purchasing" aria-selected="false">Purchasing / Inventory</a>
+										<a class="nav-link" id="v-pills-manufacturing-tab" data-toggle="pill" href="#v-pills-manufacturing" role="tab" aria-controls="v-pills-manufacturing" aria-selected="false">Manufacturing</a>
+								    </div>
+							  	</div>
+							  	<div class="col-md-6 col-12">
+							    	<div class="tab-content" id="v-pills-tabContent">
+							      		<div class="tab-pane fade show active" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+											<div class="wh-inc">
+												<div class="title">Sales</div>
+												<ul>
+													<li>Create/Manage Contacts</li>
+													<li> Create/Manage Opportunities</li>
+													<li> Create/Manage Quotes</li>
+													<li> Create/Manage Projects</li>
+													<li> Build Product Catalog</li>
+													<li> Manage Change Orders</li>
+													<li> Create/Manage Sales Orders</li>
+													<li> Documents Storage</li>
+													<li> Easy Dashboards</li>
+													<li> Alerts &amp; Notifications</li>
+												</ul>
+											</div>
+										</div>
+							      		<div class="tab-pane fade" id="v-pills-marketing" role="tabpanel" aria-labelledby="v-pills-marketing-tab">
+											<div class="wh-inc">
+												<div class="title">Marketing / Company Communications</div>
+												<ul>
+													<li>Gmail Integration for EMAIL</li>
+													<li> Customer Management</li>
+													<li> Company Chat</li>
+													<li> Company Documents</li>
+													<li> Company Dashboards</li>
+													<li> Company Calendar</li>
+													<li> Mass Email</li>
+													<li> Alerts &amp; Notifications</li>
+												</ul>
+											</div>
+										</div>
+							      		<div class="tab-pane fade" id="v-pills-accounting" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+											<div class="wh-inc">
+												<div class="title">Accounting / Finance</div>
+												<ul>
+													<li>Accounts Payable</li>
+													<li> Accounts Receivable</li>
+													<li> General Ledger</li>
+													<li> Employees</li>
+													<li> Payroll</li>
+													<li> Multi Company</li>
+													<li> Documents Storage</li>
+													<li> Easy Dashboards</li>
+													<li> Alerts &amp; Notifications</li>
+												</ul>
+											</div>
+										</div>
+							      		<div class="tab-pane fade" id="v-pills-purchasing" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+											<div class="wh-inc">
+												<div class="title">Purchasing / Inventory</div>
+												<ul>
+													<li>Inventory Product/Parts</li>
+													<li> Inventory Materials</li>
+													<li> Inventory Hardware</li>
+													<li> Inventory Accessories</li>
+													<li> Purchase Orders</li>
+													<li> Vendor Management</li>
+													<li> Forecast Purchases</li>
+													<li> Documents Storage</li>
+													<li> Easy Dashboards</li>
+													<li> Alerts &amp; Notifications</li>
+												</ul>
+											</div>
+										</div>
+										<div class="tab-pane fade" id="v-pills-manufacturing" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+											<div class="wh-inc">
+												<div class="title">Manufacturing</div>
+												<ul>
+													<li>Scheduling Work / Manf. Orders</li>
+													<li> Scheduling Work Cells</li>
+													<li> Material Resource Planning</li>
+													<li> Part Tracking</li>
+													<li> Work Order Tracking</li>
+													<li> Job/Order Tracking</li>
+													<li> Job Costing Order</li>
+													<li> Field Service Calls</li>
+													<li> Maintenance for Equipment</li>
+													<li> Quality Control</li>
+													<li> Documents Storage</li>
+													<li> Easy Dashboards</li>
+													<li> Alerts &amp; Notifications</li>
+												</ul>
+											</div>
+										</div>
+							    	</div>
+							  	</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="cloud-host">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 text-center">
+								<h3>
+									Cloud Hosting of up to 1Gig of storage for <br/>customer data Email Support
+								</h3>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="what-can-added">
+					<div class="container">
+						<div class="row">
+							<div class="col-12 text-center mt-3 mb-3 what-added">
+								<h3>What can be added? </h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-1.png" />
+									</div>
+									<div class="what-text">
+										Links to 3 <sup>rd</sup> party applications to send or receive data
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-2.png" />
+									</div>
+									<div class="what-text">
+										E-Commerce for online sales
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-3.png" />
+									</div>
+									<div class="what-text">
+										Web Site Development to link to E-Commerce
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-4.png" />
+									</div>
+									<div class="what-text">
+										Engineering Systems to send or receive important data
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-5.png" />
+									</div>
+									<div class="what-text">
+										Other Accounting Systems or ERP systems
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-6.png" />
+									</div>
+									<div class="what-text">
+										Spreadsheets
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-7.png" />
+									</div>
+									<div class="what-text">
+										Other SQL databases
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-8.png" />
+									</div>
+									<div class="what-text">
+										Training Videos
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-9.png" />
+									</div>
+									<div class="what-text">
+										Personalized Web Training
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3 col-sm-6 col-12">
+								<div class="what-added-box">
+									<div class="what-img">
+										<img src="/adapt_website/static/src/images/img-10.png" />
+									</div>
+									<div class="what-text">
+										Customization of Fields and Forms in the system
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="cost-box">
+									Costs: Quoted per request based on services time at $100 per hour
+									<br/>
+									<span> Send request to <a href="mailto:sales@ic-adapt.com">sales@ic-adapt.com</a> </span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+	    </xpath>
+    </template>
+    <template id="footer_copyright_with_only_icon" inherit_id="portal.frontend_layout">
+    	<xpath expr="//div[hasclass('o_footer_copyright')]" position="replace"/>
+    </template>
+	   
+    <record id="whats_it_cost_view" model="ir.ui.view">
+	    <field name="name">What's it Cost?</field>
+	    <field name="type">qweb</field>
+	    <field name="key">adapt_website.whats_it_cost_view</field>
+	    <field name="arch" type="xml">
+	        <t name="What's it Cost?" priority="29" t-name="adapt_website.whats_it_cost_view">
+	            <t t-call="website.layout">
+	                <div id="wrap" class="oe_structure oe_empty">
+	                	<section class="whats_it_cost_section">
+							<div class="container mt-3 mb-3 what-included">
+								<div class="row ">
+									<div class="col-12 text-center">
+										<h3>What’s it cost? That’s the Amazing part!!!</h3>
+									</div>
+								</div>
+							</div>
+							<div class="container mt-3 mb-5 whats-its-main">
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="whats-its-img">
+											<img src="/adapt_website/static/src/images/whats-it-cost.png" alt="" />
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="whats-its-text-info">
+											List Price $195.00 per month for all nine licenses, that’s right less that’s less than $22 a month per user for a full business management system. Use any or all of the system that your choice but you won’t find anything out there close to the power of <strong>Adapt</strong> at several times the cost.
+										</div>
+										<div class="whats-its-text-our">
+											Order with PROMO CODE in the next 2 weeks SAVE50NOW-22 and receive the 24 months at $145.00 per month. That’s $50 a month I you’re your pocket for 2 years.
+										</div>
+										<div class="wh-inc">
+											<ul>
+												<li>Setup Fee: $0.00</li>
+												<li>Contract: None cancel anytime</li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-12">
+										<span class="note">
+											Note: if cancelled in the first 14 days there will be no charges at all
+										</span>
+										<div class="small-buss">
+											<strong>
+												How can we make this incredible offer for small business?
+											</strong>
+
+											We own the source code with no royalty or commissions that have to be paid. We sell directly to small businesses; we standardized the setup so its automated and fast, we take payments only on ACH or Credit Card so we eliminate as much overhead to keep your costs low.
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+	                </div>
+	            </t>
+	        </t>
+	    </field>
+	</record>
+
+	<record id="who_are_we_view" model="ir.ui.view">
+	    <field name="name">Who are we</field>
+	    <field name="type">qweb</field>
+	    <field name="key">adapt_website.who_are_we_view</field>
+	    <field name="arch" type="xml">
+	        <t name="Who are we" priority="29" t-name="adapt_website.who_are_we_view">
+	            <t t-call="website.layout">
+	                <div id="wrap" class="oe_structure oe_empty">
+	                	<section class="who_are_we_section">
+							<div class="container mt-3 mb-3 what-included">
+								<div class="row ">
+									<div class="col-12 text-center">
+										<h3>What’s it cost? That’s the Amazing part!!!</h3>
+										<h4>Adapt is a wholly owned product of Information Connected – <br/> KPI Inc an Oklahoma Corporation in Oklahoma City, OK 73120 </h4>
+									</div>
+								</div>
+							</div>
+							<div class="container mt-3 mb-5 whats-its-main">
+								<div class="row">
+									<div class="col-md-6 col-12">
+										<div class="whats-its-img">
+											<img src="/adapt_website/static/src/images/whats-it-cost.png" alt="" />
+										</div>
+									</div>
+									<div class="col-md-6 col-12">
+										<div class="small-buss">
+											<strong>
+												Our History
+											</strong>
+											Our team as has over 35 years in manufacturing and production in large companies building custom data management tools that helped us create our own powerful systems for medium and large organizations. If the last few years taught anything it’s that really small business have a similar need just not as complex. We decided to take the tools and experience to develop a system just for small business and automate the process of setup to keep it very affordable.
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+	                </div>
+	            </t>
+	        </t>
+	    </field>
+	</record>
+
+
+	<record id="terms_condition_view" model="ir.ui.view">
+	    <field name="name">Terms &amp; Condition</field>
+	    <field name="type">qweb</field>
+	    <field name="key">adapt_website.terms_condition_view</field>
+	    <field name="arch" type="xml">
+	        <t name="Terms &amp; Condition" priority="29" t-name="adapt_website.terms_condition_view">
+	            <t t-call="website.layout">
+	                <div id="wrap" class="oe_structure oe_empty">
+	                	<section class="terms_conditon_section">
+							<div class="container mt-5 mb-5 what-included">
+								<div class="row ">
+									<div class="col-12 text-center">
+										<h3>Terms &amp; Conditions</h3>
+									</div>
+								</div>
+							</div>
+							<div class="container terms-conditions">
+								<div class="">
+									<img src="/adapt_website/static/src/images/tm-co.png" alt="" />
+								</div>
+							</div>
+							<div class="container mt-2 mb-5 whats-its-main terms-conditions">
+								<div class="row">
+									<div class="col-md-12 col-12">
+										<div class="small-buss">
+											<p> Additional Services can be proved by request and a detailed scope of the request will be provided with an estimate of time and money to complete the request. A 50% deposit is required on all additional request and the balance is due upon final approval by customer.</p>
+											<p>No long term contracts and customer can cancel at any time. Monthly billing will be done at no additional cost by automatic ACH on the 10th of each month. Credit cards payments will add 3.5% to the monthly cost. There are no other options for monthly pay. Annual and Semi-Annual options are available. In the event the payment is declined or canceled the licenses will be deactivated within 10 days. Customer can access a backup of the data on our cloud serves prior to the 10 days and download at no additional costs. If customer cancels order within 14 days of sign up any monthly payments received will be credited in full.</p>
+											<p>Upon order the setup and import of data can take up to 72 hours and our average for most customers is less than 30 hours.</p>
+											<p>Additional bundles of 5 licenses can be purchased for an additional $65.00 per month.</p>
+											<p>In the event of a dispute between the parties, parties agree to mandatory arbitration under the laws of the State of Oklahoma that do not require legal representation but is an option, both parties agree to share arbitration costs equally and any legal fees are the responsibility of the party choosing legal representation.</p>
+											<p><sub>Note: Pricing and Terms are subject to review and modification by Information Connected on an annual basis</sub></p>
+											<p>How do you get your order started today?</p>
+											<a href="/customer_details" >Link to order page.</a>
+										</div>
+									</div>
+								</div>
+							</div>
+	                	</section>
+	                </div>
+	            </t>
+	        </t>
+	    </field>
+	</record>
+	<record id="backend_theme_extension.prism_footer_custom" model="ir.ui.view">
+        <field name="active">False</field>
+    </record>
+    <record id="backend_theme_extension.prism_homepage" model="ir.ui.view">
+        <field name="active">False</field>
+    </record>
+</odoo>

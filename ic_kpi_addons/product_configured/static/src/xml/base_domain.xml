@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<!-- Owl Templates -->
+
+<t t-name="FormulaDomain.content">
+	<div class="FormulaDomainData">
+		<div> <!-- used for flex stretching -->
+
+	        <select class="o_domain_leaf_operator_select o_input">
+	            <option t-foreach="widget.operators" t-as="key"
+	                    t-att-value="key"
+	                    t-att-selected="widget.displayOperator === key ? 'selected' : None">
+	                <t t-esc="key_value"/>
+	            </option>
+	        </select>
+	    </div>
+	</div>
+</t>

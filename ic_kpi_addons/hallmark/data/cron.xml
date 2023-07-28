@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="ir_cron_update_existing_seq" model="ir.cron">
+        <field name="name">Update SO and PO Line Sequence</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="code">model.cron_update_sequence_existing()</field>
+        <field name="state">code</field>
+        <field name="active">False</field>
+    </record>
+    </data>
+</odoo>

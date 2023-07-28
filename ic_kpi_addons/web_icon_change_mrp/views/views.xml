@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="mrp.menu_mrp_root"
+              name="Build It"
+              groups="mrp.group_mrp_user,mrp.group_mrp_manager"
+              web_icon="web_icon_change_mrp,static/description/Build_It.png"
+              sequence="35">
+
+        <menuitem id="mrp.menu_mrp_manufacturing"
+                  name="Operations"
+                  sequence="10"/>
+
+        <menuitem id="mrp.mrp_planning_menu_root"
+                  name="Planning"
+                  sequence="15"/>
+
+        <menuitem id="mrp.menu_mrp_bom"
+                  name="Products"
+                  sequence="20"/>
+
+        <menuitem id="mrp.menu_mrp_reporting"
+                  name="Reporting"
+                  sequence="25"/>
+
+        <menuitem id="mrp.menu_mrp_configuration"
+                  name="Configuration"
+                  groups="mrp.group_mrp_manager"
+                  sequence="100"/>
+    </menuitem>
+
+</odoo>

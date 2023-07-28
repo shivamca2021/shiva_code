@@ -1,0 +1,166 @@
+<odoo>
+    <data>
+       <template id="hallmark_external_layout_boxed">
+
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="o_boxed_header" style="border-bottom: 0px solid !important">
+            <div class="row mb8">
+                <div class="col-6">
+                    <div>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="margin-left: -28px !important;max-height: 50px !important;"/>
+                        <span class="company_address" t-field="company.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                    </div>
+<!--                    <div name="company_address" style="margin-left:7px !important;color: black !important;">-->
+<!--                        <span class="company_address" t-field="company.partner_id"-->
+<!--                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>-->
+<!--                    </div>-->
+                </div>
+                <div class="col-6 text-right mb4">
+                    <t t-if="o._name and o._name == 'sale.order'">
+                    <h4 class="mt0" t-field="company.report_header"/>
+                    <div class="float-right mb4">
+                        <span style="margin-right: 60px;"><strong style="font-size: 25px;text-align: center !important">Sales Order</strong></span>
+                        <table class="table o_main_table" style="font-size: 9.6px !important;font-family:Libre Franklin;margin-bottom: 0rem !important">
+                            <thead style="display: table-row-group; ">
+                                <tr>
+                                    <th style="border:1px solid;width:50%;" name="th_date" class="text-left">Date</th>
+                                    <th style="border:1px solid;width:50%;" name="th_order" class="text-left">Order#</th>
+                                </tr>
+                            </thead>
+                            <tbody class="sale_tbody" style="color:black !important;">
+                                <td style="border:1px solid" class="text-left"><span t-field="doc.date_order"/></td>
+                                <td style="border:1px solid" class="text-left"><span t-field="doc.name"/></td>
+                            </tbody>
+                        </table>
+                        <ul class="list-inline" style="margin-top: 0.5rem !important;margin-bottom: 0rem !important;">
+                            Page: <li class="list-inline-item"><span class="page"/></li>
+                            <li class="list-inline-item">of</li>
+                            <li class="list-inline-item"><span class="topage"/></li>
+                        </ul>
+                    </div>
+                    </t>
+                    <t t-if="o._name and o._name == 'purchase.order'">
+                    <h4 class="mt0" t-field="company.report_header"/>
+                    <div class="float-right mb4" style="font-size:22px">
+                        <span><strong style="text-align: center !important">Purchase Order</strong></span><br/>
+                        #<span style="text-align:right" t-field="doc.name"/>
+
+                    </div>
+                    </t>
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_boxed o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div class="pt-6">
+                <!-- This div ensures that the address is not cropped by the header. -->
+                <t t-call="web.address_layout"/>
+            </div>
+            <t t-raw="0"/>
+        </div>
+
+       <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout" style="border-top: 0px solid black;">
+            <div class="text-right">
+                <div>
+                    <span class="page"/> of <span class="topage"/>
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+
+    <template id="hallmark_external_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+
+
+
+        <t t-call="hallmark.hallmark_external_layout_boxed">
+            <t t-raw="0"/>
+        </t>
+
+    </template>
+
+
+        <record id="hallmark_sale_format" model="report.paperformat">
+			<field name="name">Hallmark Report</field>
+			<field name="default" eval="True" />
+			<field name="format">A4</field>
+			<field name="page_height">0</field>
+<!--			<field name="page_height">3508</field>-->
+			<field name="page_width">0</field>
+<!--			<field name="page_width">2480</field>-->
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">40</field>
+			<field name="margin_bottom">32</field>
+			<field name="margin_left">7</field>
+			<field name="margin_right">7</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">35</field>
+			<field name="dpi">90</field>
+		</record>
+
+        <record id="hallmark_sale_report" model="ir.actions.report">
+            <field name="name">Hallmark Sales Order Report</field>
+            <field name="model">sale.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hallmark.hallmark_report_saleorder</field>
+            <field name="report_file">hallmark.hallmark_report_saleorder</field>
+            <field name="print_report_name">('%s - Hallmark Sales Order Report' % (object.name))</field>
+            <field name="paperformat_id" ref="hallmark.hallmark_sale_format"/>
+            <field name="binding_model_id" ref="model_sale_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="hallmark_purchase_report" model="ir.actions.report">
+            <field name="name">Hallmark Purchase Order Report</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hallmark.hallmark_report_purchase</field>
+            <field name="report_file">hallmark.hallmark_report_purchase</field>
+            <field name="print_report_name">('%s - Hallmark Purchase Order Report' % (object.name))</field>
+            <field name="binding_model_id" ref="model_purchase_order"/>
+            <field name="binding_type">report</field>
+        </record>
+
+<!--        Hide Hallmark Delivery Barcode and Hallmark Delivery Barcode Print button-->
+
+<!--        <record id="action_hallmark_delivery_barcode" model="ir.actions.report">-->
+<!--            <field name="name">Hallmark Delivery Barcode</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">hallmark.hallmark_label_transfer_template_view_pdf</field>-->
+<!--            <field name="report_file">hallmark.hallmark_label_transfer_template_view_pdf</field>-->
+<!--            <field name="binding_model_id" ref="stock.model_stock_picking"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+<!--        <record id="action_hallmark_delivery_product_barcode" model="ir.actions.report">-->
+<!--            <field name="name">Hallmark Product Barcode</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="report_type">qweb-pdf</field>-->
+<!--            <field name="report_name">hallmark.hallmark_label_product_barcode_view_pdf</field>-->
+<!--            <field name="report_file">hallmark.hallmark_label_product_barcode_view_pdf</field>-->
+<!--            <field name="binding_model_id" ref="stock.model_stock_picking"/>-->
+<!--            <field name="binding_type">report</field>-->
+<!--        </record>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sequence_contact_dfm_seq" model="ir.sequence">
+            <field name="name">dfm contact sequence</field>
+            <field name="code">dfm.contact</field>
+             <field name="prefix">C</field>
+            <field name="padding">4</field>
+        </record>
+    </data>
+</odoo>

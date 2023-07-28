@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="inherit_sale_order_hallmark">
+            <field name="name">sale.order.hallmark</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="project" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                    <field name="so_barcode"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="before">
+                    <!--                    <field name="sequence"/>-->
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree//field[@name='price_unit']" position="before">
+                    <field name="delivery_package_id" domain="[('product_id','=', False)]"/>
+                    <field name="delivery_package_qty"/>
+                    <field name="packaging_qty" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form//div[@name='discount']" position="after">
+                    <field name="delivery_package_id" domain="[('product_id','=', False)]"/>
+                    <field name="delivery_package_qty"/>
+                    <field name="packaging_qty" invisible="1"/>
+                </xpath>
+                <xpath expr="//button[@name='action_cancel']" position="after">
+                    <button name="calculate_delivery_package_qty" string="Calculate Delivery Package" type="object" class="oe_highlight"/>
+                    <button name="button_update_netsuite" string="Update NetSuite" type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="before">
+                    <field name="max_line_sequence" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="context">{'default_sequence': max_line_sequence, 'default_state': 'draft'}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                    <field name="sequence2" string="Sr No"/>
+                </xpath>
+            </field>
+        </record>
+
+<!--        Added Project(Container No) in Tree views -->
+        <record id="view_sale_order_quotation_tree_inherit1" model="ir.ui.view">
+            <field name="name">sale.order.quotation.tree.inherit.shipping.information</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='tag_ids']" position="after">
+                    <field name="project" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_order_tree_inherit" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherit.shipping.information</field>
+        <field name="model">sale.order</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='tag_ids']" position="after">
+                <field name="project" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>
